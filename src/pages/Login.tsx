@@ -1,0 +1,67 @@
+"use client"
+
+import type React from "react"
+import { useState } from "react"
+import { IonContent, IonPage, IonInput, IonButton, IonText, IonItem, IonIcon } from "@ionic/react"
+import { callOutline } from "ionicons/icons"
+import { Link } from "react-router-dom"
+import Logo from "../components/Logo"
+import StatusBar from "../components/StatusBar"
+import BackButton from "../components/BackButton"
+import "../assets/styles/main.css"
+import "./Login.css"
+
+
+const Login: React.FC = () => {
+  const [mobileNumber, setMobileNumber] = useState("")
+
+  return (
+    <IonPage>
+      {/* <StatusBar /> */}
+      <div className="header">
+        <div className="header-left">
+          <BackButton />
+        </div>
+        <div className="header-center">
+          <Logo />
+        </div>
+        <div className="header-right">
+        </div>
+      </div>
+      <IonContent className="ion-padding">
+        <div className="login-container">
+          <h1 className="title">Welcome Back</h1>
+          <p className="subtitle">Please enter your login credentials</p>
+
+          <div className="form-container">
+            <div className="input-container">
+              <IonItem className="custom-input">
+                <IonIcon icon={callOutline} slot="start" />
+                <IonInput
+                  placeholder="Enter Your Mobile Number"
+                  type="tel"
+                  value={mobileNumber}
+                  onIonChange={(e) => setMobileNumber(e.detail.value!)}
+                />
+              </IonItem>
+            </div>
+          </div>
+
+          <IonButton expand="block" className="continue-button" routerLink="/login-otp">
+            Continue
+          </IonButton>
+
+          {/* <div className="signup-link">
+            <IonText>Don't Have An Account? </IonText>
+            <Link to="/signup" className="sign-up-link">
+              Sign Up
+            </Link>
+          </div> */}
+        </div>
+      </IonContent>
+    </IonPage>
+  )
+}
+
+export default Login
+

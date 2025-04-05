@@ -1,0 +1,17 @@
+.status-bar {
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 15px;
+  font-size: 12px;
+  background-color: white;
+}
+
+.signal-icons {
+  display: flex;
+  gap: 5px;
+}
+
+.signal:after {
+  content: "📶";
+}
+
