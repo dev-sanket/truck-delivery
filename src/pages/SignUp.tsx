@@ -15,17 +15,23 @@ import {
   IonIcon,
 } from "@ionic/react"
 import { personOutline, callOutline } from "ionicons/icons"
-import { Link } from "react-router-dom"
 import Logo from "../components/Logo"
 import StatusBar from "../components/StatusBar"
 import BackButton from "../components/BackButton"
 import "./SignUp.css"
-
+import InputBox from "../components/Input"
+import SelectBox from "../components/selectBox"
+import {Link ,useHistory} from 'react-router-dom'
+import AccountCircle from "@mui/icons-material/AccountCircle"
+import CallOutlinedIcon from '@mui/icons-material/CallOutlined';
 const SignUp: React.FC = () => {
   const [fullName, setFullName] = useState("")
   const [mobileNumber, setMobileNumber] = useState("")
   const [signupOption, setSignupOption] = useState("")
-
+  const history = useHistory<History>(); 
+  const handleSignup = () => {
+    history.push('/login'); // Replace with your desired route
+  };
   return (
     <IonPage>
       {/* <StatusBar /> */}
@@ -41,7 +47,7 @@ const SignUp: React.FC = () => {
 
           <div className="form-container">
             <div className="input-container">
-              <IonLabel className="input-label">Full Name</IonLabel>
+              {/* <IonLabel className="input-label">Full Name</IonLabel>
               <IonItem className="custom-input">
                 <IonIcon icon={personOutline} slot="start" />
                 <IonInput
@@ -49,11 +55,12 @@ const SignUp: React.FC = () => {
                   value={fullName}
                   onIonChange={(e) => setFullName(e.detail.value!)}
                 />
-              </IonItem>
+              </IonItem> */}
+              <InputBox label="Full Name" defaultValue="Enter Your Name" icon={<AccountCircle />} ></InputBox>
             </div>
 
             <div className="input-container">
-              <IonLabel className="input-label">Mobile Number</IonLabel>
+              {/* <IonLabel className="input-label">Mobile Number</IonLabel>
               <IonItem className="custom-input">
                 <IonIcon icon={callOutline} slot="start" />
                 <IonInput
@@ -62,26 +69,16 @@ const SignUp: React.FC = () => {
                   value={mobileNumber}
                   onIonChange={(e) => setMobileNumber(e.detail.value!)}
                 />
-              </IonItem>
+              </IonItem> */}
+              <InputBox label="Mobile Number" defaultValue="Enter Your Mobile Number" icon={<CallOutlinedIcon />}/>
             </div>
 
             <div className="input-container">
-              <IonLabel className="input-label">Signup Option</IonLabel>
-              <IonItem className="custom-input">
-                <IonSelect
-                  placeholder="Driver"
-                  value={signupOption}
-                  onIonChange={(e) => setSignupOption(e.detail.value)}
-                >
-                  <IonSelectOption value="driver">Driver</IonSelectOption>
-                  <IonSelectOption value="owner">Owner</IonSelectOption>
-                  <IonSelectOption value="broker">Broker</IonSelectOption>
-                </IonSelect>
-              </IonItem>
+              <SelectBox/>               
             </div>
           </div>
 
-          <IonButton expand="block" className="signup-button">
+          <IonButton expand="block" className="signup-button" onClick={handleSignup}>
             Sign up
           </IonButton>
 

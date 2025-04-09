@@ -7,6 +7,7 @@ import Logo from "../components/Logo"
 import StatusBar from "../components/StatusBar"
 import BackButton from "../components/BackButton"
 import "./ProductDetails.css"
+import InputBox from "../components/Input"
 
 const ProductDetails: React.FC = () => {
   const [productType, setProductType] = useState("")
@@ -29,39 +30,43 @@ const ProductDetails: React.FC = () => {
 
           <div className="form-container">
             <div className="input-container">
-              <IonLabel className="input-label">Product Type</IonLabel>
+              {/* <IonLabel className="input-label">Product Type</IonLabel>
               <IonItem className="custom-input">
                 <IonInput
                   placeholder="Enter Your Product Type"
                   value={productType}
                   onIonChange={(e) => setProductType(e.detail.value!)}
                 />
-              </IonItem>
+              </IonItem> */}
+              <InputBox label="Product Type" defaultValue="Enter Your Product Type"/>
             </div>
 
             <div className="input-container">
-              <IonLabel className="input-label">Product Weight</IonLabel>
+              {/* <IonLabel className="input-label">Product Weight</IonLabel>
               <IonItem className="custom-input">
                 <IonInput
                   placeholder="Enter Your Product Weight"
                   value={productWeight}
                   onIonChange={(e) => setProductWeight(e.detail.value!)}
                 />
-              </IonItem>
+              </IonItem> */}
+              <InputBox label="Product Weight" defaultValue="Enter Your Product Weight"/>
             </div>
 
             <div className="input-container">
-              <IonLabel className="input-label">From</IonLabel>
+              {/* <IonLabel className="input-label">From</IonLabel>
               <IonItem className="custom-input">
                 <IonInput placeholder="Enter Loading Here" value={form} onIonChange={(e) => setForm(e.detail.value!)} />
-              </IonItem>
+              </IonItem> */}
+              <InputBox label="From" defaultValue="Enter Loading Point"/>
             </div>
 
             <div className="input-container">
-              <IonLabel className="input-label">To</IonLabel>
+              {/* <IonLabel className="input-label">To</IonLabel>
               <IonItem className="custom-input">
                 <IonInput placeholder="Enter Unloading Here" value={to} onIonChange={(e) => setTo(e.detail.value!)} />
-              </IonItem>
+              </IonItem> */}
+              <InputBox label="To" defaultValue="Enter Unloading Point"/>
             </div>
           </div>
 

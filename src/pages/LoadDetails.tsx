@@ -3,14 +3,18 @@ import { IonContent, IonPage, IonButton, IonIcon, IonChip, IonLabel, IonTabBar, 
 import { arrowBack, call, home, search as searchIcon, notifications, person, chevronForward } from "ionicons/icons"
 import StatusBar from "../components/StatusBar"
 import "./LoadDetails.css"
-
+import {Link ,useHistory} from 'react-router-dom'
 const LoadDetails: React.FC = () => {
+    const history = useHistory<History>(); 
+    const handleBack = () => {
+      history.push('/search-loads'); // Replace with your desired route
+    };
   return (
     <IonPage>
       <StatusBar />
       <div className="header">
         <div className="back-button">
-          <IonIcon icon={arrowBack} />
+          <IonIcon icon={arrowBack} onClick={handleBack}/>
         </div>
         <div className="route-title">Kharagpur → Jalpaiguri</div>
       </div>

@@ -18,6 +18,7 @@ import {
 import { chevronForward, home, search as searchIcon, notifications, person } from "ionicons/icons"
 import StatusBar from "../components/StatusBar"
 import "./SearchLoads.css"
+import InputBox from "../components/Input"
 
 const SearchLoads: React.FC = () => {
   const [fromLocation, setFromLocation] = useState("")
@@ -35,24 +36,28 @@ const SearchLoads: React.FC = () => {
         <div className="search-container">
           {/* From Input */}
           <div className="input-container">
-            <div className="location-dot from-dot"></div>
-            <IonInput
+            {/* <div className="location-dot from-dot"></div> */}
+            {/* <IonInput
               placeholder="Enter loading here"
               value={fromLocation}
               onIonChange={(e) => setFromLocation(e.detail.value!)}
               className="location-input"
-            />
+            /> */}
+            <InputBox label="From" defaultValue="Enter Loading Point"
+            icon={<div className="location-dot from-dot"></div>}/>
           </div>
 
           {/* To Input */}
           <div className="input-container">
-            <div className="location-dot to-dot"></div>
-            <IonInput
+            {/* <div className="location-dot to-dot"></div> */}
+            {/* <IonInput
               placeholder="Enter unloading here"
               value={toLocation}
               onIonChange={(e) => setToLocation(e.detail.value!)}
               className="location-input"
-            />
+            /> */}
+            <InputBox label="To" defaultValue="Enter Unloading Point"
+            icon={<div className="location-dot to-dot"></div>}/>
           </div>
 
           <IonButton expand="block" className="find-loads-button">

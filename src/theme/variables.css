@@ -3,6 +3,9 @@ http://ionicframework.com/docs/theming/ */
 
 /** Ionic CSS Variables **/
 :root {
+
+  --ion-font-family: 'Poppins', sans-serif;
+
   /** primary **/
   --ion-color-primary: #000000;
   --ion-color-primary-rgb: 0, 0, 0;
@@ -74,5 +77,9 @@ http://ionicframework.com/docs/theming/ */
   --ion-color-light-contrast-rgb: 0, 0, 0;
   --ion-color-light-shade: #d7d8da;
   --ion-color-light-tint: #f5f6f9;
+}
+
+body {
+  font-family: var(--ion-font-family);
 }
 

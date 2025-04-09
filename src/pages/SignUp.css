@@ -19,7 +19,7 @@
 }
 
 .subtitle {
-  color: #666;
+  color: #000000;
   margin-bottom: 30px;
 }
 
@@ -33,6 +33,7 @@
 .input-container {
   display: flex;
   flex-direction: column;
+  --background: #ffffff;
 }
 
 .input-label {

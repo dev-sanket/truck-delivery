@@ -4,20 +4,23 @@ import type React from "react"
 import { useState } from "react"
 import { IonContent, IonPage, IonInput, IonButton, IonText, IonItem, IonIcon } from "@ionic/react"
 import { callOutline } from "ionicons/icons"
-import { Link } from "react-router-dom"
 import Logo from "../components/Logo"
 import StatusBar from "../components/StatusBar"
 import BackButton from "../components/BackButton"
 import "../assets/styles/main.css"
 import "./Login.css"
-
+import InputBox from "../components/Input"
+import {Link ,useHistory} from 'react-router-dom'
+import CallOutlinedIcon from '@mui/icons-material/CallOutlined';
 
 const Login: React.FC = () => {
   const [mobileNumber, setMobileNumber] = useState("")
-
+  const history = useHistory<History>(); 
+  const handleLogin = () => {
+    history.push('/login-otp'); // Replace with your desired route
+  };
   return (
     <IonPage>
-      {/* <StatusBar /> */}
       <div className="header">
         <div className="header-left">
           <BackButton />
@@ -35,7 +38,7 @@ const Login: React.FC = () => {
 
           <div className="form-container">
             <div className="input-container">
-              <IonItem className="custom-input">
+              {/* <IonItem className="custom-input">
                 <IonIcon icon={callOutline} slot="start" />
                 <IonInput
                   placeholder="Enter Your Mobile Number"
@@ -43,11 +46,12 @@ const Login: React.FC = () => {
                   value={mobileNumber}
                   onIonChange={(e) => setMobileNumber(e.detail.value!)}
                 />
-              </IonItem>
+              </IonItem> */}
+              <InputBox label="Mobile Number" defaultValue="Enter Your Mobile Number" icon={<CallOutlinedIcon />}/>
             </div>
           </div>
 
-          <IonButton expand="block" className="continue-button" routerLink="/login-otp">
+          <IonButton expand="block" className="continue-button" onClick={handleLogin}>
             Continue
           </IonButton>
 
