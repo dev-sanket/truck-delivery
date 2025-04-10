@@ -10,16 +10,20 @@ type InputBoxProps = {
   label: string;
   defaultValue?: string;
   icon?: React.ReactNode;
+  type?: string;
+  inputProps?: React.InputHTMLAttributes<HTMLInputElement>;
 };
-const InputBox: React.FC<InputBoxProps> = ({ label, defaultValue,icon  })  => {
+const InputBox: React.FC<InputBoxProps> = ({ label, defaultValue,icon,  type = "text", inputProps })  => {
   return (
     <>
-    <FormControl sx={{ m: 1, minWidth: 240 }} variant="outlined">
+    <FormControl sx={{ m: 1, minWidth: 284 }} variant="outlined">
     <InputLabel htmlFor="input-with-icon">{label}</InputLabel>
     <OutlinedInput
       id="input-with-icon"
       defaultValue={defaultValue}
       label={label}
+      type={type}
+      inputProps={inputProps}
       startAdornment={
         <InputAdornment position="start">
           {/* <AccountCircle /> */}

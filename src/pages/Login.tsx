@@ -23,7 +23,7 @@ const Login: React.FC = () => {
     <IonPage>
       <div className="header">
         <div className="header-left">
-          <BackButton />
+          {/* <BackButton /> */}
         </div>
         <div className="header-center">
           <Logo />
@@ -47,7 +47,11 @@ const Login: React.FC = () => {
                   onIonChange={(e) => setMobileNumber(e.detail.value!)}
                 />
               </IonItem> */}
-              <InputBox label="Mobile Number" defaultValue="Enter Your Mobile Number" icon={<CallOutlinedIcon />}/>
+              <InputBox label="Mobile Number" 
+              defaultValue="Enter Your Mobile Number" 
+              icon={<CallOutlinedIcon />}
+              type="text"
+              inputProps={{ maxLength: 10, inputMode: "numeric", pattern: "[0-9]*" }}/>
             </div>
           </div>
 

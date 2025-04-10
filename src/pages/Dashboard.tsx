@@ -18,15 +18,15 @@ import "./Dashboard.css"
 const Dashboard: React.FC = () => {
   return (
     <IonPage>
-      {/* <StatusBar /> */}
+      <StatusBar />
       <div className="header">
-        <div className="menu-icon">
+        {/* <div className="menu-icon">
           <IonIcon icon={searchOutline} />
         </div>
         <Logo />
         <div className="notification-icon">
           <IonIcon icon={addOutline} />
-        </div>
+        </div> */}
       </div>
       <IonContent className="ion-padding">
         <div className="dashboard-container">

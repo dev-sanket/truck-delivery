@@ -38,7 +38,9 @@ const ProductDetails: React.FC = () => {
                   onIonChange={(e) => setProductType(e.detail.value!)}
                 />
               </IonItem> */}
-              <InputBox label="Product Type" defaultValue="Enter Your Product Type"/>
+              <InputBox label="Product Type" defaultValue="Enter Your Product Type"
+                type="text"
+                inputProps={{ maxLength: 30}}/>
             </div>
 
             <div className="input-container">
@@ -50,7 +52,9 @@ const ProductDetails: React.FC = () => {
                   onIonChange={(e) => setProductWeight(e.detail.value!)}
                 />
               </IonItem> */}
-              <InputBox label="Product Weight" defaultValue="Enter Your Product Weight"/>
+              <InputBox label="Product Weight" defaultValue="Enter Your Product Weight" 
+              type="text"
+              inputProps={{ maxLength: 10, inputMode: "numeric", pattern: "[0-9]*" }}/>
             </div>
 
             <div className="input-container">
@@ -58,7 +62,9 @@ const ProductDetails: React.FC = () => {
               <IonItem className="custom-input">
                 <IonInput placeholder="Enter Loading Here" value={form} onIonChange={(e) => setForm(e.detail.value!)} />
               </IonItem> */}
-              <InputBox label="From" defaultValue="Enter Loading Point"/>
+              <InputBox label="From" defaultValue="Enter Loading Point"
+                type="text"
+                inputProps={{ maxLength: 30}}/>
             </div>
 
             <div className="input-container">
@@ -66,7 +72,9 @@ const ProductDetails: React.FC = () => {
               <IonItem className="custom-input">
                 <IonInput placeholder="Enter Unloading Here" value={to} onIonChange={(e) => setTo(e.detail.value!)} />
               </IonItem> */}
-              <InputBox label="To" defaultValue="Enter Unloading Point"/>
+              <InputBox label="To" defaultValue="Enter Unloading Point"
+               type="text"
+               inputProps={{ maxLength: 30}}/>
             </div>
           </div>
 

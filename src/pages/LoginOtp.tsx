@@ -13,7 +13,7 @@ const LoginOtp: React.FC = () => {
 
   return (
     <IonPage>
-      <StatusBar />
+      {/* <StatusBar /> */}
       <div className="header">
         <BackButton />
         <Logo />
