@@ -14,7 +14,7 @@ import {
     IonTabButton,
   } from "@ionic/react"
   import { chevronForward, home, search as searchIcon, notifications, person } from "ionicons/icons"
-import '../pages/SignUp.css'
+import '../../src/assets/styles/main.css'
 
 const FooterPanel: React.FC = ()  => {
   return (

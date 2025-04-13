@@ -22,7 +22,7 @@ const DocumentSelect: React.FC <DocumentSelectProps> = ({ label })  => {
                   <IonIcon icon={cloudUploadOutline} />
                 </div>
                 <div className="upload-text">
-                  <div>Select Document Upload</div>
+                  <div className="document-label">Select Document Upload</div>
                   <div className="upload-format">Supported Format: jpg/pdf (2mb)</div>
                 <div className="select-document">Select Document</div>
                 </div>
