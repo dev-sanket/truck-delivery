@@ -8,6 +8,8 @@ import {Link ,useHistory} from 'react-router-dom'
 import userIcon from "../assets/images/user.png"
 import greenDotWhite from '../../src/assets/images/greenDotWhite.png'
 import redDotWhite from '../../src/assets/images/redDotWhite.png'
+import miniPickup from "../assets/images/miniTruckBlack.png";
+import measure from "../assets/images/measure.png";
 const LoadCarrierDetails: React.FC = () => {
   return (
           <div className="carrier-card">
@@ -43,28 +45,43 @@ const LoadCarrierDetails: React.FC = () => {
 
             {/* Truck Type */}
             <div className="truck-info">
-              <div className="truck-type">Truck Types</div>
-              <div className="truck-value">Open Half/Full Body</div>
-              <div className="truck-size">21-35 Ton</div>
+              <div className="info-label">Truck Types</div>
+              <div>
+                <div className="truck-container">
+                <img src={miniPickup} alt="phone" style={{ width:31, height:31}}/>
+              
+              <div className="carrier-name">Open Half/Full Body</div>
+              <div>
+              <img src={measure} alt="phone" style={{ width:20, height:20}}/>
+              </div>
+              <div className="carrier-name-small">21-35 Ton</div>
+                </div>
+                </div>
             </div>
 
             {/* Material Type */}
             <div className="material-info">
-              <div className="material-type">Asbestos sheet</div>
+            <div className="info-label">Product</div>
+            <div className="product-container-load">
               <div className="material-type">Advance</div>
+              <div className="material-type">Asbestos sheet</div>
+            </div>
             </div>
 
             {/* Rate */}
             <div className="rate-info">
               <div className="rate-label">Rate</div>
+              <div className="product-container-load">
               <div className="rate-value">₹2,000 per ton</div>
-            </div>
-
-            {/* Call Button */}
-            <IonButton expand="block" className="call-button">
+              <IonButton expand="block" className="call-button"   style={{ width: '80px', height: '30px' ,padding:'5px'}}>
               <IonIcon icon={call} slot="start" />
               Call
             </IonButton>
+                </div>  
+            </div>
+
+            {/* Call Button */}
+
           </div>
   )
 }
