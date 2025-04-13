@@ -12,10 +12,7 @@ import miniPickup from "../assets/images/miniPickUpTruck.png";
 import redDot from "../assets/images/redDot.png"
 import LoadCarrierDetails from "../components/LoadcarrierDetails"
 const LoadDetails: React.FC = () => {
-    const history = useHistory<History>(); 
-    const handleBack = () => {
-      history.push('/search-loads'); // Replace with your desired route
-    };
+
   return (
     <IonPage>
       <StatusBar />

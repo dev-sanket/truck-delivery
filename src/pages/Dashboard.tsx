@@ -40,7 +40,7 @@ const Dashboard: React.FC = () => {
           </div>
 
           {/* KYC Verification Card */}
-          <IonCard className="kyc-card">
+          <IonCard className="kyc-card" routerLink="/kyc-verification">
             <IonCardContent>
               <div className="kyc-content">
                 <div>
