@@ -10,9 +10,9 @@ const BackButton: React.FC = () => {
 
   return (
     <>
-      <button onClick={() => history.goBack()} className="backButton">
-      <IonIcon icon={chevronBack} />
-      </button>
+      <IonButton size="small" fill="outline" onClick={() => history.goBack()} className="backButton">
+        <IonIcon slot="icon-only" ios={chevronBack} md={chevronBack}></IonIcon>
+      </IonButton>
     </>
 
   )

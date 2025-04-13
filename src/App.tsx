@@ -21,7 +21,6 @@ import "@ionic/react/css/display.css"
 
 /* Theme variables */
 import "./theme/variables.css"
-import SignUp from "./pages/SignUp"
 import Login from "./pages/Login"
 import Dashboard from "./pages/Dashboard"
 import ProductDetails from "./pages/ProductDetails"
@@ -36,7 +35,6 @@ const App: React.FC = () => (
   <IonApp>
     <IonReactRouter>
       <IonRouterOutlet>
-        <Route exact path="/signup" component={SignUp} />
         <Route exact path="/login" component={Login} />
         <Route exact path="/dashboard" component={Dashboard} />
         <Route exact path="/product-details" component={ProductDetails} />
@@ -45,7 +43,7 @@ const App: React.FC = () => (
         <Route exact path="/search-loads" component={SearchLoads} />
         <Route exact path="/load-details" component={LoadDetails} />
         <Route exact path="/">
-          <Redirect to="/signup" />
+          <Redirect to="/login" />
         </Route>
       </IonRouterOutlet>
     </IonReactRouter>
