@@ -44,3 +44,137 @@
   .load-arrow {
     font-size: 18px;
   }
+
+  .load-details-header{
+    display: flex;
+    flex-direction: row;
+    padding: 20px;
+    align-items: center;
+  }
+  .load-details-title{
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 100%;
+    letter-spacing: 0%;
+    color: #000000;
+  }
+  .backIcon{
+
+  }
+  .carrier-card {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 15px;
+  }
+  
+  .carrier-info {
+    display: flex;
+    align-items: center;
+  }
+  
+  .carrier-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #ddd;
+    margin-right: 10px;
+  }
+  
+  .carrier-details {
+    display: flex;
+    flex-direction: row;
+  }
+  
+  .carrier-name {
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 100%;
+    letter-spacing: 0%;
+    /* margin-bottom: 5px; */
+  }
+  .carrier-name-small{
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 100%;
+    letter-spacing: 0%;
+
+  }
+  
+  .carrier-rating {
+    display: flex;
+    align-items: center;
+    font-size: 12px;
+    flex-direction: column;
+  }
+  
+  .stars {
+    color: gold;
+    margin-right: 5px;
+  }
+  
+  .carrier-arrow {
+    font-size: 18px;
+  }
+  
+  .route-info {
+    display: flex;
+    flex-direction: column;
+    /* gap: 20px; */
+  }
+  
+  .route-point {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .location-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+  
+  .from-dot {
+    background-color: green;
+  }
+  
+  .to-dot {
+    background-color: red;
+  }
+  
+  .location-text {
+    font-size: 14px;
+  }
+  
+  .truck-info,
+  .material-info,
+  .rate-info {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    font-size: 14px;
+  }
+  
+  .truck-type,
+  .rate-label {
+    font-weight: bold;
+    margin-right: 5px;
+  }
+  
+  .material-type {
+    background-color: #eee;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 12px;
+  }
+  .vertical-dots{
+    height: 20px;
+    width: 0;
+    border: 1px solid #000000;
+    margin-left: 8px;
+  }

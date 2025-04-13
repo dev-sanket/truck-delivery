@@ -29,7 +29,7 @@
   padding: 5px 0;
 }
 
-.vehicle-chip {
+/* .vehicle-chip {
   --background: #f5f5f5;
   --color: #333;
   font-size: 12px;
@@ -39,9 +39,9 @@
 .vehicle-chip.active {
   --background: #000;
   --color: #fff;
-}
+} */
 
-.carrier-card {
+/* .carrier-card {
   display: flex;
   flex-direction: column;
   gap: 15px;
@@ -138,7 +138,7 @@
   padding: 5px 10px;
   border-radius: 5px;
   font-size: 12px;
-}
+} */
 
 .call-button {
   --background: #000;
@@ -153,3 +153,38 @@
   padding: 5px 0;
 }
 
+.vehicle-chip{
+  width: 73px;
+  height: 65px;
+  background-color: #EFEFEF;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* gap: 5px; */
+  flex-direction: column;
+  border-radius: 4px;
+}
+.vehicle-chip-select{
+  width: 73px;
+  height: 65px;
+background-color: #EFEFEF;
+display: flex;
+justify-content: center;
+align-items: center;
+/* gap: 5px; */
+flex-direction: column;
+padding: 12px;
+border-radius: 8px;
+}
+.description{
+font-weight: 500;
+font-size: 10px;
+line-height: 100%;
+letter-spacing: 0%;
+}
+.vehicle-chip-header{
+  font-weight: 500;
+font-size: 12px;
+line-height: 100%;
+letter-spacing: 0%;
+}

@@ -11,7 +11,11 @@
   gap: 5px;
 }
 
-.signal:after {
-  content: "📶";
-}
+.time{
+  font-family: Roboto;
+font-weight: 700;
+font-size: 15px;
+line-height: 100%;
+letter-spacing: 0%;
 
+}
