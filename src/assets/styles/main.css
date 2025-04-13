@@ -26,3 +26,21 @@
   #background-content{
     background:none
   }
+  .load-card {
+    margin: 0;
+    border-radius: 8px;
+  }
+  
+  .load-card-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .load-location {
+    font-weight: bold;
+  }
+  
+  .load-arrow {
+    font-size: 18px;
+  }

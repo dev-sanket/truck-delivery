@@ -3,18 +3,18 @@ import type React from "react"
 import FormControl from '@mui/material/FormControl';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import InputAdornment from '@mui/material/InputAdornment';
-import AccountCircle from '@mui/icons-material/AccountCircle';
 import InputLabel from '@mui/material/InputLabel';
-import CallIcon from '@mui/icons-material/Call';
 import '../pages/SignUp.css'
+
 type InputBoxProps = {
   label: string;
   defaultValue?: string;
   icon?: React.ReactNode;
   type?: string;
   inputProps?: React.InputHTMLAttributes<HTMLInputElement>;
+  endIcon?: React.ReactNode
 };
-const InputBox: React.FC<InputBoxProps> = ({ label, defaultValue,icon,  type = "text", inputProps })  => {
+const InputBox: React.FC<InputBoxProps> = ({ label, defaultValue,icon,  type = "text", inputProps, endIcon })  => {
   return (
     <>
     <FormControl sx={{ m: 1, width: 336 , height:50 }} variant="outlined">
@@ -29,6 +29,11 @@ const InputBox: React.FC<InputBoxProps> = ({ label, defaultValue,icon,  type = "
         <InputAdornment position="start">
           {icon}
         </InputAdornment>
+      }
+      endAdornment={
+        endIcon && (<InputAdornment position="end">
+        {endIcon}
+      </InputAdornment>)
       }
       sx={{
         // Targets the input element text style.

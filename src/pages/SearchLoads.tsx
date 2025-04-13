@@ -19,11 +19,19 @@ import { chevronForward, home, search as searchIcon, notifications, person } fro
 import StatusBar from "../components/StatusBar"
 import "./SearchLoads.css"
 import InputBox from "../components/Input"
-
+import FooterPanel from "../components/Footer"
+import LoadListing from "../components/LoadList"
+import SyncAltIcon from '@mui/icons-material/SyncAlt';
+import greenDot from "../assets/images/greendot.png";
+import redDot from "../assets/images/redDot.png"
+import { useHistory } from "react-router"
 const SearchLoads: React.FC = () => {
+    const history = useHistory<History>(); 
   const [fromLocation, setFromLocation] = useState("")
   const [toLocation, setToLocation] = useState("")
-
+  const handleSearch = () => {
+    history.push('/load-details'); // Replace with your desired route
+  };
   return (
     <IonPage>
       <StatusBar />
@@ -32,7 +40,7 @@ const SearchLoads: React.FC = () => {
           <h1 className="page-title">Search Loads</h1>
         </div>
       </div>
-      <IonContent className="ion-padding">
+      <IonContent >
         <div className="search-container">
           {/* From Input */}
           <div className="input-container">
@@ -43,8 +51,8 @@ const SearchLoads: React.FC = () => {
               onIonChange={(e) => setFromLocation(e.detail.value!)}
               className="location-input"
             /> */}
-            <InputBox label="From" defaultValue="Enter Loading Point"
-            icon={<div className="location-dot from-dot"></div>}/>
+<InputBox label="From" defaultValue="Enter Loading Point"
+             icon={<img src={greenDot} alt="phone" style={{ width: 18, height: 17 }} />} endIcon = {<SyncAltIcon sx={{ transform: 'rotate(90deg)' }}/>}/>
           </div>
 
           {/* To Input */}
@@ -57,88 +65,37 @@ const SearchLoads: React.FC = () => {
               className="location-input"
             /> */}
             <InputBox label="To" defaultValue="Enter Unloading Point"
-            icon={<div className="location-dot to-dot"></div>}/>
+            icon={<img src={redDot} alt="phone" style={{ width: 18, height: 17 }} />}/>
           </div>
 
-          <IonButton expand="block" className="find-loads-button">
+          <IonButton expand="block" className="find-loads-button" onClick={handleSearch}>
             Find Loads
           </IonButton>
 
-          {/* Filter Chips */}
-          <div className="filter-chips">
-            <IonChip className="filter-chip active">
-              <IonLabel>All</IonLabel>
-            </IonChip>
-            <IonChip className="filter-chip">
-              <IonLabel>Open</IonLabel>
-            </IonChip>
-            <IonChip className="filter-chip">
-              <IonLabel>DCM</IonLabel>
-            </IonChip>
-            <IonChip className="filter-chip">
-              <IonLabel>Mini/Pickup</IonLabel>
-            </IonChip>
-            <IonChip className="filter-chip">
-              <IonLabel>Trailer</IonLabel>
-            </IonChip>
-            <IonChip className="filter-chip">
-              <IonLabel>Truck</IonLabel>
-            </IonChip>
-          </div>
 
           {/* Load Results */}
           <div className="load-results">
+              <LoadListing/>
+              <LoadListing/>
+              <LoadListing/>
             <div className="section-title">Find Loads Form</div>
-
-            <IonCard className="load-card" routerLink="/load-details">
-              <IonCardContent>
-                <div className="load-card-content">
-                  <div className="load-location">Jamshedpur-Jilliguri</div>
-                  <IonIcon icon={chevronForward} className="load-arrow" />
-                </div>
-              </IonCardContent>
-            </IonCard>
-
-            <IonCard className="load-card" routerLink="/load-details">
-              <IonCardContent>
-                <div className="load-card-content">
-                  <div className="load-location">Jamshedpur-Jilliguri</div>
-                  <IonIcon icon={chevronForward} className="load-arrow" />
-                </div>
-              </IonCardContent>
-            </IonCard>
-
-            <IonCard className="load-card" routerLink="/load-details">
-              <IonCardContent>
-                <div className="load-card-content">
-                  <div className="load-location">Jamshedpur-Jilliguri</div>
-                  <IonIcon icon={chevronForward} className="load-arrow" />
-                </div>
-              </IonCardContent>
-            </IonCard>
+              <LoadListing/>
+              <LoadListing/>
           </div>
         </div>
       </IonContent>
 
       {/* Tab Bar */}
-      <IonTabBar slot="bottom" className="custom-tab-bar">
-        <IonTabButton tab="home" href="/dashboard">
-          <IonIcon icon={home} />
-          <IonLabel>Home</IonLabel>
-        </IonTabButton>
-        <IonTabButton tab="search" href="/search-loads">
-          <IonIcon icon={searchIcon} />
-          <IonLabel>Search</IonLabel>
-        </IonTabButton>
-        <IonTabButton tab="notifications" href="/notifications">
-          <IonIcon icon={notifications} />
-          <IonLabel>Alerts</IonLabel>
-        </IonTabButton>
-        <IonTabButton tab="profile" href="/profile">
-          <IonIcon icon={person} />
-          <IonLabel>Profile</IonLabel>
-        </IonTabButton>
-      </IonTabBar>
+             <div 
+             style={{
+                 position: 'fixed',
+                 bottom: 0,
+                 left: 0,
+                 width: '100%',
+                 zIndex: 1000, 
+       }}>
+             <FooterPanel/>
+             </div>
     </IonPage>
   )
 }
