@@ -12,12 +12,21 @@
   align-items: center;
   padding-top: 15px;
 }
+.kyc-subtitle{
+  font-family: Poppins;
+font-weight: 400;
+font-size: 14px;
+line-height: 100%;
+letter-spacing: 0%;
+text-transform: uppercase;
+color: #929292;
 
+}
 .balance-cards {
   display: grid;
   /* justify-content: space-between; */
   grid-template-columns: 1fr 1fr;
-  gap:21vw
+  gap:5vw
   /* padding: 0px 10px; */
 }
 
@@ -42,17 +51,19 @@
 
 .kyc-card {
   border-radius: 10px;
-  width: 390px;
+  width: 337px;
   height: 130px;
   border: 1px solid #EBB914;
+  background-color: #F3F3F3;
 
 }
 
 .kyc-content {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  height: 100px;
+  flex-direction: row;
+  padding: 0 10px;
+  justify-content: space-between;
 }
 
 .kyc-title {
@@ -61,10 +72,10 @@
   color: #000000;
 }
 
-.kyc-subtitle {
+/* .kyc-subtitle {
   font-size: 12px;
   color: #666;
-}
+} */
 
 .kyc-arrow {
   font-size: 20px;
@@ -75,7 +86,7 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
-  width: 390px;
+  /* width: 390px; */
   height: 190px;
   border: 1px solid #6C809A;
   border-radius: 10px;
@@ -87,7 +98,7 @@
       display: flex;
       flex-direction: column;
       gap: 10px;
-      width: 390px;
+      /* width: 390px; */
       height: 190px;
       border: 1px solid #6C809A;
       border-radius: 10px;
@@ -96,15 +107,16 @@
 }
 .add-section-header{
   padding: 0px 5px;
-}
-.text-align-center{
-  text-align: center;
+  display: flex;
+  flex-direction: column;
 }
 .section-title {
   font-weight: bold;
   font-size: 16px;
 }
-
+.text-align-center{
+  text-align: center;
+}
 .section-subtitle {
   font-size: 12px;
   color: #666;
@@ -128,6 +140,7 @@
   --color: #000;
   --border-radius: 5px;
   font-size: 12px;
+  border: 1px solid #6C809A
 }
 
 .custom-tab-bar {
@@ -137,3 +150,17 @@
   padding: 5px 0;
 }
 
+.add-vehicle-owner{
+  font-weight: 500;
+  font-size: 17px;
+  line-height: 100%;
+  letter-spacing: 0%;
+}
+.grey-subtitle{
+font-weight: 400;
+font-size: 14px;
+line-height: 100%;
+letter-spacing: 0%;
+/* text-align: center; */
+color: #929292;
+}

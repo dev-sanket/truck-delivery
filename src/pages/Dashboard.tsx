@@ -15,47 +15,46 @@ import Logo from "../components/Logo"
 import StatusBar from "../components/StatusBar"
 import "./Dashboard.css"
 import Header from "../components/Header"
-
+import { useHistory } from "react-router"
+import book from "../../src/assets/images/book.png"
 const Dashboard: React.FC = () => {
+  const history = useHistory<History>();
+  const handleKyc = () => {
+    history.push('/kyc-verification'); // Replace with your desired route
+  };
   return (
     <IonPage>
       <StatusBar/>
       <Header/>
-      <IonContent style={{ paddingTop: '10px' }} >
+      <IonContent style={{ paddingTop: '10px' }} className="ion-padding" >
         <div className="dashboard-container">
           {/* Balance Cards */}
           <div className="balance-cards">
-            <IonCard className="balance-card">
-              <IonCardContent>
+              {/* <IonCardContent>
                 <div className="card-amount">500</div>
                 <div className="card-label">Current Balance</div>
-              </IonCardContent>
-            </IonCard>
-            <IonCard className="balance-card">
-              <IonCardContent>
+              </IonCardContent> */}
+              <img src={book} alt="phone" style={{ width: 180, height: 80 }} />
+              {/* <IonCardContent>
                 <div className="card-amount">500</div>
                 <div className="card-label">Current Balance</div>
-              </IonCardContent>
-            </IonCard>
+              </IonCardContent> */}
+              <img src={book} alt="phone" style={{ width: 180, height: 80 }} />
           </div>
 
           {/* KYC Verification Card */}
-          <IonCard className="kyc-card" routerLink="/kyc-verification">
-            <IonCardContent>
-              <div className="kyc-content">
+              <div className="kyc-content kyc-card" onClick={handleKyc}>
                 <div>
                   <div className="kyc-title">KYC verification Pending</div>
-                  <div className="subtitle">Verify KYC to enjoy verified loads</div>
+                  <div className="kyc-subtitle">Verify KYC to enjoy verified loads</div>
                 </div>
                 <IonIcon icon={chevronForward} className="kyc-arrow" />
               </div>
-            </IonCardContent>
-          </IonCard>
 
           {/* Find Next Load Section */}
           <div className="find-load-section">
             <div className="kyc-title">FIND YOUR NEXT LOAD</div>
-            <div className="subtitle text-align-center">{"Don't"} keep your truck idle, get loads for your last drop point!</div>
+            <div className="grey-subtitle text-align-center">{"Don't"} keep your truck idle, get loads for your last drop point!</div>
             <IonButton expand="block" className="search-button" routerLink="/search-loads">
               Search
             </IonButton>
@@ -64,8 +63,8 @@ const Dashboard: React.FC = () => {
           {/* Add Vehicle And Driver Section */}
           <div className="add-section">
             <div className="add-section-header">
-            <div className="kyc-title">Add Vehicle And Driver</div>
-            <div className="subtitle text-align-center">Add your vehicle and driver details to get loads</div>
+            <div className="add-vehicle-owner">Add Vehicle And Driver</div>
+            <div className="grey-subtitle text-align-none">Add your vehicle and driver details to get loads</div>
             </div>
 
             <div className="add-buttons">
