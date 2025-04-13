@@ -14,21 +14,14 @@ import { searchOutline, addOutline, chevronForward, home, search, notifications,
 import Logo from "../components/Logo"
 import StatusBar from "../components/StatusBar"
 import "./Dashboard.css"
+import Header from "../components/Header"
 
 const Dashboard: React.FC = () => {
   return (
     <IonPage>
-      <StatusBar />
-      <div className="header">
-        {/* <div className="menu-icon">
-          <IonIcon icon={searchOutline} />
-        </div>
-        <Logo />
-        <div className="notification-icon">
-          <IonIcon icon={addOutline} />
-        </div> */}
-      </div>
-      <IonContent className="ion-padding">
+      <StatusBar/>
+      <Header/>
+      <IonContent style={{ paddingTop: '10px' }} >
         <div className="dashboard-container">
           {/* Balance Cards */}
           <div className="balance-cards">
@@ -52,7 +45,7 @@ const Dashboard: React.FC = () => {
               <div className="kyc-content">
                 <div>
                   <div className="kyc-title">KYC verification Pending</div>
-                  <div className="kyc-subtitle">Verify KYC to enjoy verified loads</div>
+                  <div className="subtitle">Verify KYC to enjoy verified loads</div>
                 </div>
                 <IonIcon icon={chevronForward} className="kyc-arrow" />
               </div>
@@ -61,8 +54,8 @@ const Dashboard: React.FC = () => {
 
           {/* Find Next Load Section */}
           <div className="find-load-section">
-            <div className="section-title">FIND YOUR NEXT LOAD</div>
-            <div className="section-subtitle">{"Don't"} worry about your next load, get loads with a single click</div>
+            <div className="kyc-title">FIND YOUR NEXT LOAD</div>
+            <div className="subtitle text-align-center">{"Don't"} keep your truck idle, get loads for your last drop point!</div>
             <IonButton expand="block" className="search-button" routerLink="/search-loads">
               Search
             </IonButton>
@@ -70,8 +63,11 @@ const Dashboard: React.FC = () => {
 
           {/* Add Vehicle And Driver Section */}
           <div className="add-section">
-            <div className="section-title">Add Vehicle And Driver</div>
-            <div className="section-subtitle">Add your vehicle and driver details to get loads</div>
+            <div className="add-section-header">
+            <div className="kyc-title">Add Vehicle And Driver</div>
+            <div className="subtitle text-align-center">Add your vehicle and driver details to get loads</div>
+            </div>
+
             <div className="add-buttons">
               <IonButton className="add-button">Add Vehicle</IonButton>
               <IonButton className="add-button">Add Driver</IonButton>

@@ -6,6 +6,7 @@ import InputAdornment from '@mui/material/InputAdornment';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import InputLabel from '@mui/material/InputLabel';
 import CallIcon from '@mui/icons-material/Call';
+import '../pages/SignUp.css'
 type InputBoxProps = {
   label: string;
   defaultValue?: string;
@@ -16,8 +17,8 @@ type InputBoxProps = {
 const InputBox: React.FC<InputBoxProps> = ({ label, defaultValue,icon,  type = "text", inputProps })  => {
   return (
     <>
-    <FormControl sx={{ m: 1, minWidth: 284 }} variant="outlined">
-    <InputLabel htmlFor="input-with-icon">{label}</InputLabel>
+    <FormControl sx={{ m: 1, width: 336 , height:50 }} variant="outlined">
+    <InputLabel htmlFor="input-with-icon" sx={{ fontSize: '14px', fontWeight: 400, color: '#000000',fontFamily:'Poppins' }}>{label}</InputLabel>
     <OutlinedInput
       id="input-with-icon"
       defaultValue={defaultValue}
@@ -26,11 +27,24 @@ const InputBox: React.FC<InputBoxProps> = ({ label, defaultValue,icon,  type = "
       inputProps={inputProps}
       startAdornment={
         <InputAdornment position="start">
-          {/* <AccountCircle /> */}
-          {/* <CallIcon /> */}
           {icon}
         </InputAdornment>
       }
+      sx={{
+        // Targets the input element text style.
+        '& input': {
+          fontSize: '14px',
+          fontWeight: 400,
+          color: '#000000',
+          fontFamily: 'Poppins'
+        },
+        // Optionally, if you need to style other parts like the notched outline, you can add them here:
+        '& .MuiOutlinedInput-notchedOutline': {
+          // Example: outline border color
+          borderColor: '#000000'
+        }
+      }}
+    
     />
     </FormControl>
     </>

@@ -45,7 +45,7 @@ const App: React.FC = () => (
         <Route exact path="/search-loads" component={SearchLoads} />
         <Route exact path="/load-details" component={LoadDetails} />
         <Route exact path="/">
-          <Redirect to="/login" />
+          <Redirect to="/signup" />
         </Route>
       </IonRouterOutlet>
     </IonReactRouter>

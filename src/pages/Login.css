@@ -5,25 +5,26 @@
   flex-direction: column;
   height: 100%;
   padding: 20px;
+  gap: 40vw;
 }
 
-.title {
+/* .title {
   font-size: 24px;
   font-weight: bold;
   margin-bottom: 5px;
-}
+} */
 
-.subtitle {
+/* .subtitle {
   color: #666;
   margin-bottom: 30px;
-}
+} */
 
-.form-container {
+/* .form-container {
   display: flex;
   flex-direction: column;
   gap: 20px;
   margin-bottom: 40px;
-}
+} */
 
 .input-container {
   display: flex;

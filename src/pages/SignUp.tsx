@@ -1,7 +1,7 @@
 "use client"
 
 import type React from "react"
-import { useState } from "react"
+import { useState ,useEffect, useRef} from "react"
 import {
   IonContent,
   IonPage,
@@ -24,7 +24,26 @@ import SelectBox from "../components/selectBox"
 import {Link ,useHistory} from 'react-router-dom'
 import AccountCircle from "@mui/icons-material/AccountCircle"
 import CallOutlinedIcon from '@mui/icons-material/CallOutlined';
+import Header from "../components/Header"
 const SignUp: React.FC = () => {
+  const contentRef = useRef<HTMLIonContentElement>(null);
+  useEffect(() => {
+    const ionContentEl = contentRef.current;
+    if (ionContentEl) {
+      // Get the shadow DOM root
+      const shadowRoot = ionContentEl.shadowRoot;
+      if (shadowRoot) {
+        const scrollEl = shadowRoot.querySelector('.inner-scroll');
+        if (scrollEl) {
+          // Remove all classes from the scroll element
+          scrollEl.className = '';
+        }
+      }
+
+      // Remove all classes from the IonContent host element itself
+      ionContentEl.className = '';
+    }
+  }, []);
   const [fullName, setFullName] = useState("")
   const [mobileNumber, setMobileNumber] = useState("")
   const [signupOption, setSignupOption] = useState("")
@@ -34,53 +53,38 @@ const SignUp: React.FC = () => {
   };
   return (
     <IonPage>
-      {/* <StatusBar /> */}
-      <div className="header">
+      <StatusBar />
+      {/* <div className="header">
         <BackButton />
         <Logo />
-        <div style={{ width: 40 }}></div> {/* Spacer for alignment */}
-      </div>
-      <IonContent className="ion-padding">
+        <div></div>
+      </div> */}
+      <Header/>
+      <IonContent ref={contentRef}>
         <div className="signup-container">
-          <h1 className="title">Sign up</h1>
-          <p className="subtitle">Please enter your details to get started</p>
+          <div className="sign-up-header">
+            <div className="title">Sign up</div>
+            <div className="subtitle">Please enter your details to get started</div>
+          </div>
 
           <div className="form-container">
             <div className="input-container">
-              {/* <IonLabel className="input-label">Full Name</IonLabel>
-              <IonItem className="custom-input">
-                <IonIcon icon={personOutline} slot="start" />
-                <IonInput
-                  placeholder="Enter Your Name"
-                  value={fullName}
-                  onIonChange={(e) => setFullName(e.detail.value!)}
-                />
-              </IonItem> */}
               <InputBox label="Full Name" defaultValue="Enter Your Name" icon={<AccountCircle />} ></InputBox>
             </div>
 
             <div className="input-container">
-              {/* <IonLabel className="input-label">Mobile Number</IonLabel>
-              <IonItem className="custom-input">
-                <IonIcon icon={callOutline} slot="start" />
-                <IonInput
-                  placeholder="Enter Your Mobile Number"
-                  type="tel"
-                  value={mobileNumber}
-                  onIonChange={(e) => setMobileNumber(e.detail.value!)}
-                />
-              </IonItem> */}
               <InputBox label="Mobile Number" defaultValue="Enter Your Mobile Number" icon={<CallOutlinedIcon />}/>
             </div>
 
             <div className="input-container">
               <SelectBox/>               
             </div>
-          </div>
-
-          <IonButton expand="block" className="signup-button" onClick={handleSignup}>
+            <IonButton expand="block" className="signup-button" onClick={handleSignup}>
             Sign up
           </IonButton>
+          </div>
+
+
 
           {/* <div className="login-link">
             <IonText>Don't Have An Account? </IonText>

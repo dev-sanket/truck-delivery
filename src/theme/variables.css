@@ -82,4 +82,6 @@ http://ionicframework.com/docs/theming/ */
 body {
   font-family: var(--ion-font-family);
 }
-
+*{
+  font-family: var(--ion-font-family);
+}

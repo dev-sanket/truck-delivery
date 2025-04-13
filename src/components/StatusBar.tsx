@@ -6,7 +6,7 @@ const StatusBar: React.FC = () => {
     <div className="status-bar">
       <div className="time"></div>
       <div className="signal-icons">
-        {/* <span className="signal"></span> */}
+        <span className="signal"></span>
       </div>
     </div>
   )

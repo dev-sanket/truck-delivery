@@ -1,9 +1,9 @@
-.header {
+/* .header {
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 10px;
-}
+} */
 
 .title-container {
   display: flex;
@@ -11,9 +11,8 @@
 }
 
 .page-title {
-  font-size: 20px;
-  font-weight: bold;
-  margin: 0;
+  font-size: 30px;
+  font-weight: 600;
 }
 
 .search-container {

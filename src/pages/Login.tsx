@@ -12,6 +12,7 @@ import "./Login.css"
 import InputBox from "../components/Input"
 import {Link ,useHistory} from 'react-router-dom'
 import CallOutlinedIcon from '@mui/icons-material/CallOutlined';
+import Header from "../components/Header"
 
 const Login: React.FC = () => {
   const [mobileNumber, setMobileNumber] = useState("")
@@ -21,20 +22,14 @@ const Login: React.FC = () => {
   };
   return (
     <IonPage>
-      <div className="header">
-        <div className="header-left">
-          {/* <BackButton /> */}
-        </div>
-        <div className="header-center">
-          <Logo />
-        </div>
-        <div className="header-right">
-        </div>
-      </div>
+      <StatusBar/>
+      <Header/>
       <IonContent className="ion-padding">
         <div className="login-container">
-          <h1 className="title">Welcome Back</h1>
-          <p className="subtitle">Please enter your login credentials</p>
+          <div>
+          <div className="title">Welcome Back</div>
+          <div className="subtitle">Please enter your login credentials</div>
+          </div>
 
           <div className="form-container">
             <div className="input-container">
@@ -53,11 +48,10 @@ const Login: React.FC = () => {
               type="text"
               inputProps={{ maxLength: 10, inputMode: "numeric", pattern: "[0-9]*" }}/>
             </div>
-          </div>
-
-          <IonButton expand="block" className="continue-button" onClick={handleLogin}>
+            <IonButton expand="block" className="continue-button" onClick={handleLogin}>
             Continue
           </IonButton>
+          </div>
 
           {/* <div className="signup-link">
             <IonText>Don't Have An Account? </IonText>
