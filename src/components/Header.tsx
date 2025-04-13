@@ -1,12 +1,12 @@
 "use client"
 import type React from "react"
 import Logo from "../components/Logo"
-import BackButton from "../components/BackButton"
 import { IonButton, IonIcon } from "@ionic/react"
 import { chevronBack } from "ionicons/icons"
 import { useHistory } from "react-router"
 
 import "../assets/styles/main.css"
+import "./Header.css"
 
 const Header: React.FC<{ showBackButton?: boolean }> = ({ showBackButton = true }) => {
   const history = useHistory()

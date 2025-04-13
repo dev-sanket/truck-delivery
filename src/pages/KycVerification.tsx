@@ -3,7 +3,6 @@ import { IonContent, IonPage, IonButton, IonIcon } from "@ionic/react"
 import { cloudUploadOutline } from "ionicons/icons"
 import Logo from "../components/Logo"
 import StatusBar from "../components/StatusBar"
-import BackButton from "../components/BackButton"
 import "./KycVerification.css"
 import Header from "../components/Header"
 import InputBox from "../components/Input"
@@ -13,8 +12,7 @@ import DocumentSelect from "../components/DocumentSelect"
 const KycVerification: React.FC = () => {
   return (
     <IonPage>
-      <StatusBar/>
-      <Header/>
+      <Header />
       <IonContent >
         <div className="kyc-container">
           <div>
@@ -23,11 +21,11 @@ const KycVerification: React.FC = () => {
           </div>
 
           <div className="input-container">
-                  <InputBox label="Full Name" defaultValue="Enter Your Name" icon={<AccountCircle />} ></InputBox>
+            <InputBox label="Full Name" defaultValue="Enter Your Name" icon={<AccountCircle />} ></InputBox>
           </div>
 
           <div className="documents-container">
-            
+
             {/* <div className="document-section">
               <div className="document-title">Aadhar Document</div>
               <div className="upload-box">
@@ -42,7 +40,7 @@ const KycVerification: React.FC = () => {
               </div>
             </div> */}
 
-              <DocumentSelect label="Aadhar Document"/>
+            <DocumentSelect label="Aadhar Document" />
 
             {/* <div className="document-section">
               <div className="document-title">Pan Document</div>
@@ -58,7 +56,7 @@ const KycVerification: React.FC = () => {
               </div>
             </div> */}
 
-              <DocumentSelect label="Pan Document"/>
+            <DocumentSelect label="Pan Document" />
 
             {/* <div className="document-section">
               <div className="document-title">RC Document</div>
@@ -74,11 +72,11 @@ const KycVerification: React.FC = () => {
               </div>
             </div> */}
 
-              <DocumentSelect label="RC Document"/>
+            <DocumentSelect label="RC Document" />
 
             <IonButton expand="block" className="upload-button">
-                upload
-              </IonButton>
+              upload
+            </IonButton>
           </div>
         </div>
       </IonContent>

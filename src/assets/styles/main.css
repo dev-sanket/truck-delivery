@@ -78,19 +78,6 @@
 
 
 
-  .header-back-button {
-    width: 40px;
-    height: 40px;
-    --border-color: #000;
-    --border-width: 1px;
-    --border-style: solid;
-    --background: #fff;
-
-    --padding-top: 7px;
-    --padding-bottom: 7px;
-    
-  }
-
   #background-content{
     background:none
   }

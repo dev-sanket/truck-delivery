@@ -5,9 +5,9 @@ import { useState } from "react"
 import { IonContent, IonPage, IonInput, IonButton, IonItem, IonLabel } from "@ionic/react"
 import Logo from "../components/Logo"
 import StatusBar from "../components/StatusBar"
-import BackButton from "../components/BackButton"
 import "./ProductDetails.css"
 import InputBox from "../components/Input"
+import Header from "../components/Header"
 
 const ProductDetails: React.FC = () => {
   const [productType, setProductType] = useState("")
@@ -17,12 +17,8 @@ const ProductDetails: React.FC = () => {
 
   return (
     <IonPage>
-      <StatusBar />
-      <div className="header">
-        <BackButton />
-        <Logo />
-        <div style={{ width: 40 }}></div> {/* Spacer for alignment */}
-      </div>
+
+      <Header />
       <IonContent className="ion-padding">
         <div className="product-container">
           <h1 className="title">Product Details</h1>
@@ -40,7 +36,7 @@ const ProductDetails: React.FC = () => {
               </IonItem> */}
               <InputBox label="Product Type" defaultValue="Enter Your Product Type"
                 type="text"
-                inputProps={{ maxLength: 30}}/>
+                inputProps={{ maxLength: 30 }} />
             </div>
 
             <div className="input-container">
@@ -52,9 +48,9 @@ const ProductDetails: React.FC = () => {
                   onIonChange={(e) => setProductWeight(e.detail.value!)}
                 />
               </IonItem> */}
-              <InputBox label="Product Weight" defaultValue="Enter Your Product Weight" 
-              type="text"
-              inputProps={{ maxLength: 10, inputMode: "numeric", pattern: "[0-9]*" }}/>
+              <InputBox label="Product Weight" defaultValue="Enter Your Product Weight"
+                type="text"
+                inputProps={{ maxLength: 10, inputMode: "numeric", pattern: "[0-9]*" }} />
             </div>
 
             <div className="input-container">
@@ -64,7 +60,7 @@ const ProductDetails: React.FC = () => {
               </IonItem> */}
               <InputBox label="From" defaultValue="Enter Loading Point"
                 type="text"
-                inputProps={{ maxLength: 30}}/>
+                inputProps={{ maxLength: 30 }} />
             </div>
 
             <div className="input-container">
@@ -73,8 +69,8 @@ const ProductDetails: React.FC = () => {
                 <IonInput placeholder="Enter Unloading Here" value={to} onIonChange={(e) => setTo(e.detail.value!)} />
               </IonItem> */}
               <InputBox label="To" defaultValue="Enter Unloading Point"
-               type="text"
-               inputProps={{ maxLength: 30}}/>
+                type="text"
+                inputProps={{ maxLength: 30 }} />
             </div>
           </div>
 

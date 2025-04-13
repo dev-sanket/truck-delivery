@@ -1,0 +1,15 @@
+.header-back-button {
+    width: 35px;
+    height: 35px;
+
+    --border-color: #000;
+    --border-width: 1px;
+    --border-style: solid;
+    --background: #fff;
+
+    --padding-top: 7px;
+    --padding-bottom: 7px;
+}
+ion-button::part(native) {
+    padding: 7px !important;
+}
