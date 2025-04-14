@@ -136,11 +136,14 @@ color: #929292;
 }
 
 .add-button {
-  --background: #f5f5f5;
-  --color: #000;
-  --border-radius: 5px;
-  font-size: 12px;
-  border: 1px solid #6C809A
+    --background: #f5f5f5;
+    --color: #000;
+    --border-radius: 5px;
+    font-size: 15px;
+    border: 1px solid #6C809A;
+    border-radius: 8px;
+    width: 45%;
+    font-weight: 800;
 }
 
 .custom-tab-bar {
