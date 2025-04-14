@@ -44,7 +44,7 @@ const LoginOtp: React.FC = () => {
           </IonRow>
           <IonRow className="ion-margin-top">
             <IonCol>
-              <IonButton expand="block" className="confirm-button" routerLink="/dashboard">
+              <IonButton expand="block" className="confirm-button" routerLink="/kyc-verification">
                 Confirm
               </IonButton>
             </IonCol>

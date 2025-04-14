@@ -8,11 +8,13 @@ import Header from "../components/Header"
 import InputBox from "../components/Input"
 import AccountCircle from "@mui/icons-material/AccountCircle"
 import DocumentSelect from "../components/DocumentSelect"
+import { useHistory } from "react-router"
 
 const KycVerification: React.FC = () => {
+
   return (
     <IonPage>
-      <Header />
+      <Header showBackButton={false} />
       <IonContent >
         <div className="kyc-container">
           <div>
@@ -77,10 +79,10 @@ const KycVerification: React.FC = () => {
             <IonButton expand="block" className="upload-button">
               upload
             </IonButton>
-          </div>
-        </div>
-      </IonContent>
-    </IonPage>
+          </div >
+        </div >
+      </IonContent >
+    </IonPage >
   )
 }
 

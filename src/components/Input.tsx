@@ -4,7 +4,7 @@ import FormControl from '@mui/material/FormControl';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import InputAdornment from '@mui/material/InputAdornment';
 import InputLabel from '@mui/material/InputLabel';
-import '../pages/SignUp.css'
+import '../../src/assets/styles/main.css'
 
 type InputBoxProps = {
   label: string;
