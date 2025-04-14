@@ -8,7 +8,7 @@ import { useHistory } from "react-router"
 import SkipNextIcon from '@mui/icons-material/SkipNext';
 import "../assets/styles/main.css"
 
-const Header: React.FC<{ showBackButton?: boolean ,showSkipIcon?:boolean}> = ({ showBackButton = true,showSkipIcon=false }) => {
+const Header: React.FC<{ showBackButton?: boolean ,showSkipIcon?:boolean,showLogo?:boolean}> = ({ showBackButton = true,showSkipIcon=false,showLogo=true }) => {
   const history = useHistory<History>();
   
   const handleSkip = () => {
@@ -24,7 +24,7 @@ const Header: React.FC<{ showBackButton?: boolean ,showSkipIcon?:boolean}> = ({ 
           </IonButton>}
       </div>
       <div style={{ flex: 0.6 }}>
-        <Logo />
+        {showLogo && <Logo />}
       </div>
       <div style={{ flex: 0.3 }}>
         {/* <IonButton>

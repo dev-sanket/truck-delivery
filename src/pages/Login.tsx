@@ -39,7 +39,7 @@ const Login: React.FC = () => {
                 fill="outline"
                 label="Mobile Number"
                 labelPlacement="floating"
-                helperText="Enter a valid email"
+                helperText="Enter a valid number"
                 errorText="Invalid email"
                 className="custom-input"
                 placeholder=""

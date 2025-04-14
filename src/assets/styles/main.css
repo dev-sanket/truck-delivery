@@ -116,8 +116,9 @@
   .load-details-header{
     display: flex;
     flex-direction: row;
-    padding: 20px;
-    align-items: center;
+    padding: 30px 20px 0px;
+    background-color: white;
+    color: black;
   }
   .load-details-title{
     font-weight: 500;

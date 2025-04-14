@@ -69,7 +69,7 @@ const Dashboard: React.FC = () => {
 
             <div className="add-buttons">
               <IonButton className="add-button">Add Vehicle</IonButton>
-              <IonButton className="add-button">Add Driver</IonButton>
+              <IonButton className="add-button" routerLink="/product-details">Add Load</IonButton>
             </div>
           </div>
         </div>

@@ -41,9 +41,9 @@ const SearchLoads: React.FC = () => {
   return (
     <IonPage>
       <StatusBar />
-      <div className="header">
+      <div className="header-search">
         <div className="title-container">
-          <h1 className="page-title">Search Loads</h1>
+          <div className="page-title">Search Loads</div>
         </div>
       </div>
       <IonContent>

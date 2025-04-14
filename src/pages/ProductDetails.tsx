@@ -8,6 +8,7 @@ import StatusBar from "../components/StatusBar"
 import BackButton from "../components/BackButton"
 import "./ProductDetails.css"
 import InputBox from "../components/Input"
+import Header from "../components/Header"
 
 const ProductDetails: React.FC = () => {
   const [productType, setProductType] = useState("")
@@ -18,11 +19,7 @@ const ProductDetails: React.FC = () => {
   return (
     <IonPage>
       <StatusBar />
-      <div className="header">
-        <BackButton />
-        <Logo />
-        <div style={{ width: 40 }}></div> {/* Spacer for alignment */}
-      </div>
+      <Header showBackButton={true} showLogo={false} />
       <IonContent className="ion-padding">
         <div className="product-container">
           <h1 className="title">Product Details</h1>
@@ -78,7 +75,7 @@ const ProductDetails: React.FC = () => {
             </div>
           </div>
 
-          <IonButton expand="block" className="confirm-button">
+          <IonButton expand="block" className="confirm-button" routerLink="/dashboard">
             Confirm
           </IonButton>
         </div>
