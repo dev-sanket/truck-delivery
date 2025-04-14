@@ -4,7 +4,6 @@ import type React from "react"
 import { useState } from "react"
 import { IonContent, IonPage, IonInput, IonButton, IonItem, IonLabel } from "@ionic/react"
 import Logo from "../components/Logo"
-import StatusBar from "../components/StatusBar"
 import "./ProductDetails.css"
 import InputBox from "../components/Input"
 import Header from "../components/Header"
@@ -18,7 +17,7 @@ const ProductDetails: React.FC = () => {
   return (
     <IonPage>
 
-      <Header />
+      <Header showBackButton={false} />
       <IonContent className="ion-padding">
         <div className="product-container">
           <h1 className="title">Product Details</h1>

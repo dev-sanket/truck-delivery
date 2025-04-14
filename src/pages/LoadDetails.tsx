@@ -1,9 +1,8 @@
 import type React from "react"
 import { IonContent, IonPage, IonButton, IonIcon, IonChip, IonLabel, IonTabBar, IonTabButton, IonSelect } from "@ionic/react"
 import { arrowBack, call, home, search as searchIcon, notifications, person, chevronForward } from "ionicons/icons"
-import StatusBar from "../components/StatusBar"
 import "./LoadDetails.css"
-import {Link ,useHistory} from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import LoadDetailsHeader from "../components/LoadDetailsHeader"
 import lcvTruck from "../assets/images/LcvTruck.png";
 import openTruck from "../assets/images/openTruck.png";
@@ -11,18 +10,18 @@ import Trailer from "../assets/images/Trailer.png";
 import miniPickup from "../assets/images/miniPickUpTruck.png";
 import redDot from "../assets/images/redDot.png"
 import LoadCarrierDetails from "../components/LoadcarrierDetails"
+import Header from "../components/Header"
 const LoadDetails: React.FC = () => {
 
   return (
     <IonPage>
-      <StatusBar />
       {/* <div className="header">
         <div className="back-button">
           <IonIcon icon={arrowBack} onClick={handleBack}/>
         </div>
         <div className="route-title">Kharagpur → Jalpaiguri</div>
       </div> */}
-      <LoadDetailsHeader/>
+      <Header showBackButton={true} showHamburgerMenu={false} showUserIcon={true} />
       <IonContent className="ion-padding">
         <div className="load-details-container">
           {/* Vehicle Type Chips */}
@@ -37,12 +36,12 @@ const LoadDetails: React.FC = () => {
               <div className="description">7.5 to 46 Ton</div>
             </div>
             <div className="vehicle-chip">
-            <img src={Trailer} alt="phone" style={{ width: 30, height: 30 }} />
+              <img src={Trailer} alt="phone" style={{ width: 30, height: 30 }} />
               <div className="vehicle-chip-header">Mini/Pickup</div>
               <div className="description">2.5 to 7 Ton</div>
             </div>
             <div className="vehicle-chip">
-            <img src={miniPickup} alt="phone" style={{ width: 30, height: 30 }} />
+              <img src={miniPickup} alt="phone" style={{ width: 30, height: 30 }} />
               <div className="vehicle-chip-header">Trailer</div>
               <div className="description">7.5 to 46 Ton</div>
             </div>
@@ -51,9 +50,9 @@ const LoadDetails: React.FC = () => {
             </div>
           </div>
 
-        <LoadCarrierDetails/>
+          <LoadCarrierDetails />
 
-        <LoadCarrierDetails/>
+          <LoadCarrierDetails />
 
 
         </div>

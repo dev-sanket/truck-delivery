@@ -9,14 +9,17 @@ import {
   IonTabBar,
   IonTabButton,
   IonLabel,
+  IonGrid,
+  IonRow,
+  IonCol,
 } from "@ionic/react"
-import { searchOutline, addOutline, chevronForward, home, search, notifications, person } from "ionicons/icons"
+import { searchOutline, addOutline, chevronForward, home, search, notifications, person, navigate } from "ionicons/icons"
 import Logo from "../components/Logo"
-import StatusBar from "../components/StatusBar"
 import "./Dashboard.css"
 import Header from "../components/Header"
 import { useHistory } from "react-router"
-import book from "../../src/assets/images/book.png"
+
+
 const Dashboard: React.FC = () => {
   const history = useHistory<History>();
   const handleKyc = () => {
@@ -24,55 +27,83 @@ const Dashboard: React.FC = () => {
   };
   return (
     <IonPage>
-      <StatusBar/>
-      <Header/>
-      <IonContent style={{ paddingTop: '10px' }} className="ion-padding" >
-        <div className="dashboard-container">
-          {/* Balance Cards */}
-          <div className="balance-cards">
-              {/* <IonCardContent>
-                <div className="card-amount">500</div>
-                <div className="card-label">Current Balance</div>
-              </IonCardContent> */}
-              <img src={book} alt="phone" style={{ width: 180, height: 80 }} />
-              {/* <IonCardContent>
-                <div className="card-amount">500</div>
-                <div className="card-label">Current Balance</div>
-              </IonCardContent> */}
-              <img src={book} alt="phone" style={{ width: 180, height: 80 }} />
-          </div>
+      <Header showHamburgerMenu={true} showBackButton={false} showUserIcon={true} />
+      <IonContent className="ion-padding" >
+        <IonGrid className="ion-no-padding">
+          <IonRow className="ion-justify-content-between">
+            <IonCol size="5.5">
+              <IonCardContent style={{
+                background: "linear-gradient(90deg, rgba(108, 128, 154, 1) 0%, rgba(0, 0, 0, 1))",
+                borderRadius: '10px'
+              }}>
+                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'space-around' }}>
+                  <div className="card-amount" style={{ color: '#ffffff' }}>500</div>
+                  <div className="card-label" style={{ color: '#ffffff' }}>Current Balance</div>
+                </div>
 
-          {/* KYC Verification Card */}
-              <div className="kyc-content kyc-card" onClick={handleKyc}>
+                <IonIcon icon={navigate} size="large" style={{ color: '#ffffff', position: 'absolute', right: 10, top: 20 }} />
+
+              </IonCardContent>
+            </IonCol>
+            <IonCol size="5.5">
+              <IonCardContent style={{
+                background: "linear-gradient(90deg, rgba(108, 128, 154, 1) 0%, rgba(0, 0, 0, 1)) 20%",
+                borderRadius: '10px'
+              }}>
+                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'space-around' }}>
+                  <div className="card-amount" style={{ color: '#ffffff' }}>500</div>
+                  <div className="card-label" style={{ color: '#ffffff' }}>Current Balance</div>
+                </div>
+
+                <IonIcon icon={navigate} size="large" style={{ color: '#ffffff', position: 'absolute', right: 10, top: 20 }} />
+
+              </IonCardContent>
+            </IonCol>
+          </IonRow>
+          <IonRow className="mt-2x">
+            <IonCol size="12">
+              <div className="kyc-content kyc-card" style={{ width: '100%' }} onClick={handleKyc}>
                 <div>
-                  <div className="kyc-title">KYC verification Pending</div>
+                  <div className="kyc-title ion-margin-bottom">KYC verification Pending</div>
                   <div className="kyc-subtitle">Verify KYC to enjoy verified loads</div>
                 </div>
                 <IonIcon icon={chevronForward} className="kyc-arrow" />
               </div>
+            </IonCol>
+          </IonRow>
+          <IonRow className="mt-2x">
+            <IonCol size="12">
+              <IonCard className="ion-no-margin">
+                <IonCardContent className="">
+                  <div className="kyc-title ion-text-center ion-margin-bottom">FIND YOUR NEXT LOAD</div>
+                  <div className="grey-subtitle ion-text-center mb-2x">{"Don't"} keep your truck idle, get loads for your last drop point!</div>
+                  <IonButton expand="block" className="search-button" style={{ width: '40%', margin: '0 auto' }} routerLink="/search-loads">
+                    Search
+                  </IonButton>
 
-          {/* Find Next Load Section */}
-          <div className="find-load-section">
-            <div className="kyc-title">FIND YOUR NEXT LOAD</div>
-            <div className="grey-subtitle text-align-center">{"Don't"} keep your truck idle, get loads for your last drop point!</div>
-            <IonButton expand="block" className="search-button" routerLink="/search-loads">
-              Search
-            </IonButton>
-          </div>
+                </IonCardContent>
 
-          {/* Add Vehicle And Driver Section */}
-          <div className="add-section">
-            <div className="add-section-header">
-            <div className="add-vehicle-owner">Add Vehicle And Driver</div>
-            <div className="grey-subtitle text-align-none">Add your vehicle and driver details to get loads</div>
-            </div>
+              </IonCard>
+            </IonCol>
 
-            <div className="add-buttons">
-              <IonButton className="add-button">Add Vehicle</IonButton>
-              <IonButton className="add-button">Add Driver</IonButton>
-            </div>
-          </div>
-        </div>
+          </IonRow>
+          <IonRow className="mt-2x">
+            <IonCol size="12">
+              <IonCard className="ion-no-margin">
+                <IonCardContent className="ion-margin-bottom">
+                  <div className="add-section-header">
+                    <div className="kyc-title">Add Vehicle And Driver</div>
+                    <div className="grey-subtitle text-align-none mb-1.5x">Add your vehicle and driver details to get loads</div>
+                  </div>
+                  <div className="add-buttons">
+                    <IonButton className="add-button">Add Vehicle</IonButton>
+                    <IonButton className="add-button">Add Driver</IonButton>
+                  </div>
+                </IonCardContent>
+              </IonCard>
+            </IonCol>
+          </IonRow>
+        </IonGrid>
       </IonContent>
 
       {/* Tab Bar */}

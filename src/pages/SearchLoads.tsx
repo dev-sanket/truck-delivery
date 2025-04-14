@@ -22,7 +22,6 @@ import {
   notifications,
   person,
 } from "ionicons/icons";
-import StatusBar from "../components/StatusBar";
 import "./SearchLoads.css";
 import InputBox from "../components/Input";
 import FooterPanel from "../components/Footer";
@@ -31,6 +30,7 @@ import SyncAltIcon from "@mui/icons-material/SyncAlt";
 import greenDot from "../assets/images/greendot.png";
 import redDot from "../assets/images/redDot.png";
 import { useHistory } from "react-router";
+import Header from "../components/Header";
 const SearchLoads: React.FC = () => {
   const history = useHistory<History>();
   const [fromLocation, setFromLocation] = useState("");
@@ -40,12 +40,7 @@ const SearchLoads: React.FC = () => {
   };
   return (
     <IonPage>
-      <StatusBar />
-      <div className="header">
-        <div className="title-container">
-          <h1 className="page-title">Search Loads</h1>
-        </div>
-      </div>
+      <Header showBackButton={false} showHamburgerMenu={true} showUserIcon={true} />
       <IonContent>
         <div className="search-container">
           <div className="upper-container">
