@@ -1,26 +1,19 @@
 import type React from "react"
 import { IonContent, IonPage, IonButton, IonIcon, IonChip, IonLabel, IonTabBar, IonTabButton, IonSelect } from "@ionic/react"
-import { arrowBack, call, home, search as searchIcon, notifications, person, chevronForward } from "ionicons/icons"
-import "./LoadDetails.css"
-import { Link, useHistory } from 'react-router-dom'
-import LoadDetailsHeader from "../components/LoadDetailsHeader"
+import { home, search as searchIcon, notifications, person, chevronForward } from "ionicons/icons"
 import lcvTruck from "../assets/images/LcvTruck.png";
 import openTruck from "../assets/images/openTruck.png";
 import Trailer from "../assets/images/Trailer.png";
 import miniPickup from "../assets/images/miniPickUpTruck.png";
 import redDot from "../assets/images/redDot.png"
 import LoadCarrierDetails from "../components/LoadcarrierDetails"
+import "./LoadDetails.css"
 import Header from "../components/Header"
+
 const LoadDetails: React.FC = () => {
 
   return (
     <IonPage>
-      {/* <div className="header">
-        <div className="back-button">
-          <IonIcon icon={arrowBack} onClick={handleBack}/>
-        </div>
-        <div className="route-title">Kharagpur → Jalpaiguri</div>
-      </div> */}
       <Header showBackButton={true} showHamburgerMenu={false} showUserIcon={true} />
       <IonContent className="ion-padding">
         <div className="load-details-container">
