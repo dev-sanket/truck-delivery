@@ -47,7 +47,7 @@ const Login: React.FC = () => {
                 helperText="Enter a valid number"
                 errorText="Invalid email"
                 className="custom-input"
-                placeholder=""
+                placeholder="" 
               /> */}
 
                 <InputBox label="Mobile Number" 
