@@ -11,8 +11,19 @@ import Trailer from "../assets/images/Trailer.png";
 import miniPickup from "../assets/images/miniPickUpTruck.png";
 import redDot from "../assets/images/redDot.png"
 import LoadCarrierDetails from "../components/LoadcarrierDetails"
+import { useEffect } from "react"
 const LoadDetails: React.FC = () => {
+  // useEffect(() => {
+  //   const timeout = setTimeout(() => {
+  //     const innerScroll = document.querySelector('.inner-scroll') as HTMLElement;
+  //     if (innerScroll) {
+  //       innerScroll.style.paddingInlineStart = '0';
+  //       innerScroll.style.paddingInlineEnd = '0';
+  //     }
+  //   }, 100); // adjust if needed for rendering delay
 
+  //   return () => clearTimeout(timeout);
+  // }, []);
   return (
     <IonPage>
       <StatusBar />
@@ -23,7 +34,10 @@ const LoadDetails: React.FC = () => {
         <div className="route-title">Kharagpur → Jalpaiguri</div>
       </div> */}
       <LoadDetailsHeader/>
-      <IonContent className="ion-padding">
+      <IonContent className="ion-padding"   style={{
+    '--padding-start': '0px',
+    '--padding-end': '0px'
+  } as React.CSSProperties}>
         <div className="load-details-container">
           {/* Vehicle Type Chips */}
           <div className="vehicle-types">

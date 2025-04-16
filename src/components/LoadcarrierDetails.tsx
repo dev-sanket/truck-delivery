@@ -73,7 +73,7 @@ const LoadCarrierDetails: React.FC = () => {
               <div className="rate-label">Rate</div>
               <div className="product-container-load">
               <div className="rate-value">₹2,000 per ton</div>
-              <IonButton expand="block" className="call-button"   style={{ width: '80px', height: '30px' ,padding:'5px'}}>
+              <IonButton expand="block" className="call-button"   style={{ width: '80px', height: '30px'}}>
               <IonIcon icon={call} slot="start" />
               Call
             </IonButton>
