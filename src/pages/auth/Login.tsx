@@ -8,7 +8,7 @@ import "../../assets/styles/main.css"
 import "./Login.css"
 import { Link, useHistory } from 'react-router-dom'
 import Header from "../../components/Header"
-import { call } from "ionicons/icons"
+import { call, callOutline, phoneLandscape } from "ionicons/icons"
 import InputBox from "../../components/Input"
 
 const Login: React.FC = () => {
@@ -39,26 +39,29 @@ const Login: React.FC = () => {
           <IonRow className="mt-3x">
             <IonCol>
 
-              {/* <IonInput
+              <IonInput
                 // className={`${isValid && 'ion-valid'} ${isValid === false && 'ion-invalid'} ${isTouched && 'ion-touched'}`}
-                type="tel"
+                type="text"
                 fill="outline"
                 label="Mobile Number"
                 labelPlacement="floating"
                 helperText="Enter a valid number"
-                errorText="Invalid email"
+                errorText="Invalid number"
                 className="custom-input"
-                placeholder="" 
-              /> */}
+                placeholder=""
+                mode="md"
+              >
+                <IonIcon slot="start" icon={callOutline} size="large" aria-hidden="true"></IonIcon>
 
-              <InputBox label="Mobile Number"
+              </IonInput>
+              {/* <InputBox label="Mobile Number"
                 defaultValue="Enter Your Mobile Number"
                 type="text" icon={<img
                   src={call}
                   alt="phone"
                   style={{ width: 24, height: 24 }}
                 />}
-                inputProps={{ maxLength: 10, inputMode: "numeric", pattern: "^[6-9][0-9]{9}$" }} />
+                inputProps={{ maxLength: 10, inputMode: "numeric", pattern: "^[6-9][0-9]{9}$" }} /> */}
 
             </IonCol>
           </IonRow>

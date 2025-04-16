@@ -6,15 +6,11 @@ import {
   IonCardContent,
   IonIcon,
   IonButton,
-  IonTabBar,
-  IonTabButton,
-  IonLabel,
   IonGrid,
   IonRow,
   IonCol,
 } from "@ionic/react"
-import { searchOutline, addOutline, chevronForward, home, search, notifications, person, navigate } from "ionicons/icons"
-import Logo from "../../components/Logo"
+import { chevronForward, navigate } from "ionicons/icons"
 import "./Dashboard.css"
 import Header from "../../components/Header"
 import { useHistory } from "react-router"

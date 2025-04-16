@@ -40,7 +40,7 @@ const SearchLoads: React.FC = () => {
   };
   return (
     <IonPage>
-      <Header showBackButton={false} showHamburgerMenu={true} showUserIcon={true} />
+      {/* <Header showBackButton={false} showHamburgerMenu={true} showUserIcon={true} /> */}
       <div className="header-search">
         <div className="title-container">
           <div className="page-title">Search Loads</div>
