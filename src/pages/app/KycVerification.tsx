@@ -1,6 +1,6 @@
 import type React from "react"
 import { IonContent, IonPage, IonButton, IonIcon, IonGrid, IonCol, IonRow, IonInput, useIonRouter } from "@ionic/react"
-import { cloudUploadOutline, lockClosed } from "ionicons/icons"
+import { cloudUploadOutline, lockClosed, personCircleOutline } from "ionicons/icons"
 import "./KycVerification.css"
 import Header from "../../components/Header"
 import InputBox from "../../components/Input"
@@ -28,14 +28,15 @@ const KycVerification: React.FC = () => {
                 // className={`${isValid && 'ion-valid'} ${isValid === false && 'ion-invalid'} ${isTouched && 'ion-touched'}`}
                 type="text"
                 fill="outline"
-                label="Enter Name"
+                label="Full Name"
                 labelPlacement="floating"
-                helperText="Enter a valid name"
+                helperText=""
                 errorText="Invalid name"
                 className="custom-input"
-                placeholder=""
+                placeholder="Enter a valid name"
+                mode="md"
               >
-                <IonIcon slot="start" icon={lockClosed} aria-hidden="true"></IonIcon>
+                <IonIcon slot="start" icon={personCircleOutline} aria-hidden="true" size="large"></IonIcon>
 
               </IonInput>
 
