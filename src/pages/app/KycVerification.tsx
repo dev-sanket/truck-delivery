@@ -1,18 +1,21 @@
 import type React from "react"
-import { IonContent, IonPage, IonButton, IonIcon, IonGrid, IonCol, IonRow, IonInput } from "@ionic/react"
+import { IonContent, IonPage, IonButton, IonIcon, IonGrid, IonCol, IonRow, IonInput, useIonRouter } from "@ionic/react"
 import { cloudUploadOutline, lockClosed } from "ionicons/icons"
 import "./KycVerification.css"
-import Header from "../components/Header"
-import InputBox from "../components/Input"
+import Header from "../../components/Header"
+import InputBox from "../../components/Input"
 import AccountCircle from "@mui/icons-material/AccountCircle"
-import DocumentSelect from "../components/DocumentSelect"
+import DocumentSelect from "../../components/DocumentSelect"
 import { useHistory } from "react-router"
 
 const KycVerification: React.FC = () => {
-
+  const router = useIonRouter();
+  const handleSkip = () => {
+    router.push('/app/dashboard');
+  };
   return (
     <IonPage>
-      <Header showBackButton={false} showSkipIcon={true} />
+      <Header showBackButton={false} showSkipIcon={true} handleSkip={handleSkip} />
       <IonContent className="ion-padding">
         <IonGrid className="ion-no-margin">
           <IonRow>

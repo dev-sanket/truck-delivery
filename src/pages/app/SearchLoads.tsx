@@ -23,14 +23,14 @@ import {
   person,
 } from "ionicons/icons";
 import "./SearchLoads.css";
-import InputBox from "../components/Input";
-import FooterPanel from "../components/Footer";
-import LoadListing from "../components/LoadList";
+import InputBox from "../../components/Input";
+import LoadListing from "../../components/LoadList";
 import SyncAltIcon from "@mui/icons-material/SyncAlt";
-import greenDot from "../assets/images/greendot.png";
-import redDot from "../assets/images/redDot.png";
+import greenDot from "../../assets/images/greendot.png";
+import redDot from "../../assets/images/redDot.png";
 import { useHistory } from "react-router";
-import Header from "../components/Header";
+import Header from "../../components/Header";
+
 const SearchLoads: React.FC = () => {
   const history = useHistory<History>();
   const [fromLocation, setFromLocation] = useState("");
@@ -120,7 +120,6 @@ const SearchLoads: React.FC = () => {
           zIndex: 1000,
         }}
       >
-        <FooterPanel />
       </div>
     </IonPage>
   );

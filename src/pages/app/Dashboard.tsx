@@ -14,9 +14,9 @@ import {
   IonCol,
 } from "@ionic/react"
 import { searchOutline, addOutline, chevronForward, home, search, notifications, person, navigate } from "ionicons/icons"
-import Logo from "../components/Logo"
+import Logo from "../../components/Logo"
 import "./Dashboard.css"
-import Header from "../components/Header"
+import Header from "../../components/Header"
 import { useHistory } from "react-router"
 
 
@@ -105,26 +105,6 @@ const Dashboard: React.FC = () => {
           </IonRow>
         </IonGrid>
       </IonContent>
-
-      {/* Tab Bar */}
-      <IonTabBar slot="bottom" className="custom-tab-bar">
-        <IonTabButton tab="home" href="/dashboard">
-          <IonIcon icon={home} />
-          <IonLabel>Home</IonLabel>
-        </IonTabButton>
-        <IonTabButton tab="search" href="/search-loads">
-          <IonIcon icon={search} />
-          <IonLabel>Search</IonLabel>
-        </IonTabButton>
-        <IonTabButton tab="notifications" href="/notifications">
-          <IonIcon icon={notifications} />
-          <IonLabel>Alerts</IonLabel>
-        </IonTabButton>
-        <IonTabButton tab="profile" href="/profile">
-          <IonIcon icon={person} />
-          <IonLabel>Profile</IonLabel>
-        </IonTabButton>
-      </IonTabBar>
     </IonPage>
   )
 }

@@ -21,29 +21,20 @@ import "@ionic/react/css/display.css"
 
 /* Theme variables */
 import "./theme/variables.css"
-import Login from "./pages/Login"
-import Dashboard from "./pages/Dashboard"
-import ProductDetails from "./pages/ProductDetails"
-import KycVerification from "./pages/KycVerification"
-import LoginOtp from "./pages/LoginOtp"
-import SearchLoads from "./pages/SearchLoads"
-import LoadDetails from "./pages/LoadDetails"
+import AuthIndex from "./pages/auth"
+import Tabs from "./pages/app/Tabs"
 
 setupIonicReact()
 
 const App: React.FC = () => (
+
   <IonApp>
     <IonReactRouter>
       <IonRouterOutlet>
-        <Route exact path="/login" component={Login} />
-        <Route exact path="/dashboard" component={Dashboard} />
-        <Route exact path="/product-details" component={ProductDetails} />
-        <Route exact path="/kyc-verification" component={KycVerification} />
-        <Route exact path="/login-otp" component={LoginOtp} />
-        <Route exact path="/search-loads" component={SearchLoads} />
-        <Route exact path="/load-details" component={LoadDetails} />
+        <Route path="/auth" component={AuthIndex} />
+        <Route path="/app" component={Tabs} />
         <Route exact path="/">
-          <Redirect to="/login" />
+          <Redirect to="/auth" />
         </Route>
       </IonRouterOutlet>
     </IonReactRouter>

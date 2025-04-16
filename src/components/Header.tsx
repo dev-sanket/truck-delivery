@@ -13,19 +13,20 @@ const Header: React.FC<{
   showSkipIcon?: boolean;
   showUserIcon?: boolean;
   showHamburgerMenu?: boolean;
+  handleSkip?: () => void;
 }> = ({
   showBackButton = true,
   showSkipIcon = false,
   showUserIcon = false,
-  showHamburgerMenu = false
+  showHamburgerMenu = false,
+  handleSkip
 }) => {
     const history = useHistory<History>();
-
-    const handleSkip = () => {
-      history.push('/dashboard'); // Replace with your desired route
-    };
+    // const handleSkip = () => {
+    //   history.push('/app/dashboard'); // Replace with your desired route
+    // };
     return (
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'self-start', padding: '30px 12px 0px', backgroundColor: '#ffffff', gap: '10vw' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'self-start', padding: '16px 12px 0px', backgroundColor: '#ffffff', gap: '10vw' }}>
         <div style={{ flex: 0.3 }}>
           {showBackButton &&
 

@@ -2,18 +2,23 @@
 
 import type React from "react"
 import { useState } from "react"
-import { IonContent, IonPage, IonInput, IonButton, IonGrid, IonRow, IonCol } from "@ionic/react"
-import "../assets/styles/main.css"
+import { IonContent, IonPage, IonInput, IonButton, IonGrid, IonRow, IonCol, useIonRouter } from "@ionic/react"
+import "../../assets/styles/main.css"
 import "./LoginOtp.css"
 
-import Header from "../components/Header"
+import Header from "../../components/Header"
 
 const LoginOtp: React.FC = () => {
   const [otp, setOtp] = useState("")
 
+  const router = useIonRouter();
+  const handleSkip = () => {
+    router.push('/app/kyc-verification', 'root', 'replace');
+  };
+
   return (
     <IonPage>
-      <Header showBackButton={true} />
+      <Header showBackButton={true} handleSkip={handleSkip} />
       <IonContent className="ion-padding">
 
         <IonGrid className="ion-no-margin">
@@ -44,7 +49,7 @@ const LoginOtp: React.FC = () => {
           </IonRow>
           <IonRow className="ion-margin-top">
             <IonCol>
-              <IonButton expand="block" className="confirm-button" routerLink="/kyc-verification">
+              <IonButton expand="block" className="confirm-button" onClick={handleSkip}>
                 Confirm
               </IonButton>
             </IonCol>

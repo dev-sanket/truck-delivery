@@ -4,18 +4,17 @@ import type React from "react"
 import { useState } from "react"
 import { IonContent, IonPage, IonInput, IonButton, IonText, IonItem, IonIcon, IonCol, IonGrid, IonRow } from "@ionic/react"
 
-import "../assets/styles/main.css"
+import "../../assets/styles/main.css"
 import "./Login.css"
-import InputBox from "../components/Input"
 import { Link, useHistory } from 'react-router-dom'
-import Header from "../components/Header"
+import Header from "../../components/Header"
 
 const Login: React.FC = () => {
   const [mobileNumber, setMobileNumber] = useState("")
   const history = useHistory<History>();
 
   const handleLogin = () => {
-    history.push('/login-otp'); // Replace with your desired route
+    history.push('/auth/login-otp');
   };
   return (
     <IonPage>

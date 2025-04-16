@@ -1,14 +1,14 @@
 import type React from "react"
 import { IonContent, IonPage, IonButton, IonIcon, IonChip, IonLabel, IonTabBar, IonTabButton, IonSelect } from "@ionic/react"
 import { home, search as searchIcon, notifications, person, chevronForward } from "ionicons/icons"
-import lcvTruck from "../assets/images/LcvTruck.png";
-import openTruck from "../assets/images/openTruck.png";
-import Trailer from "../assets/images/Trailer.png";
-import miniPickup from "../assets/images/miniPickUpTruck.png";
-import redDot from "../assets/images/redDot.png"
-import LoadCarrierDetails from "../components/LoadcarrierDetails"
+import lcvTruck from "../../assets/images/LcvTruck.png";
+import openTruck from "../../assets/images/openTruck.png";
+import Trailer from "../../assets/images/Trailer.png";
+import miniPickup from "../../assets/images/miniPickUpTruck.png";
+import redDot from "../../assets/images/redDot.png"
+import LoadCarrierDetails from "../../components/LoadcarrierDetails"
 import "./LoadDetails.css"
-import Header from "../components/Header"
+import Header from "../../components/Header"
 
 const LoadDetails: React.FC = () => {
 
@@ -50,26 +50,6 @@ const LoadDetails: React.FC = () => {
 
         </div>
       </IonContent>
-
-      {/* Tab Bar */}
-      <IonTabBar slot="bottom" className="custom-tab-bar">
-        <IonTabButton tab="home" href="/dashboard">
-          <IonIcon icon={home} />
-          <IonLabel>Home</IonLabel>
-        </IonTabButton>
-        <IonTabButton tab="search" href="/search-loads">
-          <IonIcon icon={searchIcon} />
-          <IonLabel>Search</IonLabel>
-        </IonTabButton>
-        <IonTabButton tab="notifications" href="/notifications">
-          <IonIcon icon={notifications} />
-          <IonLabel>Alerts</IonLabel>
-        </IonTabButton>
-        <IonTabButton tab="profile" href="/profile">
-          <IonIcon icon={person} />
-          <IonLabel>Profile</IonLabel>
-        </IonTabButton>
-      </IonTabBar>
     </IonPage>
   )
 }

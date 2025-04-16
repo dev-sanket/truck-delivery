@@ -3,10 +3,9 @@
 import type React from "react"
 import { useState } from "react"
 import { IonContent, IonPage, IonInput, IonButton, IonItem, IonLabel } from "@ionic/react"
-import Logo from "../components/Logo"
 import "./ProductDetails.css"
-import InputBox from "../components/Input"
-import Header from "../components/Header"
+import InputBox from "../../components/Input"
+import Header from "../../components/Header"
 
 const ProductDetails: React.FC = () => {
   const [productType, setProductType] = useState("")
