@@ -16,7 +16,7 @@ const ProductDetails: React.FC = () => {
   return (
     <IonPage>
 
-      <Header showBackButton={false} />
+      <Header showBackButton={true} />
       <IonContent className="ion-padding">
         <div className="product-container">
           <h1 className="title">Product Details</h1>
@@ -72,7 +72,7 @@ const ProductDetails: React.FC = () => {
             </div>
           </div>
 
-          <IonButton expand="block" className="confirm-button">
+          <IonButton expand="block" className="confirm-button" routerLink="/dashboard">
             Confirm
           </IonButton>
         </div>

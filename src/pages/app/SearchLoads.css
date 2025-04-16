@@ -1,9 +1,7 @@
-/* .header {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 10px;
-} */
+.header-search {
+  padding: 20px 15px 0px;
+  background-color: #ffffff;
+}
 
 .title-container {
   display: flex;
@@ -13,6 +11,7 @@
 .page-title {
   font-size: 30px;
   font-weight: 600;
+  color: black;
 }
 
 .search-container {

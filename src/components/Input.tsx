@@ -16,11 +16,11 @@ type InputBoxProps = {
 };
 const InputBox: React.FC<InputBoxProps> = ({ label, defaultValue, icon, type = "text", inputProps, endIcon }) => {
   return (
-    <FormControl sx={{ m: 1, width: 336, height: 50 }} variant="outlined">
+    <FormControl sx={{ m: 0, height: 50,width: '100%'  }} variant="outlined">
       <InputLabel htmlFor="input-with-icon" sx={{ fontSize: '14px', fontWeight: 400, color: '#000000', fontFamily: 'Poppins' }}>{label}</InputLabel>
       <OutlinedInput
         id="input-with-icon"
-        defaultValue={defaultValue}
+        placeholder={defaultValue}
         label={label}
         type={type}
         inputProps={inputProps}
