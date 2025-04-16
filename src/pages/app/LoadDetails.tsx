@@ -15,7 +15,10 @@ const LoadDetails: React.FC = () => {
   return (
     <IonPage>
       <Header showBackButton={true} showHamburgerMenu={false} showUserIcon={true} />
-      <IonContent className="ion-padding">
+      <IonContent className="ion-padding" style={{
+        '--padding-start': '0px',
+        '--padding-end': '0px'
+      } as React.CSSProperties}>
         <div className="load-details-container">
           {/* Vehicle Type Chips */}
           <div className="vehicle-types">

@@ -96,8 +96,8 @@ const Dashboard: React.FC = () => {
                     <div className="grey-subtitle text-align-none mb-1.5x">Add your vehicle and driver details to get loads</div>
                   </div>
                   <div className="add-buttons">
-                    <IonButton className="add-button">Add Vehicle</IonButton>
-                    <IonButton className="add-button">Add Driver</IonButton>
+                    <IonButton className="add-button" routerLink="/app/product-details">Add Vehicle</IonButton>
+                    <IonButton className="add-button" routerLink="/app/product-details">Add Driver</IonButton>
                   </div>
                 </IonCardContent>
               </IonCard>
