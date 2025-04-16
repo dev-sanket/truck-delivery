@@ -20,7 +20,7 @@ const InputBox: React.FC<InputBoxProps> = ({ label, defaultValue, icon, type = "
       <InputLabel htmlFor="input-with-icon" sx={{ fontSize: '14px', fontWeight: 400, color: '#000000', fontFamily: 'Poppins' }}>{label}</InputLabel>
       <OutlinedInput
         id="input-with-icon"
-        defaultValue={defaultValue}
+        placeholder={defaultValue}
         label={label}
         type={type}
         inputProps={inputProps}

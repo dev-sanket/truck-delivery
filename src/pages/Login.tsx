@@ -50,8 +50,9 @@ const Login: React.FC = () => {
                 placeholder=""
               /> */}
 
-                <InputBox label="Mobile Number" defaultValue="Enter Your Mobile Number"
-                type="number" icon={<img
+                <InputBox label="Mobile Number" 
+                defaultValue="Enter Your Mobile Number"
+                type="text" icon={<img
                   src={call}
                   alt="phone"
                   style={{ width: 24, height: 24 }}
