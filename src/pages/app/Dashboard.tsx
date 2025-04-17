@@ -15,7 +15,6 @@ import "./Dashboard.css"
 import Header from "../../components/Header"
 import { useHistory } from "react-router"
 
-
 const Dashboard: React.FC = () => {
   const history = useHistory<History>();
   const handleKyc = () => {
@@ -73,7 +72,7 @@ const Dashboard: React.FC = () => {
                 <IonCardContent className="">
                   <div className="kyc-title ion-text-center ion-margin-bottom">FIND YOUR NEXT LOAD</div>
                   <div className="grey-subtitle ion-text-center mb-2x">{"Don't"} keep your truck idle, get loads for your last drop point!</div>
-                  <IonButton expand="block" className="search-button" style={{ width: '40%', margin: '0 auto' }} routerLink="/search-loads">
+                  <IonButton expand="block" className="search-button" style={{ width: '40%', margin: '0 auto' }} routerLink="/app/search-loads">
                     Search
                   </IonButton>
 

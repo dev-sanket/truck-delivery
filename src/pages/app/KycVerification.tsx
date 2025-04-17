@@ -54,7 +54,7 @@ const KycVerification: React.FC = () => {
 
             </IonCol>
             <IonCol size="12" className="mt-2.5x">
-              <IonButton expand="block" className="upload-button">
+              <IonButton expand="block" className="upload-button" routerLink="/app/dashboard">
                 upload
               </IonButton>
             </IonCol>

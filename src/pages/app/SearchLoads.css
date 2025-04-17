@@ -2,7 +2,9 @@
   padding: 20px 15px 0px;
   background-color: #ffffff;
 }
-
+.horizontal-line{
+  
+}
 .title-container {
   display: flex;
   align-items: center;
@@ -17,8 +19,10 @@
 .search-container {
   display: flex;
   flex-direction: column;
-  gap: 15px;
-  padding: 10px 0px;
+  background-color: #EDEDED !important;
+  gap: 5vw;
+  height: 100%;
+  overflow: hidden;
 }
 
 .input-container {
@@ -51,10 +55,9 @@
 .find-loads-button {
   --background: #000;
   --border-radius: 8px;
-  margin-top: 10px;
-  height: 45px;
+  margin-top: 20px;
+  height: 50px;
   font-weight: bold;
-  width: 336px;
 }
 .upper-container{
   display: flex;
@@ -86,15 +89,18 @@
   gap: 5vw;
   background-color: #EDEDED;
   min-height: 106vw;
-  padding-top: 10vw;
+  /* padding-top: 10vw; */
   padding-left: 20px;
   padding-right: 20px;
 }
 
 .section-title {
-  font-weight: bold;
-  font-size: 16px;
-  margin-bottom: 5px;
+  font-family: Poppins;
+  font-weight: 500;
+  font-size: 17px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  text-transform: capitalize;
 }
 
 .custom-tab-bar {

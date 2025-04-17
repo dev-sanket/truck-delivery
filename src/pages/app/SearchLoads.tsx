@@ -1,5 +1,4 @@
 "use client";
-
 import type React from "react";
 import { useState } from "react";
 import {
@@ -14,86 +13,87 @@ import {
   IonLabel,
   IonTabBar,
   IonTabButton,
+  IonGrid,
+  IonRow,
+  IonCol,
 } from "@ionic/react";
-import {
-  chevronForward,
-  home,
-  search as searchIcon,
-  notifications,
-  person,
-} from "ionicons/icons";
 import "./SearchLoads.css";
-import InputBox from "../../components/Input";
 import LoadListing from "../../components/LoadList";
-import SyncAltIcon from "@mui/icons-material/SyncAlt";
+import viceVersa from "../../assets/images/vice-versa.png";
 import greenDot from "../../assets/images/greendot.png";
 import redDot from "../../assets/images/redDot.png";
 import { useHistory } from "react-router";
-import Header from "../../components/Header";
 
 const SearchLoads: React.FC = () => {
   const history = useHistory<History>();
   const [fromLocation, setFromLocation] = useState("");
   const [toLocation, setToLocation] = useState("");
   const handleSearch = () => {
-    history.push("/load-details"); // Replace with your desired route
+    history.push("/app/load-details"); // Replace with your desired route
   };
   return (
     <IonPage>
       {/* <Header showBackButton={false} showHamburgerMenu={true} showUserIcon={true} /> */}
-      <div className="header-search">
-        <div className="title-container">
-          <div className="page-title">Search Loads</div>
-        </div>
-      </div>
-      <IonContent>
-        <div className="search-container">
-          <div className="upper-container">
-            {/* From Input */}
-            <div className="input-container">
-              {/* <div className="location-dot from-dot"></div> */}
-              {/* <IonInput
-              placeholder="Enter loading here"
-              value={fromLocation}
-              onIonChange={(e) => setFromLocation(e.detail.value!)}
-              className="location-input"
-            /> */}
-              <InputBox
-                label="From"
-                defaultValue="Enter Loading Point"
-                icon={
-                  <img
-                    src={greenDot}
-                    alt="phone"
-                    style={{ width: 18, height: 17 }}
-                  />
-                }
-                endIcon={<SyncAltIcon sx={{ transform: "rotate(90deg)" }} />}
-              />
+      <IonContent className="ion-no-padding" >
+      <IonGrid className="ion-no-padding">
+        <IonRow className="mt-2x ion-padding" style={{borderBottom: '1px solid #F0F0F0'}}>
+            <IonCol size="12">
+            <div className="title-container">
+                 <div className="page-title">Search Loads</div>
             </div>
+            </IonCol>
+        </IonRow>
+        <IonRow className="ion-padding">
+            <IonCol size="12">
+            <IonInput
+              type="text"
+              fill="outline"
+              label="From"
+              labelPlacement="floating"
+              className="custom-input"
+              placeholder="Enter loading point"
+              helperText=""
+              mode="md"
+              >
+            <img
+              slot="start"
+              src={greenDot}
+              alt="greenDot"
+              style={{ width: 20, height: 20 }}
+            />
+            <img
+              slot="end"
+              src={viceVersa}
+              alt="check"
+              style={{ width: 20, height: 20 }}
+            />
+            </IonInput>
 
-            {/* To Input */}
-            <div className="input-container">
-              {/* <div className="location-dot to-dot"></div> */}
-              {/* <IonInput
-              placeholder="Enter unloading here"
-              value={toLocation}
-              onIonChange={(e) => setToLocation(e.detail.value!)}
-              className="location-input"
-            /> */}
-              <InputBox
-                label="To"
-                defaultValue="Enter Unloading Point"
-                icon={
-                  <img
-                    src={redDot}
-                    alt="phone"
-                    style={{ width: 18, height: 17 }}
-                  />
-                }
-              />
-            </div>
-
+            </IonCol>
+        </IonRow>
+        <IonRow className="ion-padding">
+            <IonCol size="12">
+            <IonInput
+              type="text"
+              fill="outline"
+              label="To"
+              labelPlacement="floating"
+              className="custom-input"
+              placeholder="Enter Unloading point"
+              helperText=""
+              mode="md"
+              >
+            <img
+              slot="start"
+              src={redDot}
+              alt="greenDot"
+              style={{ width: 20, height: 20 }}
+            />
+            </IonInput>
+            </IonCol>
+        </IonRow>
+        <IonRow className="ion-padding">
+            <IonCol size="12">
             <IonButton
               expand="block"
               className="find-loads-button"
@@ -101,31 +101,19 @@ const SearchLoads: React.FC = () => {
             >
               Find Loads
             </IonButton>
-          </div>
-
-          {/* Load Results */}
-          <div className="load-results">
+            </IonCol>
+        </IonRow>
+        <IonRow className="ion-no-padding pt-2x" style={{ backgroundColor: '#f0f0f0' }}>
+          <IonCol size="12" className="ion-padding search-container">
             <LoadListing />
             <LoadListing />
             <LoadListing />
             <div className="section-title">Find Loads Form</div>
             <LoadListing />
-            {/* <LoadListing /> */}
-          </div>
-        </div>
+          </IonCol>
+        </IonRow>
+      </IonGrid>
       </IonContent>
-
-      {/* Tab Bar */}
-      <div
-        style={{
-          position: "fixed",
-          bottom: 0,
-          left: 0,
-          width: "100%",
-          zIndex: 1000,
-        }}
-      >
-      </div>
     </IonPage>
   );
 };

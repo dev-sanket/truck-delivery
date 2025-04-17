@@ -2,9 +2,8 @@
 import type React from "react"
 import Logo from "../components/Logo"
 import { IonButton, IonIcon } from "@ionic/react"
-import { chevronBack, menu, person, personCircle, searchOutline } from "ionicons/icons"
+import { chevronBack, menu, person, personCircle, playSkipForward, playSkipForwardOutline, searchOutline } from "ionicons/icons"
 import { useHistory } from "react-router"
-import SkipNextIcon from '@mui/icons-material/SkipNext';
 import "../assets/styles/main.css"
 import "./Header.css"
 
@@ -49,7 +48,7 @@ const Header: React.FC<{
           {showSkipIcon &&
             <IonButton size="default" fill="clear" onClick={handleSkip}>
               Skip
-              <SkipNextIcon />
+              <IonIcon slot="end" ios={playSkipForwardOutline} md={playSkipForwardOutline} size="large"></IonIcon>
             </IonButton>
           }
           {showUserIcon &&
