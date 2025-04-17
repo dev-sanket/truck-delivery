@@ -3,10 +3,7 @@ import { IonContent, IonPage, IonButton, IonIcon, IonGrid, IonCol, IonRow, IonIn
 import { cloudUploadOutline, lockClosed, personCircleOutline } from "ionicons/icons"
 import "./KycVerification.css"
 import Header from "../../components/Header"
-import InputBox from "../../components/Input"
-import AccountCircle from "@mui/icons-material/AccountCircle"
 import DocumentSelect from "../../components/DocumentSelect"
-import { useHistory } from "react-router"
 
 const KycVerification: React.FC = () => {
   const router = useIonRouter();

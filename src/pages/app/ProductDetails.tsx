@@ -4,7 +4,6 @@ import type React from "react"
 import { useState } from "react"
 import { IonContent, IonPage, IonInput, IonButton, IonItem, IonLabel, IonGrid, IonRow, IonCol } from "@ionic/react"
 import "./ProductDetails.css"
-import InputBox from "../../components/Input"
 import Header from "../../components/Header"
 
 const ProductDetails: React.FC = () => {

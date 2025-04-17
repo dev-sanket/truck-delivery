@@ -1,16 +1,18 @@
 import type React from "react"
-import { IonIcon } from "@ionic/react"
-import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import { IonButton, IonIcon } from "@ionic/react"
 import { useHistory } from "react-router";
+import { chevronBack } from "ionicons/icons";
 const LoadDetailsHeader: React.FC = () => {
   const history = useHistory<History>();
   const handleBack = () => {
-    history.push('/search-loads'); // Replace with your desired route
+    history.push('/app/search-loads'); // Replace with your desired route
   };
   return (
     <div className="load-details-header">
-      <div className="backIcon" onClick={handleBack}>
-        <ArrowBackIosIcon />
+      <div className="backIcon" >
+                    <IonButton size="small" fill="outline" onClick={handleBack} className="header-back-button">
+                      <IonIcon slot="icon-only" ios={chevronBack} md={chevronBack} size="large"></IonIcon>
+                    </IonButton>
       </div>
       <div className="load-details-title">
         Kharagpur - Jalpaiguri

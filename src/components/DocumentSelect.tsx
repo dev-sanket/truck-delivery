@@ -1,11 +1,5 @@
 "use client"
 import type React from "react"
-import FormControl from '@mui/material/FormControl';
-import OutlinedInput from '@mui/material/OutlinedInput';
-import InputAdornment from '@mui/material/InputAdornment';
-import AccountCircle from '@mui/icons-material/AccountCircle';
-import InputLabel from '@mui/material/InputLabel';
-import CallIcon from '@mui/icons-material/Call';
 import './DocumentSelect.css'
 import { IonIcon } from "@ionic/react";
 import { cloudUploadOutline } from "ionicons/icons";
