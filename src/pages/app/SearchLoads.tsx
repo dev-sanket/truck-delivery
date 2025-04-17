@@ -33,7 +33,6 @@ const SearchLoads: React.FC = () => {
   };
   return (
     <IonPage>
-      {/* <Header showBackButton={false} showHamburgerMenu={true} showUserIcon={true} /> */}
       <IonContent className="ion-no-padding" >
       <IonGrid className="ion-no-padding">
         <IonRow className="mt-2x ion-padding" style={{borderBottom: '1px solid #F0F0F0'}}>

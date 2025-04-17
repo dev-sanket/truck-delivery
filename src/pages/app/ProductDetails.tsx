@@ -2,7 +2,7 @@
 
 import type React from "react"
 import { useState } from "react"
-import { IonContent, IonPage, IonInput, IonButton, IonItem, IonLabel } from "@ionic/react"
+import { IonContent, IonPage, IonInput, IonButton, IonItem, IonLabel, IonGrid, IonRow, IonCol } from "@ionic/react"
 import "./ProductDetails.css"
 import InputBox from "../../components/Input"
 import Header from "../../components/Header"
@@ -15,67 +15,93 @@ const ProductDetails: React.FC = () => {
 
   return (
     <IonPage>
-
       <Header showBackButton={true} />
       <IonContent className="ion-padding">
-        <div className="product-container">
-          <h1 className="title">Product Details</h1>
-          <p className="subtitle">Please enter your product details</p>
-
-          <div className="form-container">
-            <div className="input-container">
-              {/* <IonLabel className="input-label">Product Type</IonLabel>
-              <IonItem className="custom-input">
-                <IonInput
-                  placeholder="Enter Your Product Type"
-                  value={productType}
-                  onIonChange={(e) => setProductType(e.detail.value!)}
-                />
-              </IonItem> */}
-              <InputBox label="Product Type" defaultValue="Enter Your Product Type"
-                type="text"
-                inputProps={{ maxLength: 30 }} />
-            </div>
-
-            <div className="input-container">
-              {/* <IonLabel className="input-label">Product Weight</IonLabel>
-              <IonItem className="custom-input">
-                <IonInput
-                  placeholder="Enter Your Product Weight"
-                  value={productWeight}
-                  onIonChange={(e) => setProductWeight(e.detail.value!)}
-                />
-              </IonItem> */}
-              <InputBox label="Product Weight" defaultValue="Enter Your Product Weight"
-                type="text"
-                inputProps={{ maxLength: 10, inputMode: "numeric", pattern: "[0-9]*" }} />
-            </div>
-
-            <div className="input-container">
-              {/* <IonLabel className="input-label">From</IonLabel>
-              <IonItem className="custom-input">
-                <IonInput placeholder="Enter Loading Here" value={form} onIonChange={(e) => setForm(e.detail.value!)} />
-              </IonItem> */}
-              <InputBox label="From" defaultValue="Enter Loading Point"
-                type="text"
-                inputProps={{ maxLength: 30 }} />
-            </div>
-
-            <div className="input-container">
-              {/* <IonLabel className="input-label">To</IonLabel>
-              <IonItem className="custom-input">
-                <IonInput placeholder="Enter Unloading Here" value={to} onIonChange={(e) => setTo(e.detail.value!)} />
-              </IonItem> */}
-              <InputBox label="To" defaultValue="Enter Unloading Point"
-                type="text"
-                inputProps={{ maxLength: 30 }} />
-            </div>
-          </div>
-
-          <IonButton expand="block" className="confirm-button" routerLink="/dashboard">
+         <IonGrid className="ion-no-padding">
+            <IonRow>
+                <IonCol size="12">
+                <div className="product-container">
+                  <div className="title">Product Details</div>
+                  <div className="subtitle">Please enter your product details</div>
+                </div>
+                </IonCol>
+            </IonRow>
+            <IonRow className="pt-2x">
+                <IonCol size="12" >
+                    <IonInput
+                      // className={`${isValid && 'ion-valid'} ${isValid === false && 'ion-invalid'} ${isTouched && 'ion-touched'}`}
+                      type="text"
+                      fill="outline"
+                      label="Product Type"
+                      labelPlacement="floating"
+                      errorText=""
+                      className="custom-input"
+                      placeholder="Enter a product type"
+                      helperText=""
+                      mode="md"
+                    >
+                    </IonInput>
+                </IonCol>
+            </IonRow>
+            <IonRow className="pt-2x">
+                <IonCol size="12" >
+                    <IonInput
+                      // className={`${isValid && 'ion-valid'} ${isValid === false && 'ion-invalid'} ${isTouched && 'ion-touched'}`}
+                      type="text"
+                      fill="outline"
+                      label="Product Weight"
+                      labelPlacement="floating"
+                      errorText=""
+                      className="custom-input"
+                      placeholder="Enter a product weight"
+                      helperText=""
+                      mode="md"
+                    >
+                    </IonInput>
+                </IonCol>
+            </IonRow>
+            <IonRow className="pt-2x">
+                <IonCol size="12" >
+                    <IonInput
+                      // className={`${isValid && 'ion-valid'} ${isValid === false && 'ion-invalid'} ${isTouched && 'ion-touched'}`}
+                      type="text"
+                      fill="outline"
+                      label="From"
+                      labelPlacement="floating"
+                      errorText=""
+                      className="custom-input"
+                      placeholder="Enter a loading point"
+                      helperText=""
+                      mode="md"
+                    >
+                    </IonInput>
+                </IonCol>
+            </IonRow>
+            <IonRow className="pt-2x">
+                <IonCol size="12" >
+                    <IonInput
+                      // className={`${isValid && 'ion-valid'} ${isValid === false && 'ion-invalid'} ${isTouched && 'ion-touched'}`}
+                      type="text"
+                      fill="outline"
+                      label="To"
+                      labelPlacement="floating"
+                      errorText=""
+                      className="custom-input"
+                      placeholder="Enter a Unloading point"
+                      helperText=""
+                      mode="md"
+                    >
+                    </IonInput>
+                </IonCol>
+            </IonRow>
+            <IonRow className="pt-2x">
+                <IonCol size="12" >
+                <IonButton expand="block" className="confirm-button" routerLink="/app/dashboard">
             Confirm
           </IonButton>
-        </div>
+                </IonCol>
+            </IonRow>
+         </IonGrid>
       </IonContent>
     </IonPage>
   )

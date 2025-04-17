@@ -1,15 +1,7 @@
-/* .header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 10px;
-} */
-
 .product-container {
   display: flex;
   flex-direction: column;
-  height: 100%;
-  padding: 20px 0px;
+  gap: 1vw;
 }
 
 /* .title {
