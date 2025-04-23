@@ -21,12 +21,13 @@ import SearchLoads from "./SearchLoads";
 import LoadDetails from "./LoadDetails";
 import KycVerification from "./KycVerification";
 import ProductDetails from "./ProductDetails";
+import NewDashboard from "./NewDashboard";
 
 const Tabs: React.FC = () => {
     return (
         <IonTabs>
             <IonRouterOutlet>
-                <Route path="/app/dashboard" component={Dashboard} />
+                <Route path="/app/dashboard" component={NewDashboard} />
 
                 <Route path="/app/search-loads" component={SearchLoads} />
                 <Route path="/app/load-details" component={LoadDetails} />
