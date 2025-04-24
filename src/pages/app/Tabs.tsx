@@ -22,6 +22,7 @@ import LoadDetails from "./LoadDetails";
 import KycVerification from "./KycVerification";
 import ProductDetails from "./ProductDetails";
 import NewDashboard from "./NewDashboard";
+import NewLoadDetails from "./NewLoadDetails";
 
 const Tabs: React.FC = () => {
     return (
@@ -30,7 +31,7 @@ const Tabs: React.FC = () => {
                 <Route path="/app/dashboard" component={NewDashboard} />
 
                 <Route path="/app/search-loads" component={SearchLoads} />
-                <Route path="/app/load-details" component={LoadDetails} />
+                <Route path="/app/load-details" component={NewLoadDetails} />
                 <Route path="/app/kyc-verification" component={KycVerification} />
                 <Route path="/app/product-details" component={ProductDetails} />
 

@@ -107,7 +107,7 @@ const SearchLoads: React.FC = () => {
             <LoadListing />
             <LoadListing />
             <LoadListing />
-            <div className="section-title">Find Loads Form</div>
+            <div className="search-section-title">Find Loads Form</div>
             <LoadListing />
           </IonCol>
         </IonRow>

@@ -8,6 +8,7 @@ import greenDotWhite from '../../src/assets/images/greenDotWhite.png'
 import redDotWhite from '../../src/assets/images/redDotWhite.png'
 import miniPickup from "../assets/images/miniTruckBlack.png";
 import measure from "../assets/images/measure.png";
+import weighIcon from "../assets/images/weighIcon.png";
 const LoadCarrierDetails: React.FC = () => {
   return (
     <div className="carrier-card">
@@ -25,7 +26,7 @@ const LoadCarrierDetails: React.FC = () => {
             <span className="rating-value">4.5</span>
           </div>
         </div>
-        <IonIcon icon={chevronForward} className="carrier-arrow" />
+        {/* <IonIcon icon={chevronForward} className="carrier-arrow" /> */}
       </div>
 
       {/* Route Information */}
@@ -49,10 +50,10 @@ const LoadCarrierDetails: React.FC = () => {
             <img src={miniPickup} alt="phone" style={{ width: 31, height: 31 }} />
 
             <div className="carrier-name">Open Half/Full Body</div>
-            <div>
-              <img src={measure} alt="phone" style={{ width: 20, height: 20 }} />
+            <div className="weighIcon">
+              <img src={weighIcon} alt="phone" style={{ width: 20, height: 20 }} />
+              <div className="carrier-name">21-35 Ton</div>
             </div>
-            <div className="carrier-name-small">21-35 Ton</div>
           </div>
         </div>
       </div>

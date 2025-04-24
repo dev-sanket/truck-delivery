@@ -122,7 +122,7 @@
     flex-direction: column;
     gap: 15px;
     background-color: #f9f9f9;
-    border-radius: 10px;
+    border-radius: 15px;
     padding: 15px;
     margin-bottom: 15px;
     box-shadow: 0px 0px 4px 0px #00000040;
@@ -144,7 +144,7 @@
   .carrier-details {
     display: flex;
     flex-direction: row;
-    gap: 1vw;
+    gap: 10vw;
   }
   
   .carrier-name {
@@ -159,9 +159,15 @@
     font-size: 10px;
     line-height: 100%;
     letter-spacing: 0%;
+    color:#818181 !important  
 
   }
-  
+  .weighIcon{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 1vw;
+  }
   .carrier-rating {
     display: flex;
     align-items: center;
@@ -206,7 +212,8 @@
   }
   
   .location-text {
-    font-size: 14px;
+    font-size: 20px;
+    font-weight: 500;
   }
   
   .truck-info,
@@ -251,8 +258,8 @@ letter-spacing: 0%;
   }
   .vertical-dots{
     height: 20px;
-    width: 0;
-    border: 1px solid #000000;
+    width: 0px;
+    border: 2px dotted #000000;
     margin-left: 8px;
   }
 .carrier-container{
