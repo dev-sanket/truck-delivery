@@ -8,6 +8,7 @@ import miniPickup from "../../assets/images/miniPickUpTruck.png";
 import redDot from "../../assets/images/redDot.png"
 import LoadCarrierDetails from "../../components/LoadcarrierDetails"
 import "./NewLoadDetails.css"
+import "../../assets/styles/main.css"
 import Header from "../../components/Header"
 import { IonHeader, IonSegment, IonSegmentButton, IonTitle, IonToolbar } from '@ionic/react';
 import { useState } from "react";
@@ -143,7 +144,7 @@ const NewLoadDetails: React.FC = () => {
           <div className="load-details-container">
             <div className="button-container">
               <IonButton className="btn1">All Loads</IonButton>
-              <IonButton className="btn2">My Bids</IonButton>
+              <IonButton className="btn2" onClick={handleBid} >My Bids</IonButton>
               <IonButton className="btn2">No Bids</IonButton>
             </div>
             <LoadCarrierDetails showLabel={true} />
