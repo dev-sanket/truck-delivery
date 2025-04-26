@@ -82,7 +82,7 @@ const NewDashboard: React.FC = () => {
                       <img
                         src={load}
                         alt="load"
-                        style={{ width: "70px", height: "70px" }}
+                        style={{ width: "70px", height: "70px",cursor:'pointer' }}
                       />
                     </div>
                     <div className="kyc-title">LOADS</div>
@@ -92,7 +92,7 @@ const NewDashboard: React.FC = () => {
                       <img
                         src={trips}
                         alt="trips"
-                        style={{ width: "70px", height: "70px" }}
+                        style={{ width: "70px", height: "70px",cursor:'pointer' }}
                       />
                     </div>
                     <div className="kyc-title">TRIPS</div>

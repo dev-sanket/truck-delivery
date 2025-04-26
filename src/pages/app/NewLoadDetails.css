@@ -71,3 +71,11 @@ border-radius: 8px;
   text-transform: none !important;
 }
 
+
+.active-segment .segment-label {
+  color: #000000; /* Black for active */
+}
+
+.inactive-segment .segment-label {
+  color: #A9A9A9; /* Grey for inactive */
+}

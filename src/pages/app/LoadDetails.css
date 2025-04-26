@@ -141,9 +141,8 @@
 } */
 
 .call-button {
-  --background: #000;
+  --background:#FFD901;
   --border-radius: 5px;
-  /* margin-top: 10px; */
 }
 
 .custom-tab-bar {

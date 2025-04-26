@@ -60,7 +60,10 @@ const LoadCarrierDetails: React.FC = () => {
 
       {/* Material Type */}
       <div className="material-info">
-        <div className="info-label">Product</div>
+        <div className="info-container">
+          <div className="info-label">Product</div>
+          <div className="info-label">Payment Terms</div>
+        </div>
         <div className="product-container-load">
           <div className="material-type">Advance</div>
           <div className="material-type">Asbestos sheet</div>
@@ -71,10 +74,9 @@ const LoadCarrierDetails: React.FC = () => {
       <div className="rate-info">
         <div className="rate-label">Rate</div>
         <div className="product-container-load">
-          <div className="rate-value">₹2,000 per ton</div>
-          <IonButton expand="block" className="call-button" style={{ width: '80px', height: '30px', padding: '5px' }}>
-            <IonIcon icon={call} slot="start" />
-            Call
+          <div className="rate-value">₹2,000 <span style={{fontSize:'16px',fontWeight:400}}>per ton </span></div>
+          <IonButton expand="block" className="call-button" style={{ width: '80px', height: '30px', padding: '5px','--background':'#FFD901',color:'#000000'}}>
+            Bid
           </IonButton>
         </div>
       </div>
