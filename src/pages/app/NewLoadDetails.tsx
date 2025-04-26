@@ -11,12 +11,18 @@ import "./NewLoadDetails.css"
 import Header from "../../components/Header"
 import { IonHeader, IonSegment, IonSegmentButton, IonTitle, IonToolbar } from '@ionic/react';
 import { useState } from "react";
+import { useHistory } from "react-router";
 
 const NewLoadDetails: React.FC = () => {
+    const history = useHistory<History>();
+    const handleBid = () => {
+      history.push('/app/place-bid'); // Replace with your desired route
+    };
   const [selectedSegment, setSelectedSegment] = useState('open');
     const handleSegmentChange = (e: CustomEvent) => {
     setSelectedSegment(e.detail.value);
   };
+
   return (
     <IonPage>
     <IonHeader>
@@ -111,7 +117,7 @@ const NewLoadDetails: React.FC = () => {
           <div className="load-details-container">
             <div className="button-container">
               <IonButton className="btn1">All Loads</IonButton>
-              <IonButton className="btn2">My Bids</IonButton>
+              <IonButton className="btn2" onClick={handleBid}>My Bids</IonButton>
               <IonButton className="btn2">No Bids</IonButton>
             </div>
             <LoadCarrierDetails />
@@ -130,9 +136,18 @@ const NewLoadDetails: React.FC = () => {
       )}
       
       {selectedSegment === 'confirmed' && (
-        <IonContent className="ion-padding">
+        <IonContent className="ion-padding" style={{
+          '--padding-start': '0px',
+          '--padding-end': '0px'
+        } as React.CSSProperties}>
           <div className="load-details-container">
-            <h2>Confirmed Loads</h2>
+            <div className="button-container">
+              <IonButton className="btn1">All Loads</IonButton>
+              <IonButton className="btn2">My Bids</IonButton>
+              <IonButton className="btn2">No Bids</IonButton>
+            </div>
+            <LoadCarrierDetails showLabel={true} />
+            <LoadCarrierDetails showLabel={true} />
           </div>
         </IonContent>
       )}

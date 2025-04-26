@@ -23,6 +23,7 @@ import KycVerification from "./KycVerification";
 import ProductDetails from "./ProductDetails";
 import NewDashboard from "./NewDashboard";
 import NewLoadDetails from "./NewLoadDetails";
+// import PlaceBid from "./Bids";
 
 const Tabs: React.FC = () => {
     return (
@@ -34,6 +35,7 @@ const Tabs: React.FC = () => {
                 <Route path="/app/load-details" component={NewLoadDetails} />
                 <Route path="/app/kyc-verification" component={KycVerification} />
                 <Route path="/app/product-details" component={ProductDetails} />
+                {/* <Route path="/app/place-bid" component={PlaceBid} /> */}
 
                 <Route exact path="/app">
                     <Redirect to="/app/dashboard" />
