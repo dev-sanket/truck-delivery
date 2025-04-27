@@ -120,7 +120,7 @@ const NewDashboard: React.FC = () => {
                       <IonCol size="6" className="ion-justify-content-center ion-align-self-center">
                         <IonButtons onClick={handleLoad} className="ion-justify-content-center ion-align-self-center" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
                           <IonIcon slot="start" src={truckIcon} style={{ width: '50px', height: '50px', fontSize: '20px', border: '1px solid #AB47BC', borderRadius: '50%', backgroundColor: '#F7D4FD', padding: '10px' }} />
-                          <IonLabel className="kyc-title">
+                          <IonLabel className="kyc-title" style={{ fontWeight: 'normal' }}>
                             LOADS
                           </IonLabel>
                         </IonButtons>
@@ -128,7 +128,7 @@ const NewDashboard: React.FC = () => {
                       <IonCol size="6" className="ion-justify-content-center ion-align-self-center">
                         <IonButtons onClick={handleSearchLoad} className="ion-justify-content-center ion-align-self-center" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
                           <IonIcon src={tripsIcon} style={{ width: '50px', height: '50px', fontSize: '20px', border: '1px solid #2E7D32', borderRadius: '50%', backgroundColor: '#5CECDF', padding: '10px' }} />
-                          <IonLabel className="kyc-title">
+                          <IonLabel className="kyc-title" style={{ fontWeight: 'normal' }}>
                             TRIPS
                           </IonLabel>
                         </IonButtons>
@@ -156,7 +156,7 @@ const NewDashboard: React.FC = () => {
                     <IonCol key={index} size="4" className="ion-justify-content-center ion-align-self-center mb-2x">
                       <div className="ion-justify-content-center ion-align-self-center" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
                         <IonIcon src={service.icon} style={{ width: '50px', height: '50px', fontSize: '20px', border: '1px solid #979797', borderRadius: '50%', backgroundColor: '#E4E4E4', padding: '10px' }} />
-                        <IonLabel className="kyc-title">
+                        <IonLabel className="kyc-title" style={{ fontWeight: 'normal' }}>
                           {service.title}
                         </IonLabel>
                       </div>
