@@ -20,22 +20,30 @@
   justify-content: center;
 }
 .btn1{
-  --background: #00C300 !important;
+  --background: #00C300;
+  --background-hover: #00a100;
+  --background-activated: #00a100;
+  --background-focused: #00a100;
+
   --color: #FFFFFF;
   font-family: Poppins;
-font-weight: 500;
-font-size: 14px;
-line-height: 100%;
-letter-spacing: 0%;
-width: 90px;
-height: 40px;
-display: flex;
-align-items: center;
-justify-content: center;
-border-radius: 8px;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  width: 90px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
 }
 .btn2{
-  --background: #DEFFDE !important;
+  --background: #DEFFDE;
+  --background-hover: #62fc62;
+  --background-activated: #54ad54;
+  --background-focused: #4de64d;
+
   font-family: Poppins;
   font-weight: 500;
   font-size: 14px;

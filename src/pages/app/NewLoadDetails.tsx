@@ -15,20 +15,20 @@ import { useState } from "react";
 import { useHistory } from "react-router";
 
 const NewLoadDetails: React.FC = () => {
-    const history = useHistory<History>();
-    const handleBid = () => {
-      history.push('/app/place-bid'); // Replace with your desired route
-    };
+  const history = useHistory<History>();
+  const handleBid = () => {
+    history.push('/app/place-bid'); // Replace with your desired route
+  };
   const [selectedSegment, setSelectedSegment] = useState('open');
-    const handleSegmentChange = (e: CustomEvent) => {
+  const handleSegmentChange = (e: CustomEvent) => {
     setSelectedSegment(e.detail.value);
   };
 
   return (
     <IonPage>
-    <IonHeader>
-      <IonToolbar>
-        {/* <IonSegment value="open">
+      <IonHeader>
+        <IonToolbar>
+          {/* <IonSegment value="open">
           <IonSegmentButton value="open" style={{
         '--padding-start': '0px',
         '--padding-end': '0px',
@@ -64,6 +64,7 @@ const NewLoadDetails: React.FC = () => {
               <IonSegmentButton
                 key={segment}
                 value={segment}
+                mode="md"
                 className={selectedSegment === segment ? 'active-segment' : 'inactive-segment'}
                 style={{
                   '--padding-start': '0px',
@@ -81,8 +82,8 @@ const NewLoadDetails: React.FC = () => {
             ))}
           </IonSegment>
 
-      </IonToolbar>
-    </IonHeader>
+        </IonToolbar>
+      </IonHeader>
 
       {/* <IonContent className="ion-padding" style={{
         '--padding-start': '0px',
@@ -135,7 +136,7 @@ const NewLoadDetails: React.FC = () => {
           </div>
         </IonContent>
       )}
-      
+
       {selectedSegment === 'confirmed' && (
         <IonContent className="ion-padding" style={{
           '--padding-start': '0px',
