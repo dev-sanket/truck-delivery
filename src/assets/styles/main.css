@@ -318,7 +318,7 @@
 
 .route-point-bid {
   display: flex;
-  gap: 10px;
+  /* gap: 10px; */
   flex-direction: column;
 }
 .route-point {
@@ -374,7 +374,6 @@
   flex-direction: column;
   gap: 1vw;
 }
-
 .info-container {
   display: flex;
   flex-direction: row;
@@ -432,6 +431,7 @@
   font-size: 15px;
   line-height: 100%;
   letter-spacing: 0%;
+  color:#000000
 }
 .vertical-dots {
   height: 20px;
