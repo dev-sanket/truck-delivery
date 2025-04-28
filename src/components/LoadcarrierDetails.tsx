@@ -136,10 +136,10 @@ const LoadCarrierDetails: React.FC<LoadCarrierDetailsProps> = ({
             </IonCol>
           </IonRow>
           <IonRow className="ion-justify-content-between ion-padding-top">
-            <IonCol size="12">
+            {/* <IonCol size="12">
               <div className="rate-info" style={{gap:'0vw'}}>
                 <div className="rate-label">Rate</div>
-                <div className="product-container-load">
+                <div className="product-container-load" style={{alignItems:'unset'}}>
                   <div className="rate-value">
                     ₹2,000{" "}
                     <span style={{ fontSize: "16px", fontWeight: 400,color:'#000000' }}>
@@ -162,6 +162,36 @@ const LoadCarrierDetails: React.FC<LoadCarrierDetailsProps> = ({
                     {showLabel && <div className="label-l1">L1</div>}
                   </div>
                 </div>
+              </div>
+            </IonCol> */}
+            <IonCol size="12">
+              <div className="rate-info">
+                <div className="display-col">
+                <div className="rate-label">Rate</div>
+                <div className="product-container-load" style={{alignItems:'unset'}}>
+                  <div className="rate-value">
+                    ₹2,000{" "}
+                    <span style={{ fontSize: "16px", fontWeight: 400,color:'#000000' }}>
+                      per ton{" "}
+                    </span>
+                  </div>
+                  </div>
+                </div>
+                <div className="display-col" style={{alignItems:'center'}}>
+                    <IonButton
+                      expand="block"
+                      className="call-button"
+                      style={{
+                        width: "80px",
+                        height: "30px",
+                        "--background": "#FFD901",
+                        color: "#000000",
+                      }}
+                    >
+                      Bid
+                    </IonButton>
+                    {showLabel && <div className="label-l1">L1</div>}
+                  </div>
               </div>
             </IonCol>
           </IonRow>
