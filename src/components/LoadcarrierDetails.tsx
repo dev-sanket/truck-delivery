@@ -33,6 +33,7 @@ type LoadCarrierDetailsProps = {
 const LoadCarrierDetails: React.FC<LoadCarrierDetailsProps> = ({
   showLabel = false,
 }) => {
+  const router = useHistory();
   return (
     <div className="carrier-card">
       <div className="carrier-info">
@@ -124,6 +125,7 @@ const LoadCarrierDetails: React.FC<LoadCarrierDetailsProps> = ({
           <div className="display-col">
             <IonButton
               expand="block"
+              onClick={() => router.push("/app/place-bid")}
               className="call-button"
               style={{
                 width: "80px",

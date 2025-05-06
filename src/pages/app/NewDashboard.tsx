@@ -67,7 +67,7 @@ const NewDashboard: React.FC = () => {
     history.push("/app/kyc-verification"); // Replace with your desired route
   };
   const handleLoad = () => {
-    history.push("/app/product-details"); // Replace with your desired route
+    history.push("/app/load"); // Replace with your desired route
   };
   const handleSearchLoad = () => {
     history.push("/app/search-loads"); // Replace with your desired route

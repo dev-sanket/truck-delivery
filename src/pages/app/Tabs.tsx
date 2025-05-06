@@ -24,7 +24,7 @@ import ProductDetails from "./ProductDetails";
 import NewDashboard from "./NewDashboard";
 import NewLoadDetails from "./NewLoadDetails";
 import PlaceBid from "./Bids";
-
+import LoadPage from "./Load";
 const Tabs: React.FC = () => {
     return (
         <IonTabs>
@@ -33,8 +33,9 @@ const Tabs: React.FC = () => {
 
                 <Route path="/app/search-loads" component={SearchLoads} />
                 <Route path="/app/load-details" component={NewLoadDetails} />
+                <Route path="/app/load" component={LoadPage} />
                 <Route path="/app/kyc-verification" component={KycVerification} />
-                <Route path="/app/product-details" component={ProductDetails} />
+                <Route path="/app/load-create" component={ProductDetails} />
                 <Route path="/app/place-bid" component={PlaceBid} />
 
                 <Route exact path="/app">
