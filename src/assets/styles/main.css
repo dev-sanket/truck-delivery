@@ -251,14 +251,16 @@
 .carrier-info {
   display: flex;
   align-items: center;
+  justify-content: space-between;
 }
 
 .carrier-avatar {
-  width: 40px;
-  height: 40px;
+  width: 51px;
+  height: 51px;
   border-radius: 50%;
-  background-color: #ddd;
-  margin-right: 10px;
+  background-color: #FFFFFF;
+  padding: 1px; /* Add padding */
+  box-sizing: border-box; /* Make sure padding doesn't break size */
 }
 
 .carrier-details {
@@ -273,14 +275,15 @@
 
 .carrier-name {
   font-weight: 500;
-  font-size: 14px;
+  font-size: 15px;
   line-height: 100%;
   letter-spacing: 0%;
+  color: #000000;
   /* margin-bottom: 5px; */
 }
 .carrier-name-small {
   font-weight: 400;
-  font-size: 10px;
+  font-size: 12px;
   line-height: 100%;
   letter-spacing: 0%;
   color: #818181 !important;
@@ -315,7 +318,7 @@
 
 .route-point-bid {
   display: flex;
-  gap: 10px;
+  /* gap: 10px; */
   flex-direction: column;
 }
 .route-point {
@@ -342,19 +345,35 @@
 .location-text {
   font-size: 20px;
   font-weight: 500;
+  color:#000000
 }
 
-.truck-info,
+/* .truck-info,
 .material-info,
-.rate-info {
+.rate-info 
+{
   display: flex;
-  /* flex-wrap: wrap; */
   flex-direction: column;
-  /* gap: 10px; */
-  /* font-size: 14px; */
+  gap: 1vw;
+} */
+ .rate-info{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+ }
+ .display-col:first-child {
+  justify-self: start; /* Align to left */
+}
+
+.display-col:last-child {
+  justify-self: end; /* Align to right */
+}
+.truck-info,
+.material-info
+{
+  display: flex;
+  flex-direction: column;
   gap: 1vw;
 }
-
 .info-container {
   display: flex;
   flex-direction: row;
@@ -362,8 +381,7 @@
   justify-content: space-between;
 }
 
-.truck-type,
-.rate-label {
+.truck-type {
   font-weight: bold;
   /* margin-right: 5px; */
   font-family: Poppins;
@@ -372,8 +390,7 @@
   line-height: 119%;
   letter-spacing: 0%;
 }
-.info-label,
-.rate-label {
+.info-label{
   color: #818181;
   font-family: Poppins;
   font-weight: 500;
@@ -381,15 +398,30 @@
   line-height: 119%;
   letter-spacing: 0%;
 }
+.info-label-section{
+  color: #818181;
+  font-family: Poppins;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 119%;
+  letter-spacing: 0%;
+}
+.rate-label{
+  font-family: Poppins;
+  font-weight: 500;
+  font-size: 20px;
+  color:#747474
+}
 
 .material-type {
   /* background-color: #eee;
     padding: 5px 10px;
     border-radius: 5px; */
   font-weight: 400;
-  font-size: 18px;
+  font-size: 20px;
   line-height: 100%;
   letter-spacing: 0%;
+  color:#000000
 }
 .material-type-bid{
   /* background-color: #eee;
@@ -399,12 +431,10 @@
   font-size: 15px;
   line-height: 100%;
   letter-spacing: 0%;
+  color:#000000
 }
 .vertical-dots {
   height: 20px;
-  width: 0px;
-  border: 2px dotted #000000;
-  margin-left: 8px;
 }
 .carrier-container {
   display: flex;
@@ -424,6 +454,7 @@
   font-size: 18px;
   line-height: 100%;
   letter-spacing: 0%;
+  color:#000000
 }
 .label-l1 {
   font-family: Roboto;
@@ -436,8 +467,8 @@
 .display-col {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 5px;
+  /* align-items: center;
+  gap: 5px; */
 }
 
 .header {

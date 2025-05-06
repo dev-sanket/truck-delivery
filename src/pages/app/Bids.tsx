@@ -10,6 +10,7 @@ import {
   IonCardContent,
   IonInput,
   IonGrid,
+  IonFooter,
 } from "@ionic/react";
 import {
   arrowBack,
@@ -36,113 +37,116 @@ const PlaceBid: React.FC = () => {
     <IonPage>
       <Header showBackButton={true} />
       <IonContent className="ion-padding mt-2x">
-        <IonGrid>
-          <div className="carrier-card">
-            {/* Route Information */}
-            <div className="route-info">
-              <div className="route-point-bid">
-                <div className="info-label">From</div>
-                <div className="location-text">Kharagpur, West Bengal</div>
-              </div>
-              <div className="arrow">
-                <img
-                  src={arrow}
-                  alt="arrow"
-                  style={{ width: 16, height: 16 }}
-                />
-              </div>
-              <div className="route-point-bid">
-                <div className="info-label">To</div>
-                <div className="location-text">Jalpaiguri, West Bengal</div>
-              </div>
-            </div>
 
-            {/* Truck Type */}
+        <IonGrid className="ion-no-margin">
+          <IonRow className="ion-no-margin">
+            <IonCol size="12">
+              <IonCard className="carrier-card ion-no-margin">
+                <IonCardContent className="ion-no-padding">
+                  <IonGrid className="ion-no-padding">
+                    <IonRow>
+                      <IonCol size="12">
+                        <div className="route-info">
+                          <div className="route-point-bid">
+                            <div className="info-label">From</div>
+                            <div className="location-text">
+                              Kharagpur, West Bengal
+                            </div>
+                          </div>
+                          <div className="arrow">
+                            <img
+                              src={arrow}
+                              alt="arrow"
+                              style={{ width: 16, height: 16 }}
+                            />
+                          </div>
+                          <div className="route-point-bid">
+                            <div className="info-label">To</div>
+                            <div className="location-text">
+                              Jalpaiguri, West Bengal
+                            </div>
+                          </div>
+                        </div>
+                      </IonCol>
+                    </IonRow>
+                    <IonRow className="ion-padding-top">
+                      <IonCol size="12">
+                        <div className="material-info">
+                          <div className="info-container">
+                            <div className="info-label">Delivery By</div>
+                          </div>
+                          <div className="product-container-load">
+                            <div className="material-type-bid">April 23 10:30AM</div>
+                          </div>
+                        </div>
+                      </IonCol>
+                    </IonRow>
+                    <IonRow className="ion-padding-top">
+                      <IonCol size="12">
+                        <div className="truck-info">
+                          <div className="info-label">Truck Types</div>
+                          <div>
+                            <div
+                              className="truck-container"
+                              style={{ justifyContent: "unset" }}
+                            >
+                              <img
+                                src={miniPickup}
+                                alt="phone"
+                                style={{ width: 31, height: 31 }}
+                              />
 
-            <div className="material-info">
-              <div className="info-container">
-                <div className="info-label">Delivery By</div>
-                {/* <div className="info-label">Total Ton</div> */}
-              </div>
-              <div className="product-container-load">
-                <div className="material-type-bid">April 23 10:30AM</div>
-                {/* <div className="material-type-bid">35 TON</div> */}
-              </div>
-            </div>
-
-
-            <div className="truck-info">
-              <div className="info-label">Truck Types</div>
-              <div>
-                <div className="truck-container" style={{ justifyContent: 'unset', }}>
-                  <img
-                    src={miniPickup}
-                    alt="phone"
-                    style={{ width: 31, height: 31 }}
-                  />
-
-                  <div className="carrier-name">Open Half/Full Body</div>
-                </div>
-              </div>
-            </div>
-
-            {/* Material Type */}
-
-            <div className="material-info">
-              <div className="info-container">
-                <div className="info-label">Products</div>
-                {/* <div className="info-label">Total Ton</div> */}
-              </div>
-              <div className="product-container-load">
-                <div className="material-type-bid">Aesbestos sheet</div>
-                {/* <div className="material-type-bid">35 TON</div> */}
-              </div>
-            </div>
-
-            <div className="material-info">
-              <div className="info-container">
-                <div className="info-label">Payment Terms</div>
-                <div className="info-label">Total Ton</div>
-              </div>
-              <div className="product-container-load">
-                <div className="material-type-bid">Advance</div>
-                <div className="material-type-bid">35 TON</div>
-              </div>
-            </div>
-
-            <div className="material-info">
-              <div className="info-container">
-                <div className="info-label">Past Date</div>
-                <div className="info-label">Rate</div>
-              </div>
-              <div className="product-container-load">
-                <div className="material-type-bid">April 22 10:30PM</div>
-                <div className="material-type-bid">₹5,000</div>
-              </div>
-            </div>
-
-          </div>
-
-          {/* <div className="carrier-card pt-1x">
-          <div className="carrier-info">
-            <div className="carrier-avatar">
-              <img
-                src={userIcon}
-                alt="phone"
-                style={{ width: 40, height: 40, borderRadius: 50 }}
-              />
-            </div>
-            <div className="carrier-details-card ">
-              <div className="carrier-container">
-                <div className="carrier-name">Goyam Road Carriers</div>
-              </div>
-              <div className="carrier-rating-card">
-                <span className="stars">★★★★★</span>
-                <span className="rating-value">4.5</span>
-              </div>
-            </div>
-          </div>
-        </div> */}
+                              <div className="carrier-name">Open Half/Full Body</div>
+                            </div>
+                          </div>
+                        </div>
+                      </IonCol>
+                    </IonRow>
+                    <IonRow className="ion-padding-top">
+                      <IonCol size="12">
+                        <div className="material-info">
+                          <div className="info-container">
+                            <div className="info-label">Products</div>
+                          </div>
+                          <div className="product-container-load">
+                            <div className="material-type-bid">Aesbestos sheet</div>
+                          </div>
+                        </div>
+                      </IonCol>
+                    </IonRow>
+                    <IonRow className="ion-padding-top">
+                      <IonCol size="12">
+                        <div className="material-info">
+                          <div className="info-container">
+                            <div className="info-label">Payment Terms</div>
+                            <div className="info-label">Total Ton</div>
+                          </div>
+                          <div className="product-container-load">
+                            <div className="material-type-bid">Advance</div>
+                            <div className="material-type-bid">35 TON</div>
+                          </div>
+                        </div>
+                      </IonCol>
+                    </IonRow>
+                    <IonRow className="ion-padding-top">
+                      <IonCol size="12">
+                        <div className="material-info">
+                          <div className="info-container">
+                            <div className="info-label">Past Date</div>
+                            <div className="info-label">Rate</div>
+                          </div>
+                          <div className="product-container-load">
+                            <div className="material-type-bid">April 22 10:30PM</div>
+                            <div className="material-type-bid">₹5,000</div>
+                          </div>
+                        </div>
+                      </IonCol>
+                    </IonRow>
+                  </IonGrid>
+                </IonCardContent>
+              </IonCard>
+            </IonCol>
+          </IonRow>
           <IonRow className="ion-padding-top">
             <IonCol size="12">
               <IonCard className="ion-no-margin" style={{ borderRadius: '10px' }}>
@@ -181,14 +185,26 @@ const PlaceBid: React.FC = () => {
                       />
 
                     </IonCol>
+                    <IonCol size="12">
+                      <IonButton
+                        expand="block"
+                        className="confirm-button"
+                        routerLink="/app/dashboard"
+                      >
+                        Quote PMT
+                      </IonButton>
+                    </IonCol>
                   </IonRow>
+
                 </IonCardContent>
               </IonCard>
 
             </IonCol>
 
           </IonRow>
-          <IonRow className="">
+
+
+          {/* <IonRow className="">
             <IonCol size="12">
               <IonButton
                 expand="block"
@@ -198,9 +214,16 @@ const PlaceBid: React.FC = () => {
                 Quote PMT
               </IonButton>
             </IonCol>
-          </IonRow>
+          </IonRow> */}
         </IonGrid>
+
+
       </IonContent>
+      {/* <IonFooter>
+        <IonButton expand="block" className="confirm-button" routerLink="/app/dashboard">
+          Place Bid
+        </IonButton>
+      </IonFooter> */}
     </IonPage>
   );
 };
