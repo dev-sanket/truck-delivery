@@ -109,14 +109,14 @@ const LoadCarrierDetails: React.FC<LoadCarrierDetailsProps> = ({
                     alt="phone"
                     style={{ width: 31, height: 31 }}
                   />
-                  <div className="carrier-name">Open Half/Full Body</div>
+                  <div className="carrier-name" style={{fontSize:12}}>Open Half/Full Body</div>
                   <div className="weighIcon">
                     <img
                       src={weighIcon}
                       alt="phone"
                       style={{ width: 20, height: 20 }}
                     />
-                    <div className="carrier-name">21-35 Ton</div>
+                    <div className="carrier-name" style={{fontSize:12}}>21-35 Ton</div>
                   </div>
                 </div>
               </div>

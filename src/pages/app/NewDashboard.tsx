@@ -156,7 +156,7 @@ const NewDashboard: React.FC = () => {
                     <IonCol key={index} size="4" className="ion-justify-content-center ion-align-self-center mb-2x">
                       <div className="ion-justify-content-center ion-align-self-center" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
                         <IonIcon src={service.icon} style={{ width: '50px', height: '50px', fontSize: '20px', border: '1px solid #979797', borderRadius: '50%', backgroundColor: '#E4E4E4', padding: '10px' }} />
-                        <IonLabel className="kyc-title" style={{ fontWeight: 'normal' }}>
+                        <IonLabel className="kyc-title" style={{ fontWeight: 500,fontSize:13, }}>
                           {service.title}
                         </IonLabel>
                       </div>
