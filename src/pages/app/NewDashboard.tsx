@@ -12,6 +12,7 @@ import {
   IonItem,
   IonLabel,
   IonButtons,
+  useIonToast,
 } from "@ionic/react";
 import { chevronForward, navigate } from "ionicons/icons";
 import "./NewDashboard.css";
@@ -72,6 +73,14 @@ const NewDashboard: React.FC = () => {
   const handleSearchLoad = () => {
     history.push("/app/search-loads"); // Replace with your desired route
   };
+       const [present] = useIonToast();
+      const presentToast = (position: 'top' | 'middle' | 'bottom') => {
+      present({
+        message: 'Coming Soon!',
+        duration: 1500,
+        position: position,
+      });
+    };
   return (
     <IonPage>
       <Header
@@ -126,7 +135,7 @@ const NewDashboard: React.FC = () => {
                         </IonButtons>
                       </IonCol>
                       <IonCol size="6" className="ion-justify-content-center ion-align-self-center">
-                        <IonButtons onClick={handleSearchLoad} className="ion-justify-content-center ion-align-self-center" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+                        <IonButtons onClick={() => presentToast('middle')} className="ion-justify-content-center ion-align-self-center" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
                           <IonIcon src={tripsIcon} style={{ width: '50px', height: '50px', fontSize: '20px', border: '1px solid #2E7D32', borderRadius: '50%', backgroundColor: '#5CECDF', padding: '10px' }} />
                           <IonLabel className="kyc-title" style={{ fontWeight: 'normal' }}>
                             TRIPS
