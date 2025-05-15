@@ -20,7 +20,7 @@ import Dashboard from "./Dashboard";
 import SearchLoads from "./SearchLoads";
 import LoadDetails from "./LoadDetails";
 import KycVerification from "./KycVerification";
-import ProductDetails from "./ProductDetails";
+import CreateNewLoad from "./CreateNewLoad";
 import NewDashboard from "./NewDashboard";
 import NewLoadDetails from "./NewLoadDetails";
 import PlaceBid from "./Bids";
@@ -35,7 +35,7 @@ const Tabs: React.FC = () => {
                 <Route path="/app/load-details" component={NewLoadDetails} />
                 <Route path="/app/load" component={LoadPage} />
                 <Route path="/app/kyc-verification" component={KycVerification} />
-                <Route path="/app/load-create" component={ProductDetails} />
+                <Route path="/app/load-create" component={CreateNewLoad} />
                 <Route path="/app/place-bid" component={PlaceBid} />
 
                 <Route exact path="/app">
