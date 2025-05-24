@@ -1,0 +1,189 @@
+/* .header {
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+  background-color: #ffffff;
+} */
+
+.back-button {
+  margin-right: 15px;
+  font-size: 20px;
+}
+
+.route-title {
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.load-details-container {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding: 10px;
+}
+
+.vehicle-types {
+  display: flex;
+  overflow-x: auto;
+  gap: 5px;
+  padding: 5px 0;
+}
+
+/* .vehicle-chip {
+  --background: #f5f5f5;
+  --color: #333;
+  font-size: 12px;
+  height: 30px;
+}
+
+.vehicle-chip.active {
+  --background: #000;
+  --color: #fff;
+} */
+
+/* .carrier-card {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  padding: 15px;
+  margin-bottom: 15px;
+}
+
+.carrier-info {
+  display: flex;
+  align-items: center;
+}
+
+.carrier-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #ddd;
+  margin-right: 10px;
+}
+
+.carrier-details {
+  flex: 1;
+}
+
+.carrier-name {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.carrier-rating {
+  display: flex;
+  align-items: center;
+  font-size: 12px;
+}
+
+.stars {
+  color: gold;
+  margin-right: 5px;
+}
+
+.carrier-arrow {
+  font-size: 18px;
+}
+
+.route-info {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.route-point {
+  display: flex;
+  align-items: center;
+}
+
+.location-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.from-dot {
+  background-color: green;
+}
+
+.to-dot {
+  background-color: red;
+}
+
+.location-text {
+  font-size: 14px;
+}
+
+.truck-info,
+.material-info,
+.rate-info {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  font-size: 14px;
+}
+
+.truck-type,
+.rate-label {
+  font-weight: bold;
+  margin-right: 5px;
+}
+
+.material-type {
+  background-color: #eee;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 12px;
+} */
+
+.call-button {
+  --background:#FFD901;
+  --border-radius: 5px;
+}
+
+.custom-tab-bar {
+  --background: white;
+  --color: #888;
+  --color-selected: #000;
+  padding: 5px 0;
+}
+
+.vehicle-chip{
+  width: 73px;
+  height: 65px;
+  background-color: #EFEFEF;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* gap: 5px; */
+  flex-direction: column;
+  border-radius: 4px;
+}
+.vehicle-chip-select{
+  width: 73px;
+  height: 65px;
+background-color: #EFEFEF;
+display: flex;
+justify-content: center;
+align-items: center;
+/* gap: 5px; */
+flex-direction: column;
+padding: 12px;
+border-radius: 8px;
+}
+.description{
+font-weight: 500;
+font-size: 8px;
+line-height: 100%;
+letter-spacing: 0%;
+}
+.vehicle-chip-header{
+  font-weight: 500;
+font-size: 12px;
+line-height: 100%;
+letter-spacing: 0%;
+}

@@ -1,0 +1,157 @@
+/* 
+.dashboard-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10vw;
+  align-items: center;
+  padding-top: 15px;
+}
+.kyc-subtitle{
+  font-family: Poppins;
+font-weight: 400;
+font-size: 14px;
+line-height: 100%;
+letter-spacing: 0%;
+text-transform: uppercase;
+color: #929292;
+
+}
+.balance-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap:5vw
+} */
+/* 
+.balance-card {
+  min-width: 150px;
+  margin: 0;
+  background-color: #333;
+  color: white;
+  border-radius: 10px;
+}
+
+.card-amount {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.card-label {
+  font-size: 12px;
+  opacity: 0.8;
+}
+
+.kyc-card {
+  border-radius: 10px;
+  width: 337px;
+  height: 130px;
+  border: 1px solid #EBB914;
+  background-color: #F3F3F3;
+
+} */
+
+/* .kyc-content {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  padding: 0 10px;
+  justify-content: space-between;
+}
+
+.kyc-title {
+  font-size:17px;
+  font-weight: 600;
+  color: #000000;
+} */
+
+/* .kyc-subtitle {
+  font-size: 12px;
+  color: #666;
+} */
+
+/* .kyc-arrow {
+  font-size: 20px;
+  color: #EBB914  ;
+}
+
+.find-load-section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  height: 190px;
+  border: 1px solid #6C809A;
+  border-radius: 10px;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+}
+.add-section {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      height: 190px;
+      border: 1px solid #6C809A;
+      border-radius: 10px;
+      justify-content: center;
+} */
+/* .add-section-header{
+  padding: 0px 5px;
+  display: flex;
+  flex-direction: column;
+}
+.section-title {
+  font-weight: bold;
+  font-size: 16px;
+}
+.text-align-center{
+  text-align: center;
+}
+.section-subtitle {
+  font-size: 12px;
+  color: #666;
+}
+
+.search-button {
+  --background: #000;
+  --border-radius: 5px;
+  margin-top: 10px;
+  height: 40px;
+}
+
+.add-buttons {
+  display: flex;
+      margin-top: 10px;
+      justify-content: space-evenly;
+}
+
+.add-button {
+    --background: #f5f5f5;
+    --color: #000;
+    --border-radius: 5px;
+    font-size: 15px;
+    border: 1px solid #6C809A;
+    border-radius: 8px;
+    width: 45%;
+    font-weight: 800;
+}
+
+.custom-tab-bar {
+  --background: white;
+  --color: #888;
+  --color-selected: #000;
+  padding: 5px 0;
+}
+
+.add-vehicle-owner{
+  font-weight: 500;
+  font-size: 17px;
+  line-height: 100%;
+  letter-spacing: 0%;
+}
+.grey-subtitle{
+font-weight: 400;
+font-size: 14px;
+line-height: 100%;
+letter-spacing: 0%;
+color: #929292;
+} */

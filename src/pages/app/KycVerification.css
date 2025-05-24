@@ -1,0 +1,41 @@
+/* .header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 10px;
+} */
+
+.kyc-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  /* padding: 20px;
+  align-items: center; */
+}
+
+/* .title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 5px;
+} */
+
+/* .subtitle {
+  color: #666;
+  margin-bottom: 30px;
+} */
+
+.documents-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10vw;
+  padding-top: 5vw;
+}
+
+.upload-button {
+  --background: #000;
+  --border-radius: 8px;
+  margin-top: 10px;
+  height: 50px;
+  font-weight: bold;
+}
+
