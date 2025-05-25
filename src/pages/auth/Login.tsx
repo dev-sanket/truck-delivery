@@ -8,17 +8,24 @@ import "./Login.css"
 import { Link, useHistory } from 'react-router-dom'
 import Header from "../../components/Header"
 import {callOutline} from "ionicons/icons"
+import { postApiCall } from "../api/api"
 
 const Login: React.FC = () => {
   const [mobileNumber, setMobileNumber] = useState("")
   const history = useHistory<History>();
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
     history.push('/auth/login-otp');
+        try {
+      const response = await postApiCall({
+      "MobileNumber": "8527426845"
+      },'sendOTP');
+      console.log('User created:', response);
+    } catch (error) {
+      console.error('Error creating user:', error);
+    }
   };
-
-
-
+  
   return (
     <IonPage>
       {/* <StatusBar/> */}
@@ -37,7 +44,7 @@ const Login: React.FC = () => {
 
               <IonInput
                 // className={`${isValid && 'ion-valid'} ${isValid === false && 'ion-invalid'} ${isTouched && 'ion-touched'}`}
-                type="text"
+                type="number"
                 fill="outline"
                 label="Mobile Number"
                 labelPlacement="floating"
