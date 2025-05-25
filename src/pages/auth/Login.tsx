@@ -2,7 +2,7 @@
 
 import type React from "react"
 import { useState } from "react"
-import { IonContent, IonPage, IonInput, IonButton, IonText, IonItem, IonIcon, IonCol, IonGrid, IonRow, IonLabel } from "@ionic/react"
+import { IonContent, IonPage, IonInput, IonButton, IonText, IonItem, IonIcon, IonCol, IonGrid, IonRow, IonLabel, useIonToast } from "@ionic/react"
 import "../../assets/styles/main.css"
 import "./Login.css"
 import { Link, useHistory } from 'react-router-dom'
@@ -11,17 +11,49 @@ import {callOutline} from "ionicons/icons"
 import { postApiCall } from "../api/api"
 
 const Login: React.FC = () => {
+  const [present] = useIonToast();
+  const presentToast = (message: string,position: 'top' | 'middle' | 'bottom') => {
+  present({
+    message: message,
+    duration: 1500,
+    position: position,
+  });
+  };
   const [mobileNumber, setMobileNumber] = useState("")
+    const [error, setError] = useState<string | null>(null)
+  const [touched, setTouched] = useState(false)
   const history = useHistory<History>();
+ const validateMobile = (number: string) => {
+    const mobileRegex = /^[6-9]\d{9}$/
+    return mobileRegex.test(number)
+  }
+    const handleChange = (e: CustomEvent) => {
+    const value = e.detail.value
+    setMobileNumber(value)
 
+    if (!validateMobile(value)) {
+      setError("Please enter a valid 10-digit mobile number")
+    } else {
+      setError(null)
+    }
+  }
   const handleLogin = async () => {
-    history.push('/auth/login-otp');
-        try {
+    setTouched(true)
+    if (!validateMobile(mobileNumber)) {
+      setError("Please enter a valid 10-digit mobile number")
+      return
+    }
+    try {
       const response = await postApiCall({
-      "MobileNumber": "8527426845"
-      },'sendOTP');
-      console.log('User created:', response);
-    } catch (error) {
+      "MobileNumber": mobileNumber
+      },'sendOTPs');
+      if(response?.status){
+        presentToast(response?.message,'bottom')
+        console.log('User created:', response);
+        history.push('/auth/login-otp');
+      }
+    } catch (error:any) {
+      presentToast(error?.message,'middle')
       console.error('Error creating user:', error);
     }
   };
@@ -56,10 +88,17 @@ const Login: React.FC = () => {
                 inputmode="numeric"
                 maxlength={10}
                 pattern="^[6-9][0-9]{9}$"
+                 onIonInput={handleChange}
+                 value={mobileNumber}
+                  onIonBlur={() => setTouched(true)}
               >
                 <IonIcon slot="start" icon={callOutline} size="large" aria-hidden="true"></IonIcon>
               </IonInput>
-
+              {touched && error && (
+                <IonText color="danger">
+                  <p className="ion-padding-start">{error}</p>
+                </IonText>
+              )}
             </IonCol>
           </IonRow>
           <IonRow className="ion-margin-top">
