@@ -22,7 +22,8 @@ const Login: React.FC = () => {
   const [mobileNumber, setMobileNumber] = useState("")
     const [error, setError] = useState<string | null>(null)
   const [touched, setTouched] = useState(false)
-  const history = useHistory<History>();
+  // const history = useHistory<History>();
+  const history = useHistory();
  const validateMobile = (number: string) => {
     const mobileRegex = /^[6-9]\d{9}$/
     return mobileRegex.test(number)
@@ -46,11 +47,14 @@ const Login: React.FC = () => {
     try {
       const response = await postApiCall({
       "MobileNumber": mobileNumber
-      },'sendOTPs');
+      },'sendOTP');
       if(response?.status){
-        presentToast(response?.message,'bottom')
+        presentToast(response?.message,'middle')
         console.log('User created:', response);
-        history.push('/auth/login-otp');
+        history.push({
+        pathname: '/auth/login-otp',
+        state: { mobileNumber },
+});
       }
     } catch (error:any) {
       presentToast(error?.message,'middle')
