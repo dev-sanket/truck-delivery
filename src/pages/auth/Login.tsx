@@ -2,66 +2,65 @@
 
 import type React from "react"
 import { useState } from "react"
-import { IonContent, IonPage, IonInput, IonButton, IonText, IonItem, IonIcon, IonCol, IonGrid, IonRow, IonLabel, useIonToast } from "@ionic/react"
+import { IonContent, IonPage, IonInput, IonButton, IonText, IonItem, IonIcon, IonCol, IonGrid, IonRow, IonLabel, useIonToast, IonSpinner } from "@ionic/react"
 import "../../assets/styles/main.css"
 import "./Login.css"
 import { Link, useHistory } from 'react-router-dom'
 import Header from "../../components/Header"
-import {callOutline} from "ionicons/icons"
-import { postApiCall } from "../api/api"
+import { callOutline } from "ionicons/icons"
+import { postApiCall } from "../../utils/api/api"
+import { LoginFormValidation } from "../../utils/validator"
+import { Formik, useFormik } from "formik"
 
 const Login: React.FC = () => {
   const [present] = useIonToast();
-  const presentToast = (message: string,position: 'top' | 'middle' | 'bottom') => {
-  present({
-    message: message,
-    duration: 1500,
-    position: position,
-  });
+  const presentToast = (message: string, position: 'top' | 'middle' | 'bottom', color: 'danger' | 'success' | 'warning' = 'success') => {
+    present({
+      message: message,
+      duration: 1500,
+      position: position,
+      color: color,
+    });
   };
-  const [mobileNumber, setMobileNumber] = useState("")
-    const [error, setError] = useState<string | null>(null)
-  const [touched, setTouched] = useState(false)
+  const initialValues = {
+    mobileNumber: "",
+  }
+
+  // const [mobileNumber, setMobileNumber] = useState("")
+  const [error, setError] = useState<string | null>(null)
+  const [isLoading, setIsLoading] = useState(false)
+
   // const history = useHistory<History>();
   const history = useHistory();
- const validateMobile = (number: string) => {
-    const mobileRegex = /^[6-9]\d{9}$/
-    return mobileRegex.test(number)
-  }
-    const handleChange = (e: CustomEvent) => {
-    const value = e.detail.value
-    setMobileNumber(value)
 
-    if (!validateMobile(value)) {
-      setError("Please enter a valid 10-digit mobile number")
-    } else {
-      setError(null)
-    }
-  }
-  const handleLogin = async () => {
-    setTouched(true)
-    if (!validateMobile(mobileNumber)) {
-      setError("Please enter a valid 10-digit mobile number")
-      return
-    }
+
+  const handleLogin = async (values: any) => {
+    console.log("Pressed Continue button", values);
+    const { mobileNumber } = values;
     try {
+      setIsLoading(true)
       const response = await postApiCall({
-      "MobileNumber": mobileNumber
-      },'sendOTP');
-      if(response?.status){
-        presentToast(response?.message,'middle')
+        "MobileNumber": mobileNumber
+      }, 'sendOTP');
+      if (response?.status) {
+        presentToast(response?.message, 'bottom')
         console.log('User created:', response);
         history.push({
-        pathname: '/auth/login-otp',
-        state: { mobileNumber },
-});
+          pathname: '/auth/login-otp',
+          state: { mobileNumber },
+        });
+      } else {
+        const errorMessage = response?.errors?.errorMessage || response?.message || "Something went wrong";
+        presentToast(errorMessage, 'bottom', 'danger')
       }
-    } catch (error:any) {
-      presentToast(error?.message,'middle')
+    } catch (error: any) {
+      presentToast(error?.message, 'bottom', 'danger')
       console.error('Error creating user:', error);
+    } finally {
+      setIsLoading(false)
     }
   };
-  
+
   return (
     <IonPage>
       {/* <StatusBar/> */}
@@ -75,48 +74,56 @@ const Login: React.FC = () => {
               <div className="subtitle">Please enter your login credentials</div>
             </IonCol>
           </IonRow>
-          <IonRow className="mt-3x">
-            <IonCol>
+          <Formik initialValues={initialValues} validationSchema={LoginFormValidation} onSubmit={handleLogin}>
+            {({ values, errors, touched, handleChange, handleBlur, setFieldValue }) => (
+              <>
+                <IonRow className="mt-3x">
 
-              <IonInput
-                // className={`${isValid && 'ion-valid'} ${isValid === false && 'ion-invalid'} ${isTouched && 'ion-touched'}`}
-                type="number"
-                fill="outline"
-                label="Mobile Number"
-                labelPlacement="floating"
-                errorText="Invalid number"
-                className="custom-input"
-                placeholder="Enter a valid mobile number"
-                helperText=""
-                mode="md"
-                inputmode="numeric"
-                maxlength={10}
-                pattern="^[6-9][0-9]{9}$"
-                 onIonInput={handleChange}
-                 value={mobileNumber}
-                  onIonBlur={() => setTouched(true)}
-              >
-                <IonIcon slot="start" icon={callOutline} size="large" aria-hidden="true"></IonIcon>
-              </IonInput>
-              {touched && error && (
-                <IonText color="danger">
-                  <p className="ion-padding-start">{error}</p>
-                </IonText>
-              )}
-            </IonCol>
-          </IonRow>
-          <IonRow className="ion-margin-top">
-            <IonCol>
-              <IonButton expand="block" className="continue-button" onClick={handleLogin}>
-                Continue
-              </IonButton>
+                  <IonCol>
 
-            </IonCol>
-          </IonRow>
+                    <IonInput
+                      className={`custom-input ${errors.mobileNumber && 'ion-invalid'} ${touched.mobileNumber && 'ion-touched'}`}
+                      fill="outline"
+                      name="mobileNumber"
+                      type="number"
+                      inputmode="numeric"
+                      label="Mobile Number"
+                      labelPlacement="floating"
+                      errorText={errors.mobileNumber}
+                      placeholder="Enter a valid mobile number"
+                      mode="md"
+                      pattern="^[6-9][0-9]{9}$"
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      value={values.mobileNumber}
+                    >
+                      <IonIcon slot="start" icon={callOutline} size="large" aria-hidden="true"></IonIcon>
+                    </IonInput>
+                  </IonCol>
+                </IonRow>
+                <IonRow className="ion-margin-top">
+                  <IonCol>
+                    <IonButton expand="block" className="continue-button"
+                      type="submit"
+
+                      onClick={(e) => {
+                        e.preventDefault();
+                        handleLogin(values);
+                      }}
+                      disabled={Boolean(!values.mobileNumber || errors.mobileNumber || !touched.mobileNumber || isLoading)}
+                    >
+                      {isLoading ? <IonSpinner slot="end" name="crescent" /> : "Continue"}
+                    </IonButton>
+
+                  </IonCol>
+                </IonRow>
+              </>
+            )}
+          </Formik>
         </IonGrid>
 
       </IonContent>
-    </IonPage>
+    </IonPage >
   )
 }
 
