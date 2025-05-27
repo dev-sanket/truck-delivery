@@ -571,3 +571,13 @@
   justify-content: start;
   padding-left: 30%
 }
+
+.custom-input {
+  --background: #FFFFFF;
+  --border-radius: 8px;
+  --padding-start: 10px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #000000;
+  font-family: 'Poppins';
+}

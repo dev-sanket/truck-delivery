@@ -32,7 +32,7 @@ const LoginOtp: React.FC = () => {
   };
   const router = useIonRouter();
   const handleSkip = () => {
-    router.push('/app/kyc-verification', 'root', 'replace');
+    
   };
 
 
@@ -49,7 +49,7 @@ const LoginOtp: React.FC = () => {
         presentToast(response?.message, 'top', 'success')
         console.log('OTP verified:', response);
         login(response.data);
-        // router.push('/app/kyc-verification', 'root', 'replace');
+        router.push('/app/kyc-verification', 'root', 'replace');
       } else {
         const errorMessage = response?.errors?.errorMessage || response?.message || "Something went wrong";
         presentToast(errorMessage, 'top', 'danger')
