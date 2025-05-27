@@ -43,7 +43,7 @@ const Login: React.FC = () => {
         "MobileNumber": mobileNumber
       }, 'sendOTP');
       if (response?.status) {
-        presentToast(response?.message, 'bottom')
+        presentToast(response?.message, 'top')
         console.log('User created:', response);
         history.push({
           pathname: '/auth/login-otp',
@@ -51,10 +51,10 @@ const Login: React.FC = () => {
         });
       } else {
         const errorMessage = response?.errors?.errorMessage || response?.message || "Something went wrong";
-        presentToast(errorMessage, 'bottom', 'danger')
+        presentToast(errorMessage, 'top', 'danger')
       }
     } catch (error: any) {
-      presentToast(error?.message, 'bottom', 'danger')
+      presentToast(error?.message, 'top', 'danger')
       console.error('Error creating user:', error);
     } finally {
       setIsLoading(false)

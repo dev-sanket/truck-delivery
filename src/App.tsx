@@ -2,6 +2,8 @@ import type React from "react"
 import { Redirect, Route } from "react-router-dom"
 import { IonApp, IonRouterOutlet, setupIonicReact } from "@ionic/react"
 import { IonReactRouter } from "@ionic/react-router"
+import { useAuth } from "./store/AuthContext"
+import { Providers } from "./store/Providers"
 
 /* Core CSS required for Ionic components */
 import "@ionic/react/css/core.css"
@@ -26,18 +28,27 @@ import Tabs from "./pages/app/Tabs"
 
 setupIonicReact()
 
-const App: React.FC = () => (
+const AppRoutes: React.FC = () => {
+  const { isAuthenticated } = useAuth();
 
+  return (
+    <IonRouterOutlet>
+      <Route path="/auth" component={AuthIndex} />
+      <Route path="/app" component={Tabs} />
+      <Route exact path="/">
+        <Redirect to={isAuthenticated ? "/app" : "/auth"} />
+      </Route>
+    </IonRouterOutlet>
+  );
+};
+
+const App: React.FC = () => (
   <IonApp>
-    <IonReactRouter>
-      <IonRouterOutlet>
-        <Route path="/auth" component={AuthIndex} />
-        <Route path="/app" component={Tabs} />
-        <Route exact path="/">
-          <Redirect to="/auth" />
-        </Route>
-      </IonRouterOutlet>
-    </IonReactRouter>
+    <Providers>
+      <IonReactRouter>
+        <AppRoutes />
+      </IonReactRouter>
+    </Providers>
   </IonApp>
 )
 

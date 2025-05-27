@@ -13,20 +13,17 @@ import {
   IonLabel,
   IonButtons,
   useIonToast,
+  IonRefresher,
+  IonRefresherContent,
+  RefresherEventDetail,
 } from "@ionic/react";
 import { chevronForward, navigate } from "ionicons/icons";
 import "./NewDashboard.css";
 import Header from "../../components/Header";
 import { useHistory } from "react-router";
-import { useEffect } from "react"; // ✅ Added
+import { useEffect, useState } from "react"; // ✅ Added
 import banner from "../../assets/images/banner.png";
 
-import TollRecharge from "../../assets/images/TollRecharge.png";
-import Mechanic from "../../assets/images/Mechanic.png";
-import Dhaba from "../../assets/images/Dhaba.png";
-import Insurance from "../../assets/images/Insurance.png";
-import legalAdvice from "../../assets/images/legalAdvice.png";
-import Recharge from "../../assets/images/Recharge.png";
 
 import truckIcon from "../../assets/images/icons/truck_icon.svg";
 import tripsIcon from "../../assets/images/icons/trips_icon.svg";
@@ -36,6 +33,8 @@ import legalAdviceIcon from "../../assets/images/icons/legal_advice_icon.svg";
 import rechargeIcon from "../../assets/images/icons/recharge_icon.svg";
 import tollRechargeIcon from "../../assets/images/icons/toll_recharge_icon.svg";
 import dhabaIcon from "../../assets/images/icons/dhaba_icon.svg";
+import { useAuth } from "../../store/AuthContext";
+import { getApiCall, postApiCall } from "../../utils/api/api";
 
 const otherServices = [
   { icon: insuranceIcon, title: "Insurance" },
@@ -46,10 +45,26 @@ const otherServices = [
   { icon: legalAdviceIcon, title: "Legal Advice" },
 ];
 
+interface DashboardData {
+  KYCVerification: boolean;
+  UserDetails: {
+    UsersID: string;
+    FullName: string;
+    MobileNumber: string;
+    AadharDocument: string;
+    PanDocument: string;
+    RCDocument: string;
+  }
+}
+
 const NewDashboard: React.FC = () => {
   const history = useHistory<History>();
   const [present] = useIonToast();
-
+  const { user } = useAuth();
+  if (!user) {
+    history.push("/auth");
+  }
+  const [dashboardData, setDashboardData] = useState<DashboardData>();
   const handleKyc = () => history.push("/app/kyc-verification");
   const handleLoad = () => history.push("/app/load");
   const presentToast = (position: "top" | "middle" | "bottom") => {
@@ -61,6 +76,7 @@ const NewDashboard: React.FC = () => {
     if (routerOutlet) {
       routerOutlet.swipeHandler = undefined;
     }
+    getDashboardData();
   }, []);
 
   // ✅ Add left swipe to exit app
@@ -89,6 +105,21 @@ const NewDashboard: React.FC = () => {
     };
   }, []);
 
+  const getDashboardData = async () => {
+    const response = await postApiCall({
+      "UsersID": user?.UsersID
+    }, "dashboard");
+    console.log(response);
+    if (response?.status) {
+      setDashboardData(response.data);
+    }
+  };
+
+  const handleRefresh = async (event: CustomEvent<RefresherEventDetail>) => {
+    await getDashboardData();
+    event.detail.complete();
+  }
+
   return (
     <IonPage>
       <Header
@@ -97,6 +128,9 @@ const NewDashboard: React.FC = () => {
         showUserIcon={true}
       />
       <IonContent className="ion-padding">
+        <IonRefresher slot="fixed" pullFactor={0.5} pullMin={100} pullMax={200} onIonRefresh={handleRefresh}>
+          <IonRefresherContent></IonRefresherContent>
+        </IonRefresher>
         <IonGrid className="ion-no-padding">
           <IonRow className="ion-justify-content-between">
             <IonCol size="12">
@@ -114,25 +148,27 @@ const NewDashboard: React.FC = () => {
               </div>
             </IonCol>
           </IonRow>
-          <IonRow className="mt-2x">
-            <IonCol size="12">
-              <div
-                className="kyc-content kyc-card"
-                style={{ width: "100%" }}
-                onClick={handleKyc}
-              >
-                <div>
-                  <div className="kyc-title ion-margin-bottom">
-                    KYC verification Pending
+          {!dashboardData?.KYCVerification && (
+            <IonRow className="mt-2x">
+              <IonCol size="12">
+                <div
+                  className="kyc-content kyc-card"
+                  style={{ width: "100%" }}
+                  onClick={handleKyc}
+                >
+                  <div>
+                    <div className="kyc-title ion-margin-bottom">
+                      KYC verification Pending
+                    </div>
+                    <div className="kyc-subtitle">
+                      Verify KYC to enjoy verified loads
+                    </div>
                   </div>
-                  <div className="kyc-subtitle">
-                    Verify KYC to enjoy verified loads
-                  </div>
+                  <IonIcon icon={chevronForward} className="kyc-arrow" />
                 </div>
-                <IonIcon icon={chevronForward} className="kyc-arrow" />
-              </div>
-            </IonCol>
-          </IonRow>
+              </IonCol>
+            </IonRow>
+          )}
           <IonRow className="mt-2x">
             <IonCol size="12">
               <IonCard

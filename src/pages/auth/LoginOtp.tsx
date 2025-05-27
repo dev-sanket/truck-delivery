@@ -9,11 +9,14 @@ import { postApiCall } from "../../utils/api/api"
 import Header from "../../components/Header"
 import { useLocation } from "react-router-dom";
 import OtpInput from 'react-otp-input';
+import { useAuth } from "../../store/AuthContext"
 
 
 const LoginOtp: React.FC = () => {
   const location = useLocation<{ mobileNumber: string }>();
   const mobileNumber = location.state?.mobileNumber;
+  const { login } = useAuth();
+
   const [present] = useIonToast();
   const [otp, setOtp] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -44,8 +47,9 @@ const LoginOtp: React.FC = () => {
       }, 'verifyotp');
       if (response?.status) {
         presentToast(response?.message, 'top', 'success')
-        console.log('User created:', response);
-        router.push('/app/kyc-verification', 'root', 'replace');
+        console.log('OTP verified:', response);
+        login(response.data);
+        // router.push('/app/kyc-verification', 'root', 'replace');
       } else {
         const errorMessage = response?.errors?.errorMessage || response?.message || "Something went wrong";
         presentToast(errorMessage, 'top', 'danger')
