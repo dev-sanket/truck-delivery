@@ -97,7 +97,7 @@ const Login: React.FC = () => {
                       onBlur={handleBlur}
                       value={values.mobileNumber}
                     >
-                      <IonIcon slot="start" icon={callOutline} size="large" aria-hidden="true"></IonIcon>
+                      <IonIcon slot="start" icon={callOutline} size="small" aria-hidden="true"></IonIcon>
                     </IonInput>
                   </IonCol>
                 </IonRow>

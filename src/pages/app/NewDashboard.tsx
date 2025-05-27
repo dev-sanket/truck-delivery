@@ -5,11 +5,9 @@ import {
   IonCard,
   IonCardContent,
   IonIcon,
-  IonButton,
   IonGrid,
   IonRow,
   IonCol,
-  IonItem,
   IonLabel,
   IonButtons,
   useIonToast,
@@ -17,7 +15,7 @@ import {
   IonRefresherContent,
   RefresherEventDetail,
 } from "@ionic/react";
-import { chevronForward, navigate } from "ionicons/icons";
+import { chevronForward } from "ionicons/icons";
 import "./NewDashboard.css";
 import Header from "../../components/Header";
 import { useHistory } from "react-router";

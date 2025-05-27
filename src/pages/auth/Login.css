@@ -31,16 +31,6 @@
   flex-direction: column;
 }
 
-.custom-input {
-  --background: #FFFFFF;
-  --border-radius: 8px;
-  --padding-start: 10px;
-  font-size: 13px;
-  font-weight: 500;
-  color: #000000;
-  font-family: 'Poppins';
-}
-
 .continue-button {
   --background: #000;
   --border-radius: 8px;
