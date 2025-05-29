@@ -6,7 +6,7 @@ import "../../assets/styles/main.css"
 import Header from "../../components/Header"
 import DocumentSelect from "../../components/DocumentSelect"
 import { useAuth } from "../../store/AuthContext";
-import { getApiCall, postApiCall } from "../../utils/api/api";
+import { getApiCall, postApiCall, uploadFileAPI } from "../../utils/api/api";
 import { KycFormValidation } from "../../utils/validator"
 import { Formik } from "formik";
 import * as Yup from "yup";
@@ -62,10 +62,11 @@ const KycVerification: React.FC = () => {
       }
     };
     const handleSubmit = async (values: any) => {
-      let PostFileName:any=[]
-      PostFileName.push(values['AadharDocument'])
-      PostFileName.push(values['PanDocument'])
-      PostFileName.push(values['RCDocument'])
+      let PostFileName = new FormData();
+      // let PostFileName:any=[]
+      PostFileName.append("PostFileName", values['AadharDocument']);
+      PostFileName.append("PostFileName", values['PanDocument']);
+      PostFileName.append("PostFileName", values['RCDocument']);
       let kycData = {
         UsersID: Number  (user?.UsersID),
         FullName: values.FullName,
@@ -75,12 +76,8 @@ const KycVerification: React.FC = () => {
       };
       console.log(PostFileName,"PostFileName")
       console.log(kycData,"kycData")
-      // const [response1, response2] = await Promise.all([
-      //   postApiCall({ PostFileName }, 'uploadfileinserver'),
-      //   postApiCall({ kycData }, 'KYCVerification')
-      // ]);
 try {
-  const response1 = await postApiCall({ PostFileName }, 'uploadfileinserver');
+  const response1 = await uploadFileAPI(PostFileName, 'uploadfileinserver');
   if (response1?.status) {
     // Only call KYCVerification if uploadfileinserver succeeded
     const response2 = await postApiCall({ kycData }, 'KYCVerification');
@@ -106,7 +103,7 @@ try {
 
 
     // router.push("/app/dashboard");
-  };
+    };
   return (
     <IonPage>
       <Header showBackButton={false} showSkipIcon={true} handleSkip={handleSkip} />

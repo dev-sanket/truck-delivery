@@ -20,14 +20,14 @@ import {
 import "./SearchLoads.css";
 import LoadListing from "../../components/LoadList";
 import viceVersa from "../../assets/images/vice-versa.png";
-import greenDot from "../../assets/images/greenDot.png";
+import greenDot from "../../assets/images/greendot.png";
 import redDot from "../../assets/images/redDot.png";
 import { useHistory } from "react-router";
 import { Formik } from "formik";
 import { trashOutline } from "ionicons/icons";
 
 const SearchLoads: React.FC = () => {
-  const history = useHistory<History>();
+  const history :any = useHistory<History>();
 
   const [previousSearchLoads, setPreviousSearchLoads] = useState<{ fromLocation: string, toLocation: string }[]>([]);
 

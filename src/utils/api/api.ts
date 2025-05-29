@@ -10,3 +10,12 @@ export const postApiCall = async (payload: any,url:string) => {
   const response = await api.post(`/${url}`, payload);
   return response.data;
 };
+export const uploadFileAPI = async (payload: FormData, url: string) => {
+  try {
+    const response = await api.post(`/${url}`, payload);
+    return response.data;
+  } catch (error) {
+    console.error("File upload error:", error);
+    throw error;
+  }
+};

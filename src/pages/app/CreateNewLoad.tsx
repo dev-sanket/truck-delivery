@@ -1,14 +1,82 @@
-"use client"
+"use client";
 
-import type React from "react"
-import { useState } from "react"
-import { IonContent, IonPage, IonInput, IonButton, IonItem, IonLabel, IonGrid, IonRow, IonCol, IonList, IonSelect, IonSelectOption } from "@ionic/react"
-import "./CreateNewLoad.css"
-import Header from "../../components/Header"
-
+import type React from "react";
+import { useState } from "react";
+import {
+  IonContent,
+  IonPage,
+  IonInput,
+  IonButton,
+  IonItem,
+  IonLabel,
+  IonGrid,
+  IonRow,
+  IonCol,
+  IonList,
+  IonSelect,
+  IonSelectOption,
+  useIonToast,
+  useIonRouter,
+} from "@ionic/react";
+import "../../assets/styles/main.css";
+import "./CreateNewLoad.css";
+import Header from "../../components/Header";
+import { useAuth } from "../../store/AuthContext";
+import { CreateLoadFormValidation } from "../../utils/validator";
+import { Formik } from "formik";
+import * as Yup from "yup";
+import { postApiCall } from "../../utils/api/api";
 const CreateNewLoad: React.FC = () => {
-
-
+  const [present] = useIonToast();
+  const { user } = useAuth();
+  console.log("USER --- ", user);
+  const presentToast = (
+    message: string,
+    position: "top" | "middle" | "bottom",
+    color: "danger" | "success" | "warning" = "success"
+  ) => {
+    present({
+      message: message,
+      duration: 1500,
+      position: position,
+      color: color,
+    });
+  };
+  const initialValues = {
+    UsersID: "",
+    LoadFrom: null,
+    LoadTo: null,
+    VehicleType: null,
+    ProductType: null,
+    TotalDistance: null,
+    RatePerTon: null,
+    ProductWeight: null,
+    PaymentTerms: null,
+  };
+  const router = useIonRouter();
+  const handleSubmit = async (values: any)  => {
+    console.log(values,"VALUES")
+    let payload={
+    UsersID: user?.UsersID,
+    ProductType: values?.ProductType,
+    ProductWeight: values?.ProductWeight,
+    LoadFrom: values?.LoadFrom,
+    LoadTo: values?.LoadTo
+    }
+    try {
+      const response1 = await postApiCall(payload, 'createLoad');
+      if (response1?.status) {
+        presentToast("Creation of load successful!","top","success");
+          router.push('/app/dashboard');
+      } else {
+        console.error('Creation of load failed!', response1);
+      }
+    } catch (error) {
+      // Handle unexpected errors
+      presentToast("OOps something is wrong!","top","danger");
+      console.error('API call error:', error);
+    }
+  };
   return (
     <IonPage>
       <Header showBackButton={true} />
@@ -23,122 +91,192 @@ const CreateNewLoad: React.FC = () => {
             </IonCol>
           </IonRow>
           <IonRow className="pt-2x">
-            <IonCol size="12" >
-              <form style={{ width: '100%', padding: '0px 10px' }}>
+            <IonCol size="12">
+              <Formik
+                initialValues={initialValues}
+                validationSchema={CreateLoadFormValidation()}
+                onSubmit={handleSubmit}
+              >
+                {({
+                  values,
+                  errors,
+                  touched,
+                  setFieldValue,
+                  handleChange,
+                  handleSubmit,
+                }) => (
+                  <form onSubmit={handleSubmit}>
+                    <IonGrid className="ion-no-margin">
+                      <IonRow>
+                        {/* <IonCol size="12">
+                    <div className="title">KYC Verification</div>
+                    <div className="subtitle">Upload your documents to verify your account</div>
+                  </IonCol> */}
+                        <IonCol size="12" className="mt-3x">
+                          <IonInput
+                            className={`custom-input ${
+                              errors.LoadFrom && "ion-invalid"
+                            } ${touched.LoadFrom && "ion-touched"} mb-1.5x`}
+                            type="text"
+                            fill="outline"
+                            label="Loading Point"
+                            labelPlacement="floating"
+                            placeholder="Enter a loading point"
+                            mode="md"
+                            errorText={errors.LoadFrom}
+                            value={values.LoadFrom}
+                            onIonInput={(e: any) =>
+                              setFieldValue("LoadFrom", e.detail.value)
+                            }
+                          />
+                          <IonInput
+                            className={`custom-input ${
+                              errors.LoadTo && "ion-invalid"
+                            } ${touched.LoadTo && "ion-touched"} mb-1.5x`}
+                            type="text"
+                            fill="outline"
+                            label="Unloading Point"
+                            labelPlacement="floating"
+                            placeholder="Enter a Unloading point"
+                            mode="md"
+                            errorText={errors.LoadTo}
+                            value={values.LoadTo}
+                            onIonInput={(e: any) =>
+                              setFieldValue("LoadTo", e.detail.value)
+                            }
+                          />
+                          <IonInput
+                            className={`custom-input ${
+                              errors.VehicleType && "ion-invalid"
+                            } ${touched.VehicleType && "ion-touched"} mb-1.5x`}
+                            type="text"
+                            fill="outline"
+                            label="Vehicle Type"
+                            labelPlacement="floating"
+                            placeholder="Enter a vehicle type"
+                            mode="md"
+                            errorText={errors.VehicleType}
+                            value={values.VehicleType}
+                            onIonInput={(e: any) =>
+                              setFieldValue("VehicleType", e.detail.value)
+                            }
+                          />
+                          <IonInput
+                            className={`custom-input ${
+                              errors.ProductWeight && "ion-invalid"
+                            } ${
+                              touched.ProductWeight && "ion-touched"
+                            } mb-1.5x`}
+                            type="text"
+                            fill="outline"
+                            label="Product Weight"
+                            labelPlacement="floating"
+                            placeholder="Enter a product weight"
+                            mode="md"
+                            errorText={errors.ProductWeight}
+                            value={values.ProductWeight}
+                            onIonInput={(e: any) =>
+                              setFieldValue("ProductWeight", e.detail.value)
+                            }
+                          />
+                          <IonInput
+                            className={`custom-input ${
+                              errors.TotalDistance && "ion-invalid"
+                            } ${
+                              touched.TotalDistance && "ion-touched"
+                            } mb-1.5x`}
+                            type="text"
+                            fill="outline"
+                            label="Total Distance"
+                            labelPlacement="floating"
+                            placeholder="Enter a total distance"
+                            mode="md"
+                            errorText={errors.TotalDistance}
+                            value={values.TotalDistance}
+                            onIonInput={(e: any) =>
+                              setFieldValue("TotalDistance", e.detail.value)
+                            }
+                          />
+                          <IonInput
+                            className={`custom-input ${
+                              errors.RatePerTon && "ion-invalid"
+                            } ${touched.RatePerTon && "ion-touched"} mb-1.5x`}
+                            type="text"
+                            fill="outline"
+                            label="Rate per ton"
+                            labelPlacement="floating"
+                            placeholder="Enter a rate per ton"
+                            mode="md"
+                            errorText={errors.RatePerTon}
+                            value={values.RatePerTon}
+                            onIonInput={(e: any) =>
+                              setFieldValue("RatePerTon", e.detail.value)
+                            }
+                          />
+                          <IonInput
+                            className={`custom-input ${
+                              errors.ProductType && "ion-invalid"
+                            } ${touched.ProductType && "ion-touched"} mb-1.5x`}
+                            type="text"
+                            fill="outline"
+                            label="Product Type"
+                            labelPlacement="floating"
+                            placeholder="Enter a product type"
+                            mode="md"
+                            errorText={errors.ProductType}
+                            value={values.ProductType}
+                            onIonInput={(e: any) =>
+                              setFieldValue("ProductType", e.detail.value)
+                            }
+                          />
+                           <IonSelect
+                            className={`custom-input ${
+                              errors.PaymentTerms && "ion-invalid"
+                            } ${touched.PaymentTerms && "ion-touched"} mb-1.5x`}
+                            label="Payment Terms"
+                            labelPlacement="floating"
+                            fill="outline"
+                            errorText={errors.PaymentTerms}
+                            value={values.PaymentTerms}
+                            onIonChange={(e: any) =>
+                              setFieldValue("PaymentTerms", e.detail.value)
+                            }
+                          >
+                            <IonSelectOption value="apple">
+                              Cash
+                            </IonSelectOption>
+                            <IonSelectOption value="banana">
+                              Online
+                            </IonSelectOption>
+                            <IonSelectOption value="orange">
+                              Credit
+                            </IonSelectOption>
+                          </IonSelect>
 
 
-                <IonInput
-                  // className={`${isValid && 'ion-valid'} ${isValid === false && 'ion-invalid'} ${isTouched && 'ion-touched'}`}
-                  type="text"
-                  fill="outline"
-                  label="Loading Point"
-                  labelPlacement="floating"
-                  errorText=""
-                  className="custom-input mb-1.5x"
-                  placeholder="Enter a loading point"
-                  helperText=""
-                  mode="md"
-                />
-
-                <IonInput
-                  // className={`${isValid && 'ion-valid'} ${isValid === false && 'ion-invalid'} ${isTouched && 'ion-touched'}`}
-                  type="text"
-                  fill="outline"
-                  label="Unloading Point"
-                  labelPlacement="floating"
-                  errorText=""
-                  className="custom-input mb-1.5x"
-                  placeholder="Enter a Unloading point"
-                  helperText=""
-                  mode="md"
-                />
-                <IonInput
-                  // className={`${isValid && 'ion-valid'} ${isValid === false && 'ion-invalid'} ${isTouched && 'ion-touched'}`}
-                  type="text"
-                  fill="outline"
-                  label="Vehicle Type"
-                  labelPlacement="floating"
-                  errorText=""
-                  className="custom-input mb-1.5x"
-                  placeholder="Enter a vehicle type"
-                  helperText=""
-                  mode="md"
-                />
-                <IonInput
-                  // className={`${isValid && 'ion-valid'} ${isValid === false && 'ion-invalid'} ${isTouched && 'ion-touched'}`}
-                  type="number"
-                  fill="outline"
-                  label="Product Weight"
-                  labelPlacement="floating"
-                  errorText=""
-                  className="custom-input mb-1.5x"
-                  placeholder="Enter a product weight"
-                  helperText=""
-                  mode="md"
-                />
-
-                <IonInput
-                  // className={`${isValid && 'ion-valid'} ${isValid === false && 'ion-invalid'} ${isTouched && 'ion-touched'}`}
-                  type="number"
-                  fill="outline"
-                  label="Total Distance"
-                  labelPlacement="floating"
-                  errorText=""
-                  className="custom-input mb-1.5x"
-                  placeholder="Enter a total distance"
-                  helperText=""
-                  mode="md"
-                />
-                <IonInput
-                  // className={`${isValid && 'ion-valid'} ${isValid === false && 'ion-invalid'} ${isTouched && 'ion-touched'}`}
-                  type="number"
-                  fill="outline"
-                  label="Rate per ton"
-                  labelPlacement="floating"
-                  errorText=""
-                  className="custom-input mb-1.5x"
-                  placeholder="Enter a rate per ton"
-                  helperText=""
-                  mode="md"
-                />
-                <IonInput
-                  // className={`${isValid && 'ion-valid'} ${isValid === false && 'ion-invalid'} ${isTouched && 'ion-touched'}`}
-                  type="number"
-                  fill="outline"
-                  label="Product Type"
-                  labelPlacement="floating"
-                  errorText=""
-                  className="custom-input"
-                  placeholder="Enter a product type"
-                  helperText=""
-                  mode="md"
-                />
-
-                <IonSelect label="Payment Terms" labelPlacement="floating" fill="outline" className="custom-input mb-1.5x">
-                  <IonSelectOption value="apple">Cash</IonSelectOption>
-                  <IonSelectOption value="banana">Online</IonSelectOption>
-                  <IonSelectOption value="orange">Credit</IonSelectOption>
-                </IonSelect>
-
-
-              </form>
-            </IonCol>
-
-
-
-          </IonRow>
-          <IonRow >
-            <IonCol size="12" >
-              <IonButton expand="block" className="confirm-button" routerLink="/app/dashboard">
-                Confirm
-              </IonButton>
+                        <IonRow>
+                          <IonCol size="12">     
+                            <IonButton
+                              expand="block"
+                              className="confirm-button"
+                              type="submit" 
+                            >
+                              Confirm
+                            </IonButton>
+                          </IonCol>              
+                        </IonRow>
+                        </IonCol>
+                      </IonRow>
+                    </IonGrid>
+                  </form>
+                )}
+              </Formik>
             </IonCol>
           </IonRow>
         </IonGrid>
       </IonContent>
-    </IonPage >
-  )
-}
+    </IonPage>
+  );
+};
 
-export default CreateNewLoad
-
+export default CreateNewLoad;
