@@ -534,12 +534,12 @@
   color: #333;
 }
 
-.custom-input {
+/* .custom-input {
   --background: #f5f5f5;
   --border-radius: 8px;
   --padding-start: 10px;
   margin-top: 5px;
-}
+} */
 
 .signup-button {
   --background: #000;
@@ -576,7 +576,7 @@
   --background: #FFFFFF;
   --border-radius: 8px;
   --padding-start: 10px;
-  font-size: 13px;
+  font-size: 16px;
   font-weight: 500;
   color: #000000;
   font-family: 'Poppins';

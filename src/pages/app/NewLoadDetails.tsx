@@ -35,16 +35,27 @@ import {
   IonTitle,
   IonToolbar,
 } from "@ionic/react";
-import { useState } from "react";
-import { useHistory } from "react-router";
+import { useEffect, useState } from "react";
+import { useHistory, useLocation } from "react-router";
+import { postApiCall } from "../../utils/api/api";
+import { useAuth } from "../../store/AuthContext";
 const NewLoadDetails: React.FC = () => {
   const history = useHistory<History>();
+  const location = useLocation<{ fromLocation: string, toLocation: string }>();
+  const { fromLocation, toLocation } = location.state || { fromLocation: "", toLocation: "" };
+  const { user } = useAuth();
+
+  if (!user) {
+    history.push("/auth");
+  }
+
   const [present] = useIonToast();
-  const presentToast = (position: "top" | "middle" | "bottom") => {
+  const presentToast = (position: "top" | "middle" | "bottom", message: string, color: 'success' | 'danger' | 'warning' = "success") => {
     present({
-      message: "Coming Soon!",
+      message: message,
       duration: 1500,
       position: position,
+      color: color,
     });
   };
   const [selectedSegment, setSelectedSegment] = useState("open");
@@ -53,7 +64,33 @@ const NewLoadDetails: React.FC = () => {
     if (e.detail.value == "open" || e.detail.value == "confirmed") {
       setSelectedSegment(e.detail.value);
     } else {
-      presentToast("middle");
+      presentToast("middle", "Something went wrong", 'danger');
+    }
+  };
+
+  useEffect(() => {
+    getLoadDetails();
+  }, []);
+
+  const getLoadDetails = async () => {
+    try {
+      const response = await postApiCall({
+        "UsersID": user?.UsersID,
+        "LoadFrom": fromLocation,
+        "LoadTo": toLocation
+      }, "SearchLoad");
+      console.log("Response", response);
+      if (response?.status) {
+        console.log(response.data);
+      } else {
+        console.log("Response111", response);
+        const message = response?.errors?.errorMessage || response?.message || "Something went wrong";
+        presentToast('top', message, 'danger');
+      }
+
+    } catch (error) {
+      presentToast('top', "Something went wrong", 'danger');
+      console.error(error);
     }
   };
 

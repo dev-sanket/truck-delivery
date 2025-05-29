@@ -20,3 +20,11 @@ export const KycFormValidation = () => {
 
   return validationSchema;
 };
+
+export const SearchLoadFormValidation = () => {
+  const validationSchema = Yup.object({
+    fromLocation: Yup.string().required("From Location is required"),
+    toLocation: Yup.string().required("To Location is required"),
+  });
+  return validationSchema;
+};

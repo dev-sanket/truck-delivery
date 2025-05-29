@@ -15,12 +15,12 @@ import {
 } from "@ionic/react"
 import { chevronForward, home, search as searchIcon, notifications, person } from "ionicons/icons"
 import "../../src/assets/styles/main.css";
-const LoadListing: React.FC = () => {
+const LoadListing: React.FC<{ fromLocation: string, toLocation: string }> = ({ fromLocation, toLocation }) => {
   return (
     <IonCard className="load-card" routerLink="/load-details">
       <IonCardContent>
         <div className="load-card-content">
-          <div className="load-location">Jamshedpur-Siliguri</div>
+          <div className="load-location">{fromLocation}-{toLocation}</div>
           <IonIcon icon={chevronForward} className="load-arrow" />
         </div>
       </IonCardContent>

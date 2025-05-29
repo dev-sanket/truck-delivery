@@ -27,14 +27,14 @@ import PlaceBid from "./Bids";
 import LoadPage from "./Load";
 import { useIonToast } from '@ionic/react';
 const Tabs: React.FC = () => {
-     const [present] = useIonToast();
+    const [present] = useIonToast();
     const presentToast = (position: 'top' | 'middle' | 'bottom') => {
-    present({
-      message: 'Coming Soon!',
-      duration: 1500,
-      position: position,
-    });
-  };
+        present({
+            message: 'Coming Soon!',
+            duration: 1500,
+            position: position,
+        });
+    };
     return (
         <IonTabs>
             <IonRouterOutlet >
@@ -61,11 +61,11 @@ const Tabs: React.FC = () => {
                     <IonIcon icon={search} />
                     <IonLabel>Search</IonLabel>
                 </IonTabButton>
-                <IonTabButton tab="notifications"  onClick={() => presentToast('middle')}>
+                <IonTabButton tab="notifications" onClick={() => presentToast('middle')}>
                     <IonIcon icon={notifications} />
                     <IonLabel>Alerts</IonLabel>
                 </IonTabButton>
-                <IonTabButton tab="profile"  onClick={() => presentToast('middle')}>
+                <IonTabButton tab="profile" onClick={() => presentToast('middle')}>
                     <IonIcon icon={person} />
                     <IonLabel>Profile</IonLabel>
                 </IonTabButton>

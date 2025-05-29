@@ -9,6 +9,7 @@ import redDot from "../../assets/images/redDot.png"
 import LoadCarrierDetails from "../../components/LoadcarrierDetails"
 import "./LoadDetails.css"
 import Header from "../../components/Header"
+import { useLocation } from "react-router";
 
 const LoadDetails: React.FC = () => {
 
