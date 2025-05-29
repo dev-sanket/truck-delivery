@@ -45,7 +45,7 @@ const Tabs: React.FC = () => {
                 <Route path="/app/load" component={LoadPage} />
                 <Route path="/app/kyc-verification" component={KycVerification} />
                 <Route path="/app/load-create" component={CreateNewLoad} />
-                <Route path="/app/place-bid" component={PlaceBid} />
+                <Route path="/app/place-bid/:loadId" component={PlaceBid} />
 
                 <Route exact path="/app">
                     <Redirect to="/app/dashboard" />

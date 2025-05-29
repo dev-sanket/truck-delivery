@@ -11,33 +11,51 @@ import {
   IonInput,
   IonGrid,
   IonFooter,
+  IonRefresher,
+  IonRefresherContent,
+  RefresherEventDetail,
 } from "@ionic/react";
-import {
-  arrowBack,
-  call,
-  home,
-  search as searchIcon,
-  notifications,
-  person,
-  chevronForward,
-  callOutline,
-} from "ionicons/icons";
-import { Link, useHistory } from "react-router-dom";
-import userIcon from "../../assets/images/user.png";
+
 import arrow from "../../assets/images/arrow.png";
 import miniPickup from "../../assets/images/miniTruckBlack.png";
-import measure from "../../assets/images/measure.png";
-import weighIcon from "../../assets/images/weighIcon.png";
 import "../../assets/styles/main.css";
-import LoadDetailsHeader from "../../components/LoadDetailsHeader";
+
 import Header from "../../components/Header";
 import rupeeIcon from "../../assets/images/icons/indian-rupee.svg";
+import { useEffect, useState } from "react";
+import { postApiCall } from "../../utils/api/api";
+import { LoadData } from "./NewLoadDetails";
+import { useParams } from "react-router-dom";
 const PlaceBid: React.FC = () => {
+  const { loadId } = useParams<{ loadId: string }>();
+
+  const [bidData, setBidData] = useState<LoadData | null>(null);
+
+  useEffect(() => {
+    getLoadDetails();
+  })
+
+  const getLoadDetails = async () => {
+    const response = await postApiCall({
+      "LoadsID": loadId
+    }, "getLoadDetails");
+    if (response?.status) {
+      setBidData(response.data);
+    }
+  }
+
+  const handleRefresh = async (event: CustomEvent<RefresherEventDetail>) => {
+    await getLoadDetails();
+    event.detail.complete();
+  }
+
   return (
     <IonPage>
+      <IonRefresher slot="fixed" pullFactor={0.5} pullMin={100} pullMax={200} onIonRefresh={handleRefresh}>
+        <IonRefresherContent></IonRefresherContent>
+      </IonRefresher>
       <Header showBackButton={true} />
       <IonContent className="ion-padding mt-2x">
-
         <IonGrid className="ion-no-margin">
           <IonRow className="ion-no-margin">
             <IonCol size="12">
@@ -50,7 +68,7 @@ const PlaceBid: React.FC = () => {
                           <div className="route-point-bid">
                             <div className="info-label">From</div>
                             <div className="location-text">
-                              Kharagpur, West Bengal
+                              {bidData?.LoadFrom}
                             </div>
                           </div>
                           <div className="arrow">
@@ -63,7 +81,7 @@ const PlaceBid: React.FC = () => {
                           <div className="route-point-bid">
                             <div className="info-label">To</div>
                             <div className="location-text">
-                              Jalpaiguri, West Bengal
+                              {bidData?.LoadTo}
                             </div>
                           </div>
                         </div>
@@ -76,7 +94,7 @@ const PlaceBid: React.FC = () => {
                             <div className="info-label">Delivery By</div>
                           </div>
                           <div className="product-container-load">
-                            <div className="material-type-bid">April 23 10:30AM</div>
+                            <div className="material-type-bid">{bidData?.LoadCreated}</div>
                           </div>
                         </div>
                       </IonCol>
@@ -123,7 +141,7 @@ const PlaceBid: React.FC = () => {
                           </div>
                           <div className="product-container-load">
                             <div className="material-type-bid">Advance</div>
-                            <div className="material-type-bid">35 TON</div>
+                            <div className="material-type-bid">{bidData?.ProductWeight} TON</div>
                           </div>
                         </div>
                       </IonCol>
@@ -179,6 +197,54 @@ const PlaceBid: React.FC = () => {
                         errorText="Invalid number"
                         className="custom-input"
                         placeholder="Enter a valid bid quantity"
+                        helperText=""
+                        mode="md"
+                        inputmode="numeric"
+                      />
+
+                    </IonCol>
+                    <IonCol size="12">
+                      <IonInput
+                        // className={`${isValid && 'ion-valid'} ${isValid === false && 'ion-invalid'} ${isTouched && 'ion-touched'}`}
+                        type="number"
+                        fill="outline"
+                        label="Driver Name"
+                        labelPlacement="floating"
+                        errorText="Invalid number"
+                        className="custom-input"
+                        placeholder="Enter a valid driver name"
+                        helperText=""
+                        mode="md"
+                        inputmode="numeric"
+                      />
+
+                    </IonCol>
+                    <IonCol size="12">
+                      <IonInput
+                        // className={`${isValid && 'ion-valid'} ${isValid === false && 'ion-invalid'} ${isTouched && 'ion-touched'}`}
+                        type="number"
+                        fill="outline"
+                        label="Driver Contact Number"
+                        labelPlacement="floating"
+                        errorText="Invalid number"
+                        className="custom-input"
+                        placeholder="Enter a valid driver contact number"
+                        helperText=""
+                        mode="md"
+                        inputmode="numeric"
+                      />
+
+                    </IonCol>
+                    <IonCol size="12">
+                      <IonInput
+                        // className={`${isValid && 'ion-valid'} ${isValid === false && 'ion-invalid'} ${isTouched && 'ion-touched'}`}
+                        type="number"
+                        fill="outline"
+                        label="Vehicle Number"
+                        labelPlacement="floating"
+                        errorText="Invalid number"
+                        className="custom-input"
+                        placeholder="Enter a valid driver contact number"
                         helperText=""
                         mode="md"
                         inputmode="numeric"

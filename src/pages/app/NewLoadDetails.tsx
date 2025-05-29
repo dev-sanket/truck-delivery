@@ -4,46 +4,63 @@ import {
   IonPage,
   IonButton,
   IonIcon,
-  IonChip,
   IonLabel,
-  IonTabBar,
-  IonTabButton,
-  IonSelect,
   useIonToast,
+  IonRefresher,
+  IonRefresherContent,
+  RefresherEventDetail,
+  IonModal,
+  IonList,
+  IonItem,
+  IonAvatar,
+  IonImg,
+  IonFooter,
+  IonButtons,
+  IonTitle,
 } from "@ionic/react";
 import {
-  home,
-  search as searchIcon,
-  notifications,
-  person,
-  chevronForward,
-  chevronBack
+  chevronBack,
+  filter
 } from "ionicons/icons";
-import lcvTruck from "../../assets/images/LcvTruck.png";
-import openTruck from "../../assets/images/openTruck.png";
-import Trailer from "../../assets/images/Trailer.png";
-import miniPickup from "../../assets/images/miniPickUpTruck.png";
-import redDot from "../../assets/images/redDot.png";
+
 import LoadCarrierDetails from "../../components/LoadcarrierDetails";
 import "./NewLoadDetails.css";
 import "../../assets/styles/main.css";
-import Header from "../../components/Header";
 import {
   IonHeader,
   IonSegment,
   IonSegmentButton,
-  IonTitle,
   IonToolbar,
 } from "@ionic/react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useHistory, useLocation } from "react-router";
 import { postApiCall } from "../../utils/api/api";
 import { useAuth } from "../../store/AuthContext";
+
+import lcvTruck from "../../assets/images/LcvTruck.png";
+import openTruck from "../../assets/images/openTruck.png";
+import Trailer from "../../assets/images/Trailer.png";
+import miniPickup from "../../assets/images/miniPickUpTruck.png";
+
+export interface LoadData {
+  LoadsID: string;
+  UsersID: string;
+  FullName: string;
+  ProductType: string;
+  ProductWeight: string;
+  LoadFrom: string;
+  LoadTo: string;
+  Status: string;
+  LoadCreated: string;
+}
 const NewLoadDetails: React.FC = () => {
+  const filtersModal = useRef<HTMLIonModalElement>(null);
+  const { user } = useAuth();
   const history = useHistory<History>();
   const location = useLocation<{ fromLocation: string, toLocation: string }>();
   const { fromLocation, toLocation } = location.state || { fromLocation: "", toLocation: "" };
-  const { user } = useAuth();
+  const [loadData, setLoadData] = useState<LoadData[]>([]);
+  const [truckType, setTruckType] = useState<string>("open");
 
   if (!user) {
     history.push("/auth");
@@ -81,7 +98,7 @@ const NewLoadDetails: React.FC = () => {
       }, "SearchLoad");
       console.log("Response", response);
       if (response?.status) {
-        console.log(response.data);
+        setLoadData(response.data);
       } else {
         console.log("Response111", response);
         const message = response?.errors?.errorMessage || response?.message || "Something went wrong";
@@ -94,8 +111,14 @@ const NewLoadDetails: React.FC = () => {
     }
   };
 
+  const handleRefresh = async (event: CustomEvent<RefresherEventDetail>) => {
+    await getLoadDetails();
+    event.detail.complete();
+  }
+
   return (
     <IonPage>
+
       <IonHeader>
         <IonToolbar>
           <IonSegment value={selectedSegment} onIonChange={handleSegmentChange}>
@@ -139,6 +162,9 @@ const NewLoadDetails: React.FC = () => {
             } as React.CSSProperties
           }
         >
+          <IonRefresher slot="fixed" pullFactor={0.5} pullMin={100} pullMax={200} onIonRefresh={handleRefresh}>
+            <IonRefresherContent></IonRefresherContent>
+          </IonRefresher>
           <div className="load-details-container">
             <div className="button-container">
               <IonButton size="small" fill="outline" onClick={() => history.goBack()} className="header-back-button">
@@ -147,9 +173,55 @@ const NewLoadDetails: React.FC = () => {
               <IonButton className="btn1">All Loads</IonButton>
               <IonButton className="btn2">My Bids</IonButton>
               <IonButton className="btn2">No Bids</IonButton>
+              <IonButton size="small" fill="outline" id="filters-modal" className="header-back-button">
+                <IonIcon slot="icon-only" ios={filter} md={filter} size="large"></IonIcon>
+              </IonButton>
             </div>
-            <LoadCarrierDetails />
-            <LoadCarrierDetails />
+            {
+              loadData.map((item: LoadData) => (
+                <LoadCarrierDetails showLabel={true} data={item} key={item.LoadsID} />
+              ))
+            }
+            <IonModal ref={filtersModal} mode="ios" trigger="filters-modal" initialBreakpoint={0.25} breakpoints={[0, 0.25, 0.5, 0.75]}>
+              <IonHeader>
+                <IonToolbar>
+                  <IonTitle>Modal</IonTitle>
+                  <IonButtons slot="end">
+                    <IonButton onClick={() => filtersModal.current?.dismiss()}>Close</IonButton>
+                  </IonButtons>
+                </IonToolbar>
+              </IonHeader>
+              <IonContent className="ion-padding">
+                <IonLabel>Truck Type</IonLabel>
+                <div className="vehicle-chip-container">
+
+                  <div className={`vehicle-chip ${truckType === "open" ? "active" : ""}`} onClick={() => setTruckType("open")}>
+                    <img src={openTruck} alt="phone" style={{ width: 30, height: 30 }} />
+                    <div className="vehicle-chip-header">Open</div>
+                  </div>
+                  <div className={`vehicle-chip ${truckType === "dc" ? "active" : ""}`} onClick={() => setTruckType("dc")}>
+                    <img src={lcvTruck} alt="phone" style={{ width: 30, height: 30 }} />
+                    <div className="vehicle-chip-header">DCM</div>
+                    <div className="description">7.5 to 46 Ton</div>
+                  </div>
+                  <div className={`vehicle-chip ${truckType === "mini" ? "active" : ""}`} onClick={() => setTruckType("mini")}>
+                    <img src={Trailer} alt="phone" style={{ width: 30, height: 30 }} />
+                    <div className="vehicle-chip-header">Mini/Pickup</div>
+                    <div className="description">2.5 to 7 Ton</div>
+                  </div>
+                  <div className={`vehicle-chip ${truckType === "trailer" ? "active" : ""}`} onClick={() => setTruckType("trailer")}>
+                    <img src={miniPickup} alt="phone" style={{ width: 30, height: 30 }} />
+                    <div className="vehicle-chip-header">Trailer</div>
+                    <div className="description">7.5 to 46 Ton</div>
+                  </div>
+
+                </div>
+
+                <IonButton expand="block" color="primary" className="mt-2.5x" onClick={() => filtersModal.current?.dismiss()}>Apply</IonButton>
+
+              </IonContent>
+
+            </IonModal>
           </div>
         </IonContent>
       )}
@@ -173,8 +245,12 @@ const NewLoadDetails: React.FC = () => {
               <IonButton className="btn2">My Bids</IonButton>
               <IonButton className="btn2">No Bids</IonButton>
             </div>
-            <LoadCarrierDetails showLabel={true} />
-            <LoadCarrierDetails showLabel={true} />
+            {
+              loadData.map((item: LoadData) => (
+                <LoadCarrierDetails showLabel={true} data={item} key={item.LoadsID} />
+              ))
+            }
+
           </div>
         </IonContent>
       )}

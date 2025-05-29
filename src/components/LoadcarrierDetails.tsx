@@ -1,43 +1,30 @@
 import type React from "react";
 import {
-  IonContent,
-  IonPage,
   IonButton,
   IonIcon,
-  IonChip,
-  IonLabel,
-  IonTabBar,
-  IonTabButton,
-  IonSelect,
   IonCard,
   IonCardContent,
   IonGrid,
   IonRow,
   IonCol,
 } from "@ionic/react";
-import {
-  arrowBack,
-  call,
-  home,
-  search as searchIcon,
-  notifications,
-  person,
-  chevronForward,
-} from "ionicons/icons";
+
 import "../../src/assets/styles/main.css";
 import { Link, useHistory } from "react-router-dom";
 import userIcon from "../assets/images/user.png";
 import greenDotWhite from "../../src/assets/images/greenDotWhite.png";
 import redDotWhite from "../../src/assets/images/redDotWhite.png";
 import miniPickup from "../assets/images/miniTruckBlack.png";
-import measure from "../assets/images/measure.png";
 import weighIcon from "../assets/images/weighIcon.png";
 import vertical from "../assets/images/icons/vertical.svg";
+import { LoadData } from "../pages/app/NewLoadDetails";
 type LoadCarrierDetailsProps = {
   showLabel?: boolean;
+  data?: LoadData;
 };
 const LoadCarrierDetails: React.FC<LoadCarrierDetailsProps> = ({
   showLabel = false,
+  data,
 }) => {
   const router = useHistory();
   return (
@@ -60,8 +47,8 @@ const LoadCarrierDetails: React.FC<LoadCarrierDetailsProps> = ({
                 </div>
                 <div className="carrier-details">
                   <div className="carrier-container">
-                    <div className="carrier-name">Goyam Road Carriers</div>
-                    <div className="carrier-name-small">Abdol Sattar Gayen</div>
+                    <div className="carrier-name">{data?.FullName}</div>
+                    <div className="carrier-name-small">{data?.FullName}</div>
                   </div>
                   <div className="carrier-rating">
                     <span className="stars">★★★★★</span>
@@ -80,7 +67,7 @@ const LoadCarrierDetails: React.FC<LoadCarrierDetailsProps> = ({
                     alt="phone"
                     style={{ width: 18, height: 18, borderRadius: 50 }}
                   />
-                  <div className="location-text">Kharagpur, West Bengal</div>
+                  <div className="location-text">{data?.LoadFrom}</div>
                 </div>
                 <div className="vertical-dots">
                   <IonIcon
@@ -94,7 +81,7 @@ const LoadCarrierDetails: React.FC<LoadCarrierDetailsProps> = ({
                     alt="phone"
                     style={{ width: 18, height: 18, borderRadius: 50 }}
                   />
-                  <div className="location-text">Jalpaiguri, West Bengal</div>
+                  <div className="location-text">{data?.LoadTo}</div>
                 </div>
               </div>
             </IonCol>
@@ -109,14 +96,14 @@ const LoadCarrierDetails: React.FC<LoadCarrierDetailsProps> = ({
                     alt="phone"
                     style={{ width: 31, height: 31 }}
                   />
-                  <div className="carrier-name" style={{fontSize:12}}>Open Half/Full Body</div>
+                  <div className="carrier-name" style={{ fontSize: 12 }}>Open Half/Full Body</div>
                   <div className="weighIcon">
                     <img
                       src={weighIcon}
                       alt="phone"
                       style={{ width: 20, height: 20 }}
                     />
-                    <div className="carrier-name" style={{fontSize:12}}>21-35 Ton</div>
+                    <div className="carrier-name" style={{ fontSize: 12 }}>{data?.ProductWeight}</div>
                   </div>
                 </div>
               </div>
@@ -182,7 +169,7 @@ const LoadCarrierDetails: React.FC<LoadCarrierDetailsProps> = ({
                   <IonButton
                     expand="block"
                     className="call-button"
-                    onClick={() => router.push('/app/place-bid')}
+                    onClick={() => router.push(`/app/place-bid/${data?.LoadsID}`)}
                     style={{
                       width: "80px",
                       height: "30px",
