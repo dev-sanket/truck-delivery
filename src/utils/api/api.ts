@@ -6,6 +6,7 @@ export const getApiCall = async (id: string,url:string) => {
 };
 
 export const postApiCall = async (payload: any,url:string) => {
+  console.log("PAYLOAD",payload)
   const response = await api.post(`/${url}`, payload);
   return response.data;
 };

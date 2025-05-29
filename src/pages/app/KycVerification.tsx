@@ -10,10 +10,27 @@ import { getApiCall, postApiCall } from "../../utils/api/api";
 import { KycFormValidation } from "../../utils/validator"
 import { Formik } from "formik";
 import * as Yup from "yup";
+import { useEffect, useState } from "react"
+interface UserData {
+  KYCVerification: boolean;
+  UserDetails: {
+    UsersID: string;
+    FullName: string;
+    MobileNumber: string;
+    AadharDocument: string;
+    PanDocument: string;
+    RCDocument: string;
+  }
+}
 const KycVerification: React.FC = () => {
+    const [userData, setUserData] = useState<UserData>();
   const router = useIonRouter();
   const handleSkip = () => {
-    router.push('/app/dashboard');
+    if(userData?.KYCVerification){
+      router.push('/app/dashboard');
+    }else{
+      presentToast('Please verify your KYC!','top','danger')
+    }
   };
     const [present] = useIonToast();
     const { user } = useAuth();
@@ -32,6 +49,18 @@ const KycVerification: React.FC = () => {
     PanDocument: null,
     RCDocument: null,
   }
+    useEffect(() => {
+      getUserData()
+    },[])
+    const getUserData = async () => {
+      const response = await postApiCall({
+        "UsersID": user?.UsersID
+      }, "dashboard");
+      console.log(response);
+      if (response?.status) {
+        setUserData(response.data);
+      }
+    };
     const handleSubmit = async (values: any) => {
       let PostFileName:any=[]
       PostFileName.push(values['AadharDocument'])
@@ -46,10 +75,10 @@ const KycVerification: React.FC = () => {
       };
       console.log(PostFileName,"PostFileName")
       console.log(kycData,"kycData")
-      const [response1, response2] = await Promise.all([
-        postApiCall({ PostFileName }, 'uploadfileinserver'),
-        postApiCall({ kycData }, 'KYCVerification')
-      ]);
+      // const [response1, response2] = await Promise.all([
+      //   postApiCall({ PostFileName }, 'uploadfileinserver'),
+      //   postApiCall({ kycData }, 'KYCVerification')
+      // ]);
 try {
   const response1 = await postApiCall({ PostFileName }, 'uploadfileinserver');
   if (response1?.status) {
@@ -80,7 +109,7 @@ try {
   };
   return (
     <IonPage>
-      <Header showBackButton={false} showSkipIcon={true} handleSkip={() => router.push('/app/dashboard')} />
+      <Header showBackButton={false} showSkipIcon={true} handleSkip={handleSkip} />
       <IonContent className="ion-padding">
         <Formik
           initialValues={initialValues}
