@@ -1,81 +1,80 @@
 .document-section {
-    display: flex;
-    flex-direction: column;
-    gap:2vw
-    /* gap: 5vw;
+  display: flex;
+  flex-direction: column;
+  gap: 2vw;
+  /* gap: 5vw;
     align-items: center; */
-  }
-  
-  .document-title {
-    /* font-weight: bold;
-    margin-bottom: 5px; */
-font-weight: 400;
-font-size: 15px;
-line-height: 100%;
-letter-spacing: 0%;
-color:#424242
+}
 
-  }
-  
-  .upload-box {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    /* width: 390px; */
-    height: 190px;
-    justify-content: center;
-    flex-direction: column;
-  }
-  
-  .upload-icon {
-    font-size: 24px;
-    color: #666;
-    box-shadow: 0px 0px 8px 0px #00000040;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .upload-text {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 2vw;
-  }
-  
-  .upload-format {
-    font-weight: 400;
-font-size: 14px;
-line-height: 100%;
-letter-spacing: 0%;
-    color: #000000;
-  }
-  
-  .select-document {
-    text-align: center;
-    font-size: 12px;
-    font-weight: bold;
-    background-color: #000000;
-    padding: 8px;
-    border-radius: 5px;
-    color: #ffffff;
-  }
-  .document-label{
-font-weight: 600;
-font-size: 17px;
-line-height: 100%;
-letter-spacing: 0%;
-  }
-  .error-text{
-    color: red;
-    font-size: 12px;
-  }
-  .upload-box.upload-error {
+.document-title {
+  /* font-weight: bold;
+    margin-bottom: 5px; */
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  color: #424242;
+}
+
+.upload-box {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  /* width: 390px; */
+  height: 190px;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.upload-icon {
+  font-size: 24px;
+  color: #666;
+  box-shadow: 0px 0px 8px 0px #00000040;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.upload-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2vw;
+}
+
+.upload-format {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  color: #000000;
+}
+
+.select-document {
+  text-align: center;
+  font-size: 12px;
+  font-weight: bold;
+  background-color: #000000;
+  padding: 8px;
+  border-radius: 5px;
+  color: #ffffff;
+}
+.document-label {
+  font-weight: 600;
+  font-size: 17px;
+  line-height: 100%;
+  letter-spacing: 0%;
+}
+.error-text {
+  color: red;
+  font-size: 12px;
+}
+.upload-box.upload-error {
   border-color: red; /* or any other error color you prefer */
 }
 .select-document-wrapper {
@@ -91,4 +90,11 @@ letter-spacing: 0%;
   opacity: 0; /* Makes it invisible */
   cursor: pointer;
   z-index: 2; /* On top of .select-document */
+}
+
+.selected-document {
+  font-size: 9px;
+  padding: 4px;
+  border-radius: 5px;
+  color: #000;
 }

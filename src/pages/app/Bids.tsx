@@ -14,6 +14,7 @@ import {
   IonRefresher,
   IonRefresherContent,
   RefresherEventDetail,
+  useIonToast,
 } from "@ionic/react";
 
 import arrow from "../../assets/images/arrow.png";
@@ -30,17 +31,35 @@ const PlaceBid: React.FC = () => {
   const { loadId } = useParams<{ loadId: string }>();
 
   const [bidData, setBidData] = useState<LoadData | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [present] = useIonToast();
 
+  const presentToast = (position: "top" | "middle" | "bottom", message: string, color: 'success' | 'danger' | 'warning' = "success") => {
+    present({
+      message: message,
+      duration: 1500,
+      position: position,
+      color: color,
+    });
+  };
   useEffect(() => {
     getLoadDetails();
-  })
+  }, []);
 
   const getLoadDetails = async () => {
-    const response = await postApiCall({
-      "LoadsID": loadId
-    }, "getLoadDetails");
-    if (response?.status) {
-      setBidData(response.data);
+    try {
+      setIsLoading(true);
+      const response = await postApiCall({
+        "LoadsID": loadId
+      }, "getLoadDetails");
+      if (response?.status) {
+        setBidData(response.data);
+      }
+    } catch (error) {
+      presentToast("top", "Error fetching load details!", "danger");
+      console.error('Error fetching load details:', error);
+    } finally {
+      setIsLoading(false);
     }
   }
 
@@ -51,11 +70,11 @@ const PlaceBid: React.FC = () => {
 
   return (
     <IonPage>
-      <IonRefresher slot="fixed" pullFactor={0.5} pullMin={100} pullMax={200} onIonRefresh={handleRefresh}>
-        <IonRefresherContent></IonRefresherContent>
-      </IonRefresher>
       <Header showBackButton={true} />
       <IonContent className="ion-padding mt-2x">
+        <IonRefresher slot="fixed" pullFactor={0.5} pullMin={100} pullMax={200} onIonRefresh={handleRefresh}>
+          <IonRefresherContent></IonRefresherContent>
+        </IonRefresher>
         <IonGrid className="ion-no-margin">
           <IonRow className="ion-no-margin">
             <IonCol size="12">

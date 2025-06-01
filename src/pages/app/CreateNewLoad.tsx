@@ -17,6 +17,7 @@ import {
   IonSelectOption,
   useIonToast,
   useIonRouter,
+  IonSpinner,
 } from "@ionic/react";
 import "../../assets/styles/main.css";
 import "./CreateNewLoad.css";
@@ -29,7 +30,8 @@ import { postApiCall } from "../../utils/api/api";
 const CreateNewLoad: React.FC = () => {
   const [present] = useIonToast();
   const { user } = useAuth();
-  console.log("USER --- ", user);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
   const presentToast = (
     message: string,
     position: "top" | "middle" | "bottom",
@@ -54,27 +56,36 @@ const CreateNewLoad: React.FC = () => {
     PaymentTerms: null,
   };
   const router = useIonRouter();
-  const handleSubmit = async (values: any)  => {
-    console.log(values,"VALUES")
-    let payload={
-    UsersID: user?.UsersID,
-    ProductType: values?.ProductType,
-    ProductWeight: values?.ProductWeight,
-    LoadFrom: values?.LoadFrom,
-    LoadTo: values?.LoadTo
+  const handleSubmit = async (values: any) => {
+    setIsLoading(true);
+    console.log(values, "VALUES")
+    let payload = {
+      UsersID: user?.UsersID,
+      ProductType: values?.ProductType,
+      ProductWeight: values?.ProductWeight,
+      LoadFrom: values?.LoadFrom,
+      LoadTo: values?.LoadTo,
+      VehicleType: values?.VehicleType,
+      TotalDistance: values?.TotalDistance,
+      RatePerTon: values?.RatePerTon,
+      PaymentTerms: values?.PaymentTerms,
     }
     try {
-      const response1 = await postApiCall(payload, 'createLoad');
-      if (response1?.status) {
-        presentToast("Creation of load successful!","top","success");
-          router.push('/app/dashboard');
+      const createLoadResponse = await postApiCall(payload, 'createLoad');
+      if (createLoadResponse?.status) {
+        presentToast("Creation of load successful!", "top", "success");
+        router.push('/app/dashboard');
       } else {
-        console.error('Creation of load failed!', response1);
+        const errorMessage = createLoadResponse?.errors?.errorMessage || createLoadResponse?.message || "Creation of load failed!";
+        presentToast(errorMessage, "top", "danger");
+        console.error('Creation of load failed!', createLoadResponse);
       }
     } catch (error) {
       // Handle unexpected errors
-      presentToast("OOps something is wrong!","top","danger");
+      presentToast("OOps something is wrong!", "top", "danger");
       console.error('API call error:', error);
+    } finally {
+      setIsLoading(false);
     }
   };
   return (
@@ -114,9 +125,8 @@ const CreateNewLoad: React.FC = () => {
                   </IonCol> */}
                         <IonCol size="12" className="mt-3x">
                           <IonInput
-                            className={`custom-input ${
-                              errors.LoadFrom && "ion-invalid"
-                            } ${touched.LoadFrom && "ion-touched"} mb-1.5x`}
+                            className={`custom-input ${errors.LoadFrom && "ion-invalid"
+                              } ${touched.LoadFrom && "ion-touched"} mb-1.5x`}
                             type="text"
                             fill="outline"
                             label="Loading Point"
@@ -125,14 +135,13 @@ const CreateNewLoad: React.FC = () => {
                             mode="md"
                             errorText={errors.LoadFrom}
                             value={values.LoadFrom}
-                            onIonInput={(e: any) =>
+                            onIonInput={(e) =>
                               setFieldValue("LoadFrom", e.detail.value)
                             }
                           />
                           <IonInput
-                            className={`custom-input ${
-                              errors.LoadTo && "ion-invalid"
-                            } ${touched.LoadTo && "ion-touched"} mb-1.5x`}
+                            className={`custom-input ${errors.LoadTo && "ion-invalid"
+                              } ${touched.LoadTo && "ion-touched"} mb-1.5x`}
                             type="text"
                             fill="outline"
                             label="Unloading Point"
@@ -141,14 +150,13 @@ const CreateNewLoad: React.FC = () => {
                             mode="md"
                             errorText={errors.LoadTo}
                             value={values.LoadTo}
-                            onIonInput={(e: any) =>
+                            onIonInput={(e) =>
                               setFieldValue("LoadTo", e.detail.value)
                             }
                           />
                           <IonInput
-                            className={`custom-input ${
-                              errors.VehicleType && "ion-invalid"
-                            } ${touched.VehicleType && "ion-touched"} mb-1.5x`}
+                            className={`custom-input ${errors.VehicleType && "ion-invalid"
+                              } ${touched.VehicleType && "ion-touched"} mb-1.5x`}
                             type="text"
                             fill="outline"
                             label="Vehicle Type"
@@ -157,16 +165,14 @@ const CreateNewLoad: React.FC = () => {
                             mode="md"
                             errorText={errors.VehicleType}
                             value={values.VehicleType}
-                            onIonInput={(e: any) =>
+                            onIonInput={(e) =>
                               setFieldValue("VehicleType", e.detail.value)
                             }
                           />
                           <IonInput
-                            className={`custom-input ${
-                              errors.ProductWeight && "ion-invalid"
-                            } ${
-                              touched.ProductWeight && "ion-touched"
-                            } mb-1.5x`}
+                            className={`custom-input ${errors.ProductWeight && "ion-invalid"
+                              } ${touched.ProductWeight && "ion-touched"
+                              } mb-1.5x`}
                             type="text"
                             fill="outline"
                             label="Product Weight"
@@ -175,16 +181,14 @@ const CreateNewLoad: React.FC = () => {
                             mode="md"
                             errorText={errors.ProductWeight}
                             value={values.ProductWeight}
-                            onIonInput={(e: any) =>
+                            onIonInput={(e) =>
                               setFieldValue("ProductWeight", e.detail.value)
                             }
                           />
                           <IonInput
-                            className={`custom-input ${
-                              errors.TotalDistance && "ion-invalid"
-                            } ${
-                              touched.TotalDistance && "ion-touched"
-                            } mb-1.5x`}
+                            className={`custom-input ${errors.TotalDistance && "ion-invalid"
+                              } ${touched.TotalDistance && "ion-touched"
+                              } mb-1.5x`}
                             type="text"
                             fill="outline"
                             label="Total Distance"
@@ -193,14 +197,13 @@ const CreateNewLoad: React.FC = () => {
                             mode="md"
                             errorText={errors.TotalDistance}
                             value={values.TotalDistance}
-                            onIonInput={(e: any) =>
+                            onIonInput={(e) =>
                               setFieldValue("TotalDistance", e.detail.value)
                             }
                           />
                           <IonInput
-                            className={`custom-input ${
-                              errors.RatePerTon && "ion-invalid"
-                            } ${touched.RatePerTon && "ion-touched"} mb-1.5x`}
+                            className={`custom-input ${errors.RatePerTon && "ion-invalid"
+                              } ${touched.RatePerTon && "ion-touched"} mb-1.5x`}
                             type="text"
                             fill="outline"
                             label="Rate per ton"
@@ -209,14 +212,13 @@ const CreateNewLoad: React.FC = () => {
                             mode="md"
                             errorText={errors.RatePerTon}
                             value={values.RatePerTon}
-                            onIonInput={(e: any) =>
+                            onIonInput={(e) =>
                               setFieldValue("RatePerTon", e.detail.value)
                             }
                           />
                           <IonInput
-                            className={`custom-input ${
-                              errors.ProductType && "ion-invalid"
-                            } ${touched.ProductType && "ion-touched"} mb-1.5x`}
+                            className={`custom-input ${errors.ProductType && "ion-invalid"
+                              } ${touched.ProductType && "ion-touched"} mb-1.5x`}
                             type="text"
                             fill="outline"
                             label="Product Type"
@@ -225,20 +227,19 @@ const CreateNewLoad: React.FC = () => {
                             mode="md"
                             errorText={errors.ProductType}
                             value={values.ProductType}
-                            onIonInput={(e: any) =>
+                            onIonInput={(e) =>
                               setFieldValue("ProductType", e.detail.value)
                             }
                           />
-                           <IonSelect
-                            className={`custom-input ${
-                              errors.PaymentTerms && "ion-invalid"
-                            } ${touched.PaymentTerms && "ion-touched"} mb-1.5x`}
+                          <IonSelect
+                            className={`custom-input ${errors.PaymentTerms && "ion-invalid"
+                              } ${touched.PaymentTerms && "ion-touched"} mb-1.5x`}
                             label="Payment Terms"
                             labelPlacement="floating"
                             fill="outline"
                             errorText={errors.PaymentTerms}
                             value={values.PaymentTerms}
-                            onIonChange={(e: any) =>
+                            onIonChange={(e) =>
                               setFieldValue("PaymentTerms", e.detail.value)
                             }
                           >
@@ -254,17 +255,19 @@ const CreateNewLoad: React.FC = () => {
                           </IonSelect>
 
 
-                        <IonRow>
-                          <IonCol size="12">     
-                            <IonButton
-                              expand="block"
-                              className="confirm-button"
-                              type="submit" 
-                            >
-                              Confirm
-                            </IonButton>
-                          </IonCol>              
-                        </IonRow>
+                          <IonRow>
+                            <IonCol size="12">
+                              <IonButton
+                                expand="block"
+                                className="confirm-button"
+                                type="submit"
+                                disabled={isLoading}
+                              >
+                                {isLoading && <IonSpinner name="crescent" slot="start" />}
+                                {isLoading ? 'Creating Load...' : 'Create Load'}
+                              </IonButton>
+                            </IonCol>
+                          </IonRow>
                         </IonCol>
                       </IonRow>
                     </IonGrid>

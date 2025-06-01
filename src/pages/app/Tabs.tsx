@@ -26,8 +26,11 @@ import NewLoadDetails from "./NewLoadDetails";
 import PlaceBid from "./Bids";
 import LoadPage from "./Load";
 import { useIonToast } from '@ionic/react';
+import { useAuth } from "../../store/AuthContext";
+import { useIonRouter } from "@ionic/react";
 const Tabs: React.FC = () => {
     const [present] = useIonToast();
+    const router = useIonRouter();
     const presentToast = (position: 'top' | 'middle' | 'bottom') => {
         present({
             message: 'Coming Soon!',
@@ -35,6 +38,11 @@ const Tabs: React.FC = () => {
             position: position,
         });
     };
+
+    const { user } = useAuth();
+    if (!user) {
+        router.push('/app/login');
+    }
     return (
         <IonTabs>
             <IonRouterOutlet >

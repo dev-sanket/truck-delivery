@@ -10,6 +10,7 @@ type DocumentSelectProps = {
   setFieldValue: (field: string, value: File | null) => void;
   error?: string;
   touched?: boolean;
+  selectedDocument?: File | null;
 };
 const DocumentSelect: React.FC<DocumentSelectProps> = ({
   label,
@@ -17,6 +18,7 @@ const DocumentSelect: React.FC<DocumentSelectProps> = ({
   setFieldValue,
   error,
   touched,
+  selectedDocument,
 }) => {
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -26,11 +28,11 @@ const DocumentSelect: React.FC<DocumentSelectProps> = ({
     const isValidSize = file.size <= 5 * 1024 * 1024;
 
     if (!isValidType) {
-      presentToast("Only JPG files are allowed.","top","danger");
+      presentToast("Only JPG files are allowed.", "top", "danger");
       return;
     }
     if (!isValidSize) {
-      presentToast("File size should not exceed 5MB.","top","danger");
+      presentToast("File size should not exceed 5MB.", "top", "danger");
       return;
     }
     setFieldValue(name, file);
@@ -47,7 +49,7 @@ const DocumentSelect: React.FC<DocumentSelectProps> = ({
   return (
     <div className="document-section">
       <div className="document-title">{label}</div>
-      <div className={`upload-box ${touched && error ? 'upload-error' : ''}`}>
+      <div className={`upload-box ${touched && error ? 'upload-error' : ''} ${selectedDocument ? 'selected-document-box' : ''}`}>
         <div className="upload-icon">
           <IonIcon icon={cloudUploadOutline} />
         </div>
@@ -55,13 +57,14 @@ const DocumentSelect: React.FC<DocumentSelectProps> = ({
           <div className="document-label">Select Document Upload</div>
           <div className="upload-format">Supported Format: JPG (Max 5MB)</div>
           <div className="select-document-wrapper">
-            <div className="select-document">Select Document</div>
+            <div className="select-document">{selectedDocument ? 'Change Document' : "Select Document"}</div>
             <input
               type="file"
               accept="image/jpeg"
               onChange={handleFileChange}
-               className="file-input"
+              className="file-input"
             />
+            {selectedDocument && <div className="selected-document">{selectedDocument.name}</div>}
             {touched && error && <div className="error-text">{error}</div>}
           </div>
         </div>
