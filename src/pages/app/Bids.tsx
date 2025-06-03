@@ -15,6 +15,7 @@ import {
   IonRefresherContent,
   RefresherEventDetail,
   useIonToast,
+  IonSpinner,
 } from "@ionic/react";
 
 import arrow from "../../assets/images/arrow.png";
@@ -27,11 +28,22 @@ import { useEffect, useState } from "react";
 import { postApiCall } from "../../utils/api/api";
 import { LoadData } from "./NewLoadDetails";
 import { useParams } from "react-router-dom";
+import { Formik } from "formik";
+import { PlaceBidFormValidation } from "../../utils/validator";
+
+const initialValues = {
+  BidAmount: "",
+  BidQuantity: "",
+  DriverName: "",
+  DriverContactNumber: "",
+  VehicleNumber: ""
+}
 const PlaceBid: React.FC = () => {
   const { loadId } = useParams<{ loadId: string }>();
 
   const [bidData, setBidData] = useState<LoadData | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+
   const [present] = useIonToast();
 
   const presentToast = (position: "top" | "middle" | "bottom", message: string, color: 'success' | 'danger' | 'warning' = "success") => {
@@ -66,6 +78,22 @@ const PlaceBid: React.FC = () => {
   const handleRefresh = async (event: CustomEvent<RefresherEventDetail>) => {
     await getLoadDetails();
     event.detail.complete();
+  }
+
+  const handlePlaceBid = async (values: any) => {
+    console.log("handlePlaceBid", values);
+    try {
+      setIsLoading(true);
+      const response = await postApiCall(values, "addBid ");
+      if (response?.status) {
+        presentToast("top", "Bid placed successfully!", "success");
+      }
+    } catch (error) {
+      presentToast("top", "Error placing bid!", "danger");
+      console.error('Error placing bid:', error);
+    } finally {
+      setIsLoading(false);
+    }
   }
 
   return (
@@ -188,98 +216,131 @@ const PlaceBid: React.FC = () => {
             <IonCol size="12">
               <IonCard className="ion-no-margin" style={{ borderRadius: '10px' }}>
                 <IonCardContent>
-                  <IonRow>
-                    <IonCol size="12">
-                      <IonInput
-                        // className={`${isValid && 'ion-valid'} ${isValid === false && 'ion-invalid'} ${isTouched && 'ion-touched'}`}
-                        type="number"
-                        fill="outline"
-                        label="Bid Amount"
-                        labelPlacement="floating"
-                        errorText="Invalid number"
-                        className="custom-input"
-                        placeholder="Enter a valid bid amount"
-                        helperText=""
-                        mode="md"
-                        inputmode="numeric"
-                      >
-                        <IonIcon slot="start" icon={rupeeIcon} size="small" aria-hidden="true"></IonIcon>
-                      </IonInput>
-                    </IonCol>
-                    <IonCol size="12">
-                      <IonInput
-                        // className={`${isValid && 'ion-valid'} ${isValid === false && 'ion-invalid'} ${isTouched && 'ion-touched'}`}
-                        type="number"
-                        fill="outline"
-                        label="Bid Quantity (Ton)"
-                        labelPlacement="floating"
-                        errorText="Invalid number"
-                        className="custom-input"
-                        placeholder="Enter a valid bid quantity"
-                        helperText=""
-                        mode="md"
-                        inputmode="numeric"
-                      />
+                  <Formik
+                    initialValues={initialValues}
+                    validationSchema={PlaceBidFormValidation}
+                    onSubmit={handlePlaceBid}
+                  >
+                    {({ values, handleChange, handleSubmit, isValid, setFieldValue, errors }) => (
+                      <form onSubmit={handleSubmit}>
+                        <IonRow>
+                          <IonCol size="12">
+                            <IonInput
+                              className={`custom-input ${isValid && 'ion-valid'} ${isValid === false && 'ion-invalid'}`}
+                              type="number"
+                              fill="outline"
+                              label="Bid Amount"
+                              labelPlacement="floating"
+                              errorText={errors.BidAmount}
+                              name="BidAmount"
+                              onIonInput={(e) => {
+                                setFieldValue("BidAmount", e.detail.value);
+                              }}
+                              value={values.BidAmount}
+                              placeholder="Enter a valid bid amount"
+                              helperText=""
+                              mode="md"
+                              inputmode="numeric"
+                            >
+                              <IonIcon slot="start" icon={rupeeIcon} size="small" aria-hidden="true"></IonIcon>
+                            </IonInput>
+                          </IonCol>
+                          <IonCol size="12">
+                            <IonInput
+                              className={`custom-input ${isValid && 'ion-valid'} ${isValid === false && 'ion-invalid'}`}
+                              type="number"
+                              fill="outline"
+                              label="Bid Quantity (Ton)"
+                              labelPlacement="floating"
+                              errorText={errors.BidQuantity}
+                              name="BidQuantity"
+                              onIonInput={(e) => {
+                                setFieldValue("BidQuantity", e.detail.value);
+                              }}
+                              value={values.BidQuantity}
+                              placeholder="Enter a valid bid quantity"
+                              helperText=""
+                              mode="md"
+                              inputmode="numeric"
+                            />
 
-                    </IonCol>
-                    <IonCol size="12">
-                      <IonInput
-                        // className={`${isValid && 'ion-valid'} ${isValid === false && 'ion-invalid'} ${isTouched && 'ion-touched'}`}
-                        type="number"
-                        fill="outline"
-                        label="Driver Name"
-                        labelPlacement="floating"
-                        errorText="Invalid number"
-                        className="custom-input"
-                        placeholder="Enter a valid driver name"
-                        helperText=""
-                        mode="md"
-                        inputmode="numeric"
-                      />
+                          </IonCol>
+                          <IonCol size="12">
+                            <IonInput
+                              className={`custom-input ${isValid && 'ion-valid'} ${isValid === false && 'ion-invalid'}`}
+                              type="number"
+                              fill="outline"
+                              label="Driver Name"
+                              labelPlacement="floating"
+                              errorText={errors.DriverName}
+                              name="DriverName"
+                              onIonInput={(e) => {
+                                setFieldValue("DriverName", e.detail.value);
+                              }}
+                              value={values.DriverName}
+                              placeholder="Enter a valid driver name"
+                              helperText=""
+                              mode="md"
+                              inputmode="numeric"
+                            />
 
-                    </IonCol>
-                    <IonCol size="12">
-                      <IonInput
-                        // className={`${isValid && 'ion-valid'} ${isValid === false && 'ion-invalid'} ${isTouched && 'ion-touched'}`}
-                        type="number"
-                        fill="outline"
-                        label="Driver Contact Number"
-                        labelPlacement="floating"
-                        errorText="Invalid number"
-                        className="custom-input"
-                        placeholder="Enter a valid driver contact number"
-                        helperText=""
-                        mode="md"
-                        inputmode="numeric"
-                      />
+                          </IonCol>
+                          <IonCol size="12">
+                            <IonInput
+                              className={`custom-input ${isValid && 'ion-valid'} ${isValid === false && 'ion-invalid'}`}
+                              type="number"
+                              fill="outline"
+                              label="Driver Contact Number"
+                              labelPlacement="floating"
+                              errorText={errors.DriverContactNumber}
+                              name="DriverContactNumber"
+                              onIonInput={(e) => {
+                                setFieldValue("DriverContactNumber", e.detail.value);
+                              }}
+                              value={values.DriverContactNumber}
+                              placeholder="Enter a valid driver contact number"
+                              helperText=""
+                              mode="md"
+                              inputmode="numeric"
+                            />
 
-                    </IonCol>
-                    <IonCol size="12">
-                      <IonInput
-                        // className={`${isValid && 'ion-valid'} ${isValid === false && 'ion-invalid'} ${isTouched && 'ion-touched'}`}
-                        type="number"
-                        fill="outline"
-                        label="Vehicle Number"
-                        labelPlacement="floating"
-                        errorText="Invalid number"
-                        className="custom-input"
-                        placeholder="Enter a valid driver contact number"
-                        helperText=""
-                        mode="md"
-                        inputmode="numeric"
-                      />
+                          </IonCol>
+                          <IonCol size="12">
+                            <IonInput
+                              className={`custom-input ${isValid && 'ion-valid'} ${isValid === false && 'ion-invalid'}`}
+                              type="number"
+                              fill="outline"
+                              label="Vehicle Number"
+                              labelPlacement="floating"
+                              errorText={errors.VehicleNumber}
+                              name="VehicleNumber"
+                              onIonInput={(e) => {
+                                setFieldValue("VehicleNumber", e.detail.value);
+                              }}
+                              value={values.VehicleNumber}
+                              placeholder="Enter a valid driver contact number"
+                              helperText=""
+                              mode="md"
+                              inputmode="numeric"
+                            />
 
-                    </IonCol>
-                    <IonCol size="12">
-                      <IonButton
-                        expand="block"
-                        className="confirm-button"
-                        routerLink="/app/dashboard"
-                      >
-                        Quote PMT
-                      </IonButton>
-                    </IonCol>
-                  </IonRow>
+                          </IonCol>
+                          <IonCol size="12">
+                            <IonButton
+                              expand="block"
+                              disabled={isLoading}
+                              onClick={() => handleSubmit()}
+                              className="confirm-button"
+                              routerLink="/app/dashboard"
+                            >
+                              {isLoading && <IonSpinner name="crescent" color="light" />}
+                              {isLoading ? "Placing Bid..." : "Quote PMT"}
+                            </IonButton>
+                          </IonCol>
+                        </IonRow>
+                      </form>
+                    )}
+                  </Formik>
 
                 </IonCardContent>
               </IonCard>

@@ -29,7 +29,6 @@ export const SearchLoadFormValidation = () => {
   return validationSchema;
 };
 
-
 export const CreateLoadFormValidation = () => {
   const validationSchema = Yup.object({
     ProductType: Yup.string().required("Product Type is required"),
@@ -40,6 +39,19 @@ export const CreateLoadFormValidation = () => {
     TotalDistance: Yup.number().required("Total Distance is required"),
     RatePerTon: Yup.number().required("Rate Per Ton is required"),
     PaymentTerms: Yup.string().required("Payment Terms is required"),
+  });
+  return validationSchema;
+};
+
+export const PlaceBidFormValidation = () => {
+  const validationSchema = Yup.object({
+    BidAmount: Yup.number().min(1, "Bid Amount is required"),
+    BidQuantity: Yup.number().required("Bid Quantity is required"),
+    DriverName: Yup.string().required("Driver Name is required"),
+    DriverContactNumber: Yup.string().required(
+      "Driver Contact Number is required"
+    ),
+    VehicleNumber: Yup.string().required("Vehicle Number is required"),
   });
   return validationSchema;
 };
