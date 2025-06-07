@@ -65,6 +65,7 @@ const NewDashboard: React.FC = () => {
   const [dashboardData, setDashboardData] = useState<DashboardData>();
   const handleKyc = () => history.push("/app/kyc-verification");
   const handleLoad = () => history.push("/app/load");
+  const handleTrips = () => history.push("/app/trips");
   const presentToast = (position: "top" | "middle" | "bottom") => {
     present({ message: "Coming Soon!", duration: 1500, position });
   };
@@ -216,7 +217,7 @@ const NewDashboard: React.FC = () => {
                         className="ion-justify-content-center ion-align-self-center"
                       >
                         <IonButtons
-                          onClick={() => presentToast("middle")}
+                          onClick={handleTrips}
                           className="ion-justify-content-center ion-align-self-center"
                           style={{
                             display: "flex",

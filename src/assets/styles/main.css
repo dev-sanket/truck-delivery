@@ -1,3 +1,7 @@
+.rdrCalendarWrapper {
+  width: 100%;
+}
+
 :root {
   --ion-padding: 16px;
   --ion-margin: 16px;
@@ -580,4 +584,56 @@
   font-weight: 500;
   color: #000000;
   font-family: 'Poppins';
+}
+
+/* global.css or component CSS */
+
+.small-modal {
+  --width: 95%;
+  --max-width: 420px;
+  --border-radius: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+}
+
+.calendar-wrapper {
+  /* padding: 0 16px 16px 16px; */
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  /* align-items: center; */
+}
+
+/* Ensures calendar takes full width */
+.rdrCalendarWrapper,
+.rdrDateRangeWrapper {
+  width: 100% !important;
+  box-sizing: border-box;
+}
+.trips-container{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.trip-card-container{
+      display: flex;
+    flex-direction: row;
+    align-items: center;
+    background: lightgrey;
+    border-radius: 6px;
+    justify-content: space-between;
+    padding: 5px;
+}
+.trip-card-label{
+    color: #000000;
+  font-size: 16px;
+  font-weight: 400;
 }

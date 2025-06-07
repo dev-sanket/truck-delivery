@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
     IonContent,
     IonHeader,
@@ -28,6 +28,7 @@ import LoadPage from "./Load";
 import { useIonToast } from '@ionic/react';
 import { useAuth } from "../../store/AuthContext";
 import { useIonRouter } from "@ionic/react";
+import Trips from "./Trips";
 const Tabs: React.FC = () => {
     const [present] = useIonToast();
     const router = useIonRouter();
@@ -40,9 +41,14 @@ const Tabs: React.FC = () => {
     };
 
     const { user } = useAuth();
+    // if (!user) {
+    //     router.push('/auth/login');
+    // }
+    useEffect(() => {
     if (!user) {
-        router.push('/app/login');
+        // router.push('/auth/login');
     }
+}, [user, router]);
     return (
         <IonTabs>
             <IonRouterOutlet >
@@ -53,6 +59,7 @@ const Tabs: React.FC = () => {
                 <Route path="/app/load" component={LoadPage} />
                 <Route path="/app/kyc-verification" component={KycVerification} />
                 <Route path="/app/load-create" component={CreateNewLoad} />
+                <Route path="/app/trips" component={Trips} />
                 <Route path="/app/place-bid/:loadId" component={PlaceBid} />
 
                 <Route exact path="/app">
