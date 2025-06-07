@@ -29,6 +29,7 @@ import { useIonToast } from '@ionic/react';
 import { useAuth } from "../../store/AuthContext";
 import { useIonRouter } from "@ionic/react";
 import Trips from "./Trips";
+import TripDetails from "./TripDetails";
 const Tabs: React.FC = () => {
     const [present] = useIonToast();
     const router = useIonRouter();
@@ -60,6 +61,7 @@ const Tabs: React.FC = () => {
                 <Route path="/app/kyc-verification" component={KycVerification} />
                 <Route path="/app/load-create" component={CreateNewLoad} />
                 <Route path="/app/trips" component={Trips} />
+                <Route path="/app/tripDetails" component={TripDetails} />
                 <Route path="/app/place-bid/:loadId" component={PlaceBid} />
 
                 <Route exact path="/app">

@@ -13,11 +13,13 @@ const Header: React.FC<{
   showUserIcon?: boolean;
   showHamburgerMenu?: boolean;
   handleSkip?: () => void;
+  showIcon?:boolean;
 }> = ({
   showBackButton = true,
   showSkipIcon = false,
   showUserIcon = false,
   showHamburgerMenu = false,
+  showIcon = true,
   handleSkip
 }) => {
     const history = useHistory<History>();
@@ -39,7 +41,9 @@ const Header: React.FC<{
             </IonButton>}
         </div>
         <div style={{ flex: 0.6, display: 'flex', justifyContent: 'center' }}>
+          {showIcon &&
           <Logo />
+          }
         </div>
         <div style={{ flex: 0.3, display: 'flex', justifyContent: 'flex-end' }}>
           {/* <IonButton>

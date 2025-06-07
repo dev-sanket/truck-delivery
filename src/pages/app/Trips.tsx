@@ -69,7 +69,10 @@ const Trips: React.FC = () => {
     });
   };
   const onModalClose = () => {};
-
+const handleTrips = () => {
+  console.log("handle trips")
+  history.push("/app/tripDetails")
+};
   useEffect(()=>{
     let tripsList :any= [
       {label:"Indent",count:13},
@@ -84,7 +87,7 @@ const Trips: React.FC = () => {
   },[])
   return (
     <IonPage>
-      <Header showBackButton={true} />
+      <Header showBackButton={true} showIcon={false} />
       <IonContent className="ion-padding">
         <IonGrid className="ion-no-padding">
           <IonRow>
@@ -102,10 +105,10 @@ const Trips: React.FC = () => {
                 ></IonIcon>
               </div>
             </IonCol>
-              <IonCol size="12"  style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
+              <IonCol size="12"  style={{ display: "flex", flexDirection: "column", gap: "16px",marginTop:"30px" }}>
                 {
                   tripsList.map((el:any,index:any)=>
-                  <IonCard className="trip-card" key={index}>
+                  <IonCard className="trip-card" key={index} onClick={handleTrips}>
                   <div className="trip-card-container">
                     <div className="trip-card-label">{el.label}&nbsp;&nbsp;({el.count})</div>
                     <IonIcon
