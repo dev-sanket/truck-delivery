@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-
+import { Preferences } from '@capacitor/preferences';
 interface User {
     FullName: string;
     MobileNumber: string;
@@ -22,26 +22,42 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
     useEffect(() => {
         // Check localStorage on initial load
-        const storedUser = localStorage.getItem('user');
-        if (storedUser) {
-            const userData = JSON.parse(storedUser);
+        // const storedUser = localStorage.getItem('user');
+        // if (storedUser) {
+        //     const userData = JSON.parse(storedUser);
+        //     if (userData.UsersID) {
+        //         setUser(userData);
+        //         setIsAuthenticated(true);
+        //     }
+        // }
+        const loadUser = async () => {
+        const { value } = await Preferences.get({ key: 'user' });
+        if (value) {
+            const userData = JSON.parse(value);
             if (userData.UsersID) {
                 setUser(userData);
                 setIsAuthenticated(true);
             }
         }
+    };
+    loadUser();
     }, []);
 
-    const login = (userData: User) => {
+    const login = async (userData: User) => {
         setUser(userData);
         setIsAuthenticated(true);
-        localStorage.setItem('user', JSON.stringify(userData));
+        // localStorage.setItem('user', JSON.stringify(userData));
+        await Preferences.set({
+        key: 'user',
+        value: JSON.stringify(userData)
+    });
     };
 
-    const logout = () => {
+    const logout = async () => {
         setUser(null);
         setIsAuthenticated(false);
-        localStorage.removeItem('user');
+        // localStorage.removeItem('user');
+         await Preferences.remove({ key: 'user' });
     };
 
     return (

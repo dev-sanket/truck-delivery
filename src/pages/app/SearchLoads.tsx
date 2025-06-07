@@ -25,18 +25,25 @@ import redDot from "../../assets/images/redDot.png";
 import { useHistory } from "react-router";
 import { Formik } from "formik";
 import { trashOutline } from "ionicons/icons";
+import { Preferences } from "@capacitor/preferences";
 
 const SearchLoads: React.FC = () => {
   const history = useHistory();
 
   const [previousSearchLoads, setPreviousSearchLoads] = useState<{ fromLocation: string, toLocation: string }[]>([]);
 
-  const handleSearch = (values: any) => {
+  const handleSearch = async (values: any) => {
     console.log("Pressed Search button", values);
     const { fromLocation, toLocation } = values;
     const existingLoad = previousSearchLoads.find(load => load.fromLocation === fromLocation && load.toLocation === toLocation);
     if (!existingLoad) {
-      setPreviousSearchLoads([...previousSearchLoads, { fromLocation, toLocation }]);
+      const updatedSearches = [...previousSearchLoads,{ fromLocation, toLocation }];
+      // setPreviousSearchLoads([...previousSearchLoads, { fromLocation, toLocation }]);
+      setPreviousSearchLoads(updatedSearches);
+       await Preferences.set({
+        key: 'previousSearch',
+        value: JSON.stringify(updatedSearches),
+      })
     }
 
     history.push({
@@ -45,28 +52,44 @@ const SearchLoads: React.FC = () => {
     });
   };
 
-  useEffect(() => {
-    const previousSearch = localStorage.getItem('previousSearch')
-    console.log("Previous Search", previousSearch);
+  // useEffect(() => {
+  //   const previousSearch = localStorage.getItem('previousSearch')
+  //   console.log("Previous Search", previousSearch);
 
-    if (previousSearch) {
-      setPreviousSearchLoads(JSON.parse(previousSearch));
-    }
+  //   if (previousSearch) {
+  //     setPreviousSearchLoads(JSON.parse(previousSearch));
+  //   }
+  // }, []);
+
+  // useEffect(() => {
+  //   if (previousSearchLoads.length > 0) {
+  //     localStorage.setItem('previousSearch', JSON.stringify(previousSearchLoads));
+  //   }
+  // }, [previousSearchLoads]);
+
+    useEffect(() => {
+    const loadPreviousSearches = async () => {
+      const result = await Preferences.get({ key: 'previousSearch', });
+      if (result.value) {
+        try {
+          setPreviousSearchLoads(JSON.parse(result.value));
+        } catch (err) {
+          console.error("Failed to parse saved searches:", err);
+        }
+      }
+    };
+    loadPreviousSearches();
   }, []);
-
-  useEffect(() => {
-    if (previousSearchLoads.length > 0) {
-      localStorage.setItem('previousSearch', JSON.stringify(previousSearchLoads));
-    }
-  }, [previousSearchLoads]);
 
   const defaultValues = {
     fromLocation: "",
     toLocation: "",
   };
 
-  const clearPreviousSearch = () => {
-    localStorage.removeItem('previousSearch');
+  const clearPreviousSearch = async () => {
+    // localStorage.removeItem('previousSearch');
+    // setPreviousSearchLoads([]);
+    await Preferences.remove({ key: 'previousSearch' });
     setPreviousSearchLoads([]);
   }
 
