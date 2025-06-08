@@ -402,6 +402,14 @@
   line-height: 119%;
   letter-spacing: 0%;
 }
+.wt-info-label{
+    color: #818181;
+  font-family: Poppins;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 119%;
+  letter-spacing: 0%;
+}
 .info-label-section{
   color: #818181;
   font-family: Poppins;
@@ -453,6 +461,23 @@
   gap: 10px;
   justify-content: space-between;
 }
+.trip-card-footers{
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.trip-under-lined{
+    color: #0066FF;
+    text-decoration: underline;
+    display: inline;
+    font-size: 16px;
+}
+.trip-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
 .rate-value {
   font-weight: 700;
   font-size: 18px;
