@@ -94,6 +94,7 @@ const handleTrips = () => {
             <IonCol size="12">
               <div className="trips-container">
                 <div className="title">Trips</div>
+                <div className="trip-icon-box">
                 <IonIcon
                   slot="icon-only"
                   icon={calendarOutline}
@@ -103,6 +104,7 @@ const handleTrips = () => {
                     setShowModal(true);
                   }}
                 ></IonIcon>
+                </div>
               </div>
             </IonCol>
               <IonCol size="12"  style={{ display: "flex", flexDirection: "column", gap: "16px",marginTop:"30px" }}>
