@@ -26,9 +26,11 @@ import { useHistory } from "react-router";
 import { useEffect, useState } from "react"; //
 import "../../assets/styles/main.css";
 import profile from "../../assets/images/profile.png";
+import { useAuth } from "../../store/AuthContext";
 const Profile: React.FC = () => {
   const [itemList, setItemList] = useState([]);
   const history = useHistory();
+   const { logout } = useAuth();
   useEffect(() => {
     let itemLists: any = [
       {
@@ -66,7 +68,7 @@ const Profile: React.FC = () => {
                   backgroundColor: "#E1F5FE",
                   display: "flex",
                   flexDirection: "row",
-                  gap: "2vw",
+                  gap: "10vw",
                   alignItems: "center",
                   padding: "10px",
                   marginBottom: "20px",
@@ -110,12 +112,19 @@ const Profile: React.FC = () => {
                 style={{
                   marginBottom: "16px", // some spacing between cards
                 }}
+                onClick={() => {
+      if (el.label === "Log Out") {
+        console.log("HERE",el)
+        logout();                
+        history.push("/auth/login"); 
+      }
+    }}
               >
                 <div
                   style={{
                     display: "flex",
                     alignItems: "center",
-                    backgroundColor: "#f5f5f5",
+                    
                     borderRadius: "10px",
                     padding: "10px",
                   }}

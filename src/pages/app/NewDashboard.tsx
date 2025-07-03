@@ -59,9 +59,11 @@ const NewDashboard: React.FC = () => {
   const history = useHistory<History>();
   const [present] = useIonToast();
   const { user } = useAuth();
+  useEffect(() => {
   if (!user) {
-    history.push("/auth");
+   history.push("/auth/login");
   }
+}, [user, history]);
   const [dashboardData, setDashboardData] = useState<DashboardData>();
   const handleKyc = () => history.push("/app/kyc-verification");
   const handleLoad = () => history.push("/app/load");
