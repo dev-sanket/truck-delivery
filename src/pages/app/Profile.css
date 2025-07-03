@@ -1,0 +1,20 @@
+.profile-name-label {
+  font-size: 18px;
+  font-weight: 600;
+  color: #000000;
+}
+.section-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #000000;
+}
+.phone-name-label {
+  font-size: 16px;
+  font-weight: 500;
+  color: #969494;
+}
+.section-sub-label{
+    font-size: 14px;
+  font-weight: 500;
+  color: #969494;
+}

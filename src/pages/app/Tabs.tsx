@@ -30,7 +30,10 @@ import { useAuth } from "../../store/AuthContext";
 import { useIonRouter } from "@ionic/react";
 import Trips from "./Trips";
 import TripDetails from "./TripDetails";
+import { useHistory } from "react-router";
+import Profile from "./Profile";
 const Tabs: React.FC = () => {
+    const history = useHistory<History>();
     const [present] = useIonToast();
     const router = useIonRouter();
     const presentToast = (position: 'top' | 'middle' | 'bottom') => {
@@ -63,7 +66,7 @@ const Tabs: React.FC = () => {
                 <Route path="/app/trips" component={Trips} />
                 <Route path="/app/tripDetails" component={TripDetails} />
                 <Route path="/app/place-bid/:loadId" component={PlaceBid} />
-
+                <Route path="/app/profile" component={Profile} />    
                 <Route exact path="/app">
                     <Redirect to="/app/dashboard" />
                 </Route>
@@ -82,7 +85,7 @@ const Tabs: React.FC = () => {
                     <IonIcon icon={notifications} />
                     <IonLabel>Alerts</IonLabel>
                 </IonTabButton>
-                <IonTabButton tab="profile" onClick={() => presentToast('middle')}>
+                <IonTabButton tab="profile" onClick={() => history.push("/app/profile")}>
                     <IonIcon icon={person} />
                     <IonLabel>Profile</IonLabel>
                 </IonTabButton>
