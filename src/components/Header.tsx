@@ -56,7 +56,7 @@ const Header: React.FC<{
             </IonButton>
           }
           {showUserIcon &&
-            <IonButton size="small" fill="clear" style={{ borderRadius: '50%' }} onClick={() => { console.log("clicked") }}>
+            <IonButton size="small" fill="clear" style={{ borderRadius: '50%' }} onClick={() => { history.push("/app/profile") }}>
               <IonIcon slot="icon-only" ios={personCircle} md={personCircle} size="large"></IonIcon>
             </IonButton>
           }

@@ -33,6 +33,7 @@ import TripDetails from "./TripDetails";
 import { useHistory } from "react-router";
 import Profile from "./Profile";
 import Notification from "./Notification";
+import PostLoad from "./PostLoad";
 const Tabs: React.FC = () => {
     const history = useHistory<History>();
     const [present] = useIonToast();
@@ -67,7 +68,8 @@ const Tabs: React.FC = () => {
                 <Route path="/app/trips" component={Trips} />
                 <Route path="/app/tripDetails" component={TripDetails} />
                 <Route path="/app/place-bid/:loadId" component={PlaceBid} />
-                <Route path="/app/profile" component={Profile} />    
+                <Route path="/app/profile" component={Profile} />
+                <Route path="/app/post-loads" component={PostLoad} />    
                 <Route path="/app/notification" component={Notification} />    
                 <Route exact path="/app">
                     <Redirect to="/app/dashboard" />

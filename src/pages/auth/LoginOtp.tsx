@@ -94,8 +94,8 @@ const LoginOtp: React.FC = () => {
                 renderSeparator={<span>-</span>}
 
                 inputStyle={{
-                  width: '70px',
-                  height: '75px',
+                  width: '50px',
+                  height: '50px',
                   fontSize: '28px',
                   fontWeight: '500',
                   color: '#000',
@@ -104,7 +104,7 @@ const LoginOtp: React.FC = () => {
                   borderRadius: '8px',
                   textAlign: 'center',
                 }}
-                renderInput={(props) => <input {...props} type="number" inputMode="numeric" pattern="[0-9]*" />}
+                renderInput={(props) => <input {...props} type="tel" pattern="[0-9]*" />}
               />
               {errorMessage && <div className="error-message mt-1.5x">{errorMessage}</div>}
             </IonCol>
