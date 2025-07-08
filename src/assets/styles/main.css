@@ -693,3 +693,11 @@
     font-size: 20px;
     font-weight: 500;
 }
+.add-icon-wrapper {
+  margin: 8px 0 16px 4px;
+  display: flex;
+  align-items: center;
+  color: var(--ion-color-primary);
+  font-size: 20px;
+  justify-content: flex-end;
+}

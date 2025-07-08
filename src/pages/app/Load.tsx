@@ -18,7 +18,7 @@ const LoadPage: React.FC = () => {
                 <IonGrid style={{ height: '100%' }}>
                     <IonRow style={{ height: '100%' }} className="ion-justify-content-center ion-align-items-center" >
                         <IonCol size="6">
-                            <IonCard onClick={() => history.push('/app/load-create')}>
+                            <IonCard onClick={() => history.push('/app/post-loads')}>
                                 <IonCardContent style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
                                     <IonIcon style={{ fontSize: '32px' }} icon={addOutline} />
                                     <IonText style={{ fontSize: '16px', fontWeight: 'bold' }} className='ion-padding-top'>Create Load</IonText>

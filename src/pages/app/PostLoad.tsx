@@ -1,7 +1,7 @@
 "use client";
 
 import type React from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   IonContent,
   IonPage,
@@ -17,6 +17,7 @@ import {
   IonSpinner,
   IonRadioGroup,
   IonRadio,
+  IonIcon,
 } from "@ionic/react";
 import "../../assets/styles/main.css";
 import "./CreateNewLoad.css";
@@ -25,13 +26,15 @@ import redDot from "../../assets/images/redDot.png";
 import Header from "../../components/Header";
 import { useAuth } from "../../store/AuthContext";
 import { CreateLoadFormValidation } from "../../utils/validator";
-import { Formik } from "formik";
+import { Formik, FieldArray } from "formik";
 import { postApiCall } from "../../utils/api/api";
+import { addOutline } from "ionicons/icons";
 const PostLoad: React.FC = () => {
   const [present] = useIonToast();
   const { user } = useAuth();
   const [isLoading, setIsLoading] = useState<boolean>(false);
-
+  const [selection, SetSelection] = useState<String>("");
+  const [resetFormTrigger, setResetFormTrigger] = useState(false);
   const presentToast = (
     message: string,
     position: "top" | "middle" | "bottom",
@@ -45,13 +48,8 @@ const PostLoad: React.FC = () => {
     });
   };
   const initialValues = {
-    UsersID: "",
-    LoadFrom: null,
-    LoadTo: null,
-    VehicleType: null,
-    ProductType: null,
-    TotalDistance: null,
-    RatePerTon: null,
+    LoadFrom: [""], // ← now an array
+    LoadTo: [""],
     Material: null,
     TruckPreference: null,
   };
@@ -60,14 +58,9 @@ const PostLoad: React.FC = () => {
     setIsLoading(true);
     console.log(values, "VALUES");
     let payload = {
-      UsersID: user?.UsersID,
-      ProductType: values?.ProductType,
-      Material: values?.Material,
       LoadFrom: values?.LoadFrom,
       LoadTo: values?.LoadTo,
-      VehicleType: values?.VehicleType,
-      TotalDistance: values?.TotalDistance,
-      RatePerTon: values?.RatePerTon,
+      Material: values?.Material,
       TruckPreference: values?.TruckPreference,
     };
     try {
@@ -108,10 +101,10 @@ const PostLoad: React.FC = () => {
             <IonCol size="12">
               <div className="radio-group-label ion-padding">Load Details</div>
               <IonRadioGroup
-                //   value={values.LoadType}
                 onIonChange={(e) => {
-                  console.log("On change");
-                  // setFieldValue("LoadType", e.detail.value)
+                  console.log("On change",e);
+                  SetSelection(e.detail.value)
+                  setResetFormTrigger(true)
                 }}
               >
                 <IonRow className="ion-padding">
@@ -156,59 +149,137 @@ const PostLoad: React.FC = () => {
                   setFieldValue,
                   handleChange,
                   handleSubmit,
-                }) => (
+                  resetForm
+                }) => {
+                useEffect(() => {
+                    if (resetFormTrigger) {
+                      resetForm({
+                        values: {
+                          LoadFrom: [""],
+                          LoadTo: [""],
+                          Material: null,
+                          TruckPreference: null,
+                        },
+                      });
+                      setResetFormTrigger(false);
+                    }
+                  }, [resetFormTrigger]);
+
+                return  (
                   <form onSubmit={handleSubmit}>
                     <IonGrid className="ion-no-margin">
                       <IonRow>
                         <IonCol size="12" className="">
-                          <IonInput
-                            className={`custom-input ${
-                              errors.LoadFrom && "ion-invalid"
-                            } ${touched.LoadFrom && "ion-touched"} mb-1.5x`}
-                            type="text"
-                            fill="outline"
-                            label="Loading Point"
-                            labelPlacement="floating"
-                            placeholder="Enter a loading point"
-                            mode="md"
-                            errorText={errors.LoadFrom}
-                            value={values.LoadFrom}
-                            onIonInput={(e) =>
-                              setFieldValue("LoadFrom", e.detail.value)
-                            }
-                          >
-                            <img
-                              slot="start"
-                              src={greenDot}
-                              aria-hidden="true"
-                              style={{ width: 20, height: 20, marginRight: 16 }}
-                            />
-                          </IonInput>
+                          <FieldArray name="LoadFrom">
+                            {({ push, remove }) => (
+                              <>
+                                {values.LoadFrom.map((loadFromVal, index) => (
+                                  <div key={index}>
+                                    <IonInput
+                                      className={`custom-input ${
+                                        errors.LoadFrom && touched.LoadFrom
+                                          ? "ion-invalid"
+                                          : ""
+                                      } mb-1.5x`}
+                                      type="text"
+                                      fill="outline"
+                                      label={`Loading Point ${index + 1}`}
+                                      labelPlacement="floating"
+                                      placeholder="Enter a loading point"
+                                      mode="md"
+                                      value={loadFromVal}
+                                      onIonInput={(e) =>
+                                        setFieldValue(
+                                          `LoadFrom[${index}]`,
+                                          e.detail.value
+                                        )
+                                      }
+                                    >
+                                      <img
+                                        slot="start"
+                                        src={greenDot}
+                                        aria-hidden="true"
+                                        style={{
+                                          width: 20,
+                                          height: 20,
+                                          marginRight: 16,
+                                        }}
+                                      />
+                                    </IonInput>
 
-                          <IonInput
-                            className={`custom-input ${
-                              errors.LoadTo && "ion-invalid"
-                            } ${touched.LoadTo && "ion-touched"} mb-1.5x`}
-                            type="text"
-                            fill="outline"
-                            label="Unloading Point"
-                            labelPlacement="floating"
-                            placeholder="Enter a Unloading point"
-                            mode="md"
-                            errorText={errors.LoadTo}
-                            value={values.LoadTo}
-                            onIonInput={(e) =>
-                              setFieldValue("LoadTo", e.detail.value)
-                            }
-                          >
-                            <img
-                              slot="start"
-                              src={redDot}
-                              aria-hidden="true"
-                              style={{ width: 20, height: 20, marginRight: 16 }}
-                            />
-                          </IonInput>
+                                    {selection === "Multiple" &&
+                                      index === values.LoadFrom.length - 1 && (
+                                        <div
+                                          className="add-icon-wrapper"
+                                          onClick={() => push("")}
+                                          style={{ cursor: "pointer" }}
+                                        >
+                                          <IonIcon
+                                            icon={addOutline}
+                                            size="large"
+                                          />
+                                        </div>
+                                      )}
+                                  </div>
+                                ))}
+                              </>
+                            )}
+                          </FieldArray>
+                          <FieldArray name="LoadTo">
+                            {({ push, remove }) => (
+                              <>
+                                {values.LoadTo.map((loadToVal, index) => (
+                                  <div key={index}>
+                                    <IonInput
+                                      className={`custom-input ${
+                                        errors.LoadTo && touched.LoadTo
+                                          ? "ion-invalid"
+                                          : ""
+                                      } mb-1.5x`}
+                                      type="text"
+                                      fill="outline"
+                                      label={`Unloading Point ${index + 1}`}
+                                      labelPlacement="floating"
+                                      placeholder="Enter a unloading point"
+                                      mode="md"
+                                      value={loadToVal}
+                                      onIonInput={(e) =>
+                                        setFieldValue(
+                                          `LoadTo[${index}]`,
+                                          e.detail.value
+                                        )
+                                      }
+                                    >
+                                      <img
+                                        slot="start"
+                                        src={redDot}
+                                        aria-hidden="true"
+                                        style={{
+                                          width: 20,
+                                          height: 20,
+                                          marginRight: 16,
+                                        }}
+                                      />
+                                    </IonInput>
 
+                                    {selection === "Multiple" &&
+                                      index === values.LoadTo.length - 1 && (
+                                        <div
+                                          className="add-icon-wrapper"
+                                          onClick={() => push("")}
+                                          style={{ cursor: "pointer" }}
+                                        >
+                                          <IonIcon
+                                            icon={addOutline}
+                                            size="large"
+                                          />
+                                        </div>
+                                      )}
+                                  </div>
+                                ))}
+                              </>
+                            )}
+                          </FieldArray>
                           <IonInput
                             className={`custom-input ${
                               errors.Material && "ion-invalid"
@@ -248,7 +319,7 @@ const PostLoad: React.FC = () => {
                               Pickup Truck
                             </IonSelectOption>
                             <IonSelectOption value="3">
-                             Container Truck (20/32 ft)
+                              Container Truck (20/32 ft)
                             </IonSelectOption>
                             <IonSelectOption value="4">
                               Canter (14-17 ft)
@@ -283,7 +354,8 @@ const PostLoad: React.FC = () => {
                       </IonRow>
                     </IonGrid>
                   </form>
-                )}
+                )
+                }}
               </Formik>
             </IonCol>
           </IonRow>
