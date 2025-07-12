@@ -33,8 +33,8 @@ export const CreateLoadFormValidation = () => {
   const validationSchema = Yup.object({
     ProductType: Yup.string().required("Product Type is required"),
     ProductWeight: Yup.number().required("Product Weight is required"),
-    LoadFrom: Yup.string().required("From Location is required"),
-    LoadTo: Yup.string().required("To Location is required"),
+    LoadFrom: Yup.array().required("From Location is required"),
+    LoadTo: Yup.array().required("To Location is required"),
     VehicleType: Yup.string().required("To Location is required"),
     TotalDistance: Yup.number().required("Total Distance is required"),
     RatePerTon: Yup.number().required("Rate Per Ton is required"),

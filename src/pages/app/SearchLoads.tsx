@@ -20,7 +20,7 @@ import {
 import "./SearchLoads.css";
 import LoadListing from "../../components/LoadList";
 import viceVersa from "../../assets/images/vice-versa.png";
-import greenDot from "../../assets/images/greendot.png";
+import greenDot from "../../assets/images/greenDot.png";
 import redDot from "../../assets/images/redDot.png";
 import { useHistory } from "react-router";
 import { Formik } from "formik";
@@ -37,10 +37,10 @@ const SearchLoads: React.FC = () => {
     const { fromLocation, toLocation } = values;
     const existingLoad = previousSearchLoads.find(load => load.fromLocation === fromLocation && load.toLocation === toLocation);
     if (!existingLoad) {
-      const updatedSearches = [...previousSearchLoads,{ fromLocation, toLocation }];
+      const updatedSearches = [...previousSearchLoads, { fromLocation, toLocation }];
       // setPreviousSearchLoads([...previousSearchLoads, { fromLocation, toLocation }]);
       setPreviousSearchLoads(updatedSearches);
-       await Preferences.set({
+      await Preferences.set({
         key: 'previousSearch',
         value: JSON.stringify(updatedSearches),
       })
@@ -67,7 +67,7 @@ const SearchLoads: React.FC = () => {
   //   }
   // }, [previousSearchLoads]);
 
-    useEffect(() => {
+  useEffect(() => {
     const loadPreviousSearches = async () => {
       const result = await Preferences.get({ key: 'previousSearch', });
       if (result.value) {

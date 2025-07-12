@@ -33,7 +33,9 @@ import TripDetails from "./TripDetails";
 import { useHistory } from "react-router";
 import Profile from "./Profile";
 import Notification from "./Notification";
-import PostLoad from "./PostLoad";
+import ViewBids from "./ViewBids";
+import LoadList from "./LoadList";
+
 const Tabs: React.FC = () => {
     const history = useHistory<History>();
     const [present] = useIonToast();
@@ -51,10 +53,10 @@ const Tabs: React.FC = () => {
     //     router.push('/auth/login');
     // }
     useEffect(() => {
-    if (!user) {
-        // router.push('/auth/login');
-    }
-}, [user, router]);
+        if (!user) {
+            // router.push('/auth/login');
+        }
+    }, [user, router]);
     return (
         <IonTabs>
             <IonRouterOutlet >
@@ -69,8 +71,9 @@ const Tabs: React.FC = () => {
                 <Route path="/app/tripDetails" component={TripDetails} />
                 <Route path="/app/place-bid/:loadId" component={PlaceBid} />
                 <Route path="/app/profile" component={Profile} />
-                <Route path="/app/post-loads" component={PostLoad} />    
-                <Route path="/app/notification" component={Notification} />    
+                <Route path="/app/notification" component={Notification} />
+                <Route path="/app/bids/:loadId" component={ViewBids} />
+                <Route path="/app/load-list" component={LoadList} />
                 <Route exact path="/app">
                     <Redirect to="/app/dashboard" />
                 </Route>

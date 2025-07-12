@@ -49,11 +49,18 @@
 }
 
 .custom-input {
-  --background: #FFFFFF;
+  --background: #ffffff;
   --border-radius: 8px;
   --padding-start: 10px;
   font-size: 14px !important;
   font-weight: 500;
   color: #000000;
-  font-family: 'Poppins';
+  font-family: "Poppins";
+}
+
+.check-radio-group > .radio-group-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  gap: 30px;
 }

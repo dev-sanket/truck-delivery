@@ -262,7 +262,7 @@
   width: 51px;
   height: 51px;
   border-radius: 50%;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   padding: 1px; /* Add padding */
   box-sizing: border-box; /* Make sure padding doesn't break size */
 }
@@ -349,7 +349,7 @@
 .location-text {
   font-size: 18px;
   font-weight: 500;
-  color:#000000
+  color: #000000;
 }
 
 /* .truck-info,
@@ -360,11 +360,11 @@
   flex-direction: column;
   gap: 1vw;
 } */
- .rate-info{
+.rate-info {
   display: grid;
   grid-template-columns: 1fr 1fr;
- }
- .display-col:first-child {
+}
+.display-col:first-child {
   justify-self: start; /* Align to left */
 }
 
@@ -372,8 +372,7 @@
   justify-self: end; /* Align to right */
 }
 .truck-info,
-.material-info
-{
+.material-info {
   display: flex;
   flex-direction: column;
   gap: 1vw;
@@ -394,7 +393,7 @@
   line-height: 119%;
   letter-spacing: 0%;
 }
-.info-label{
+.info-label {
   color: #818181;
   font-family: Poppins;
   font-weight: 500;
@@ -402,15 +401,15 @@
   line-height: 119%;
   letter-spacing: 0%;
 }
-.wt-info-label{
-    color: #818181;
+.wt-info-label {
+  color: #818181;
   font-family: Poppins;
   font-weight: 500;
   font-size: 14px;
   line-height: 119%;
   letter-spacing: 0%;
 }
-.info-label-section{
+.info-label-section {
   color: #818181;
   font-family: Poppins;
   font-weight: 400;
@@ -418,11 +417,11 @@
   line-height: 119%;
   letter-spacing: 0%;
 }
-.rate-label{
+.rate-label {
   font-family: Poppins;
   font-weight: 500;
   font-size: 20px;
-  color:#747474
+  color: #747474;
 }
 
 .material-type {
@@ -433,9 +432,9 @@
   font-size: 20px;
   line-height: 100%;
   letter-spacing: 0%;
-  color:#000000
+  color: #000000;
 }
-.material-type-bid{
+.material-type-bid {
   /* background-color: #eee;
     padding: 5px 10px;
     border-radius: 5px; */
@@ -443,7 +442,7 @@
   font-size: 15px;
   line-height: 100%;
   letter-spacing: 0%;
-  color:#000000
+  color: #000000;
 }
 .vertical-dots {
   height: 20px;
@@ -461,16 +460,16 @@
   gap: 10px;
   justify-content: space-between;
 }
-.trip-card-footers{
+.trip-card-footers {
   display: flex;
   flex-direction: column;
   gap: 2px;
 }
-.trip-under-lined{
-    color: #0066FF;
-    text-decoration: underline;
-    display: inline;
-    font-size: 16px;
+.trip-under-lined {
+  color: #0066ff;
+  text-decoration: underline;
+  display: inline;
+  font-size: 16px;
 }
 .trip-container {
   display: flex;
@@ -483,7 +482,7 @@
   font-size: 18px;
   line-height: 100%;
   letter-spacing: 0%;
-  color:#000000
+  color: #000000;
 }
 .label-l1 {
   font-family: Roboto;
@@ -594,21 +593,21 @@
 #background-content {
   background: none;
 }
-.arrow{
+.arrow {
   display: flex;
   align-items: center;
   justify-content: start;
-  padding-left: 30%
+  padding-left: 30%;
 }
 
 .custom-input {
-  --background: #FFFFFF;
+  --background: #ffffff;
   --border-radius: 8px;
   --padding-start: 10px;
   font-size: 16px;
   font-weight: 500;
   color: #000000;
-  font-family: 'Poppins';
+  font-family: "Poppins";
 }
 
 /* global.css or component CSS */
@@ -643,33 +642,33 @@
   width: 100% !important;
   box-sizing: border-box;
 }
-.trips-container{
+.trips-container {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 }
-.trip-card-container{
-      display: flex;
-    flex-direction: row;
-    align-items: center;
-    background: lightgrey;
-    border-radius: 6px;
-    justify-content: space-between;
-    padding: 5px;
+.trip-card-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background: lightgrey;
+  border-radius: 6px;
+  justify-content: space-between;
+  padding: 5px;
 }
-.trip-card-label{
-    color: #000000;
+.trip-card-label {
+  color: #000000;
   font-size: 16px;
   font-weight: 400;
 }
 
-.trip-icon-box{
+.trip-icon-box {
   border: 1px solid black;
-    display: flex;
-    align-items: center;
-    padding: 2px;
-    border-radius: 5px;
-    background: #E8E8E8;
+  display: flex;
+  align-items: center;
+  padding: 2px;
+  border-radius: 5px;
+  background: #e8e8e8;
 }
 .radio-option {
   display: flex;
@@ -684,14 +683,14 @@
   font-weight: 400;
   font-size: 14px;
 }
-.radio-group-label{
-    margin: 20px 0 20px;
-    background-color: #E8E8E8;
-    height: 10vw;
-    display: flex;
-    align-items: center;
-    font-size: 20px;
-    font-weight: 500;
+.radio-group-label {
+  margin: 20px 0 20px;
+  background-color: #e8e8e8;
+  height: 10vw;
+  display: flex;
+  align-items: center;
+  font-size: 20px;
+  font-weight: 500;
 }
 .add-icon-wrapper {
   margin: 8px 0 16px 4px;
@@ -700,4 +699,110 @@
   color: var(--ion-color-primary);
   font-size: 20px;
   justify-content: flex-end;
+}
+
+/* User Info Section Styles */
+.user-info-section {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 15px 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.user-avatar {
+  flex-shrink: 0;
+}
+
+.user-details {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  flex: 1;
+}
+
+.user-name {
+  font-family: "Poppins";
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 100%;
+  color: #000000;
+}
+
+.user-phone {
+  font-family: "Poppins";
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 100%;
+  color: #818181;
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 15px 0;
+}
+
+.user-info-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.user-info-item-label {
+  font-family: "Poppins";
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 119%;
+  color: #818181;
+}
+
+.user-info-item-value {
+  font-family: "Poppins";
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 119%;
+  color: #000000;
+}
+
+/* Bid Action Buttons Styles */
+.bid-action-buttons {
+  display: flex;
+  gap: 12px;
+  padding: 15px 0;
+  justify-content: space-between;
+}
+
+.accept-button {
+  --background: #4caf50;
+  --background-hover: #45a049;
+  --background-activated: #45a049;
+  --color: #ffffff;
+  --border-radius: 8px;
+  --padding-start: 24px;
+  --padding-end: 24px;
+  --padding-top: 12px;
+  --padding-bottom: 12px;
+  font-family: "Poppins";
+  font-weight: 600;
+  font-size: 14px;
+  flex: 1;
+}
+
+.reject-button {
+  --background: transparent;
+  --background-hover: #f5f5f5;
+  --background-activated: #f5f5f5;
+  --color: #ff4444;
+  --border-color: #ff4444;
+  --border-radius: 8px;
+  --padding-start: 24px;
+  --padding-end: 24px;
+  --padding-top: 12px;
+  --padding-bottom: 12px;
+  font-family: "Poppins";
+  font-weight: 600;
+  font-size: 14px;
+  flex: 1;
 }
