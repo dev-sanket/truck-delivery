@@ -22,25 +22,25 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
     useEffect(() => {
         // Check localStorage on initial load
-        // const storedUser = localStorage.getItem('user');
-        // if (storedUser) {
-        //     const userData = JSON.parse(storedUser);
-        //     if (userData.UsersID) {
-        //         setUser(userData);
-        //         setIsAuthenticated(true);
-        //     }
-        // }
-        const loadUser = async () => {
-        const { value } = await Preferences.get({ key: 'user' });
-        if (value) {
-            const userData = JSON.parse(value);
+        const storedUser = localStorage.getItem('user');
+        if (storedUser) {
+            const userData = JSON.parse(storedUser);
             if (userData.UsersID) {
                 setUser(userData);
                 setIsAuthenticated(true);
             }
         }
-    };
-    loadUser();
+        const loadUser = async () => {
+            const { value } = await Preferences.get({ key: 'user' });
+            if (value) {
+                const userData = JSON.parse(value);
+                if (userData.UsersID) {
+                    setUser(userData);
+                    setIsAuthenticated(true);
+                }
+            }
+        };
+        loadUser();
     }, []);
 
     const login = async (userData: User) => {
@@ -48,16 +48,16 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         setIsAuthenticated(true);
         // localStorage.setItem('user', JSON.stringify(userData));
         await Preferences.set({
-        key: 'user',
-        value: JSON.stringify(userData)
-    });
+            key: 'user',
+            value: JSON.stringify(userData)
+        });
     };
 
     const logout = async () => {
         setUser(null);
         setIsAuthenticated(false);
         // localStorage.removeItem('user');
-         await Preferences.remove({ key: 'user' });
+        await Preferences.remove({ key: 'user' });
     };
 
     return (

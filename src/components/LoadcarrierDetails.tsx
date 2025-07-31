@@ -7,179 +7,194 @@ import {
   IonGrid,
   IonRow,
   IonCol,
+  IonText,
+  IonChip,
 } from "@ionic/react";
 
 import "../../src/assets/styles/main.css";
-import { Link, useHistory } from "react-router-dom";
-import userIcon from "../assets/images/user.png";
+import { useHistory } from "react-router-dom";
 import greenDotWhite from "../../src/assets/images/greenDotWhite.png";
 import redDotWhite from "../../src/assets/images/redDotWhite.png";
 import miniPickup from "../assets/images/miniTruckBlack.png";
 import weighIcon from "../assets/images/weighIcon.png";
 import vertical from "../assets/images/icons/vertical.svg";
-import { LoadData } from "../pages/app/NewLoadDetails";
+import { LoadData } from "../utils/app.types";
+import { person } from "ionicons/icons";
+
 type LoadCarrierDetailsProps = {
   showLabel?: boolean;
   data?: LoadData;
 };
+
 const LoadCarrierDetails: React.FC<LoadCarrierDetailsProps> = ({
   showLabel = false,
   data,
 }) => {
   const router = useHistory();
+
   return (
-    <IonCard className="carrier-card">
+    <IonCard className="ion-no-padding" style={{ margin: '8px 0' }}>
       <IonCardContent className="ion-no-padding">
         <IonGrid className="ion-no-padding">
-          <IonRow className="ion-justify-content-between">
-            <IonCol size="12">
-              <div className="carrier-info">
-                <div className="carrier-avatar">
-                  <img
-                    src={userIcon}
-                    alt="phone"
-                    style={{
-                      width: "100%",
-                      height: "100%",
-                      borderRadius: "50%",
-                    }}
-                  />
+          {/* User Info Section */}
+          <IonRow className="">
+            <IonCol size="12" className="">
+              <div style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '12px',
+                padding: '12px 16px'
+              }}>
+                <div style={{
+                  width: '50px',
+                  height: '50px',
+                  borderRadius: '50%',
+                  backgroundColor: '#f0f0f0',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  border: '2px solid #e0e0e0'
+                }}>
+                  <IonIcon icon={person} style={{ fontSize: '24px', color: '#666' }} />
                 </div>
-                <div className="carrier-details">
-                  <div className="carrier-container">
-                    <div className="carrier-name">{data?.FullName}</div>
-                    <div className="carrier-name-small">{data?.FullName}</div>
+                <div>
+                  <div style={{ fontSize: '16px', fontWeight: '600', margin: '0 0 4px 0' }}>
+                    {data?.FullName}
                   </div>
-                  <div className="carrier-rating">
-                    <span className="stars">★★★★★</span>
-                    <span className="rating-value">4.5</span>
+
+                </div>
+              </div>
+            </IonCol>
+          </IonRow>
+
+          {/* Route Information */}
+          <IonRow className="ion-no-padding">
+            <IonCol size="12" className="ion-no-padding">
+              <div style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                padding: '12px 16px',
+                backgroundColor: '#f8f9fa',
+                borderRadius: '8px',
+                margin: '8px 16px'
+              }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <img src={greenDotWhite} alt="From" style={{ width: '16px', height: '16px' }} />
+                  <IonText style={{ fontSize: '14px', fontWeight: '500' }}>
+                    {data?.LoadFrom}
+                  </IonText>
+                </div>
+
+                <div style={{ display: 'flex', alignItems: 'center' }}>
+                  <IonIcon src={vertical} style={{ width: '16px', height: '16px', color: '#666' }} />
+                </div>
+
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <IonText style={{ fontSize: '14px', fontWeight: '500' }}>
+                    {data?.LoadTo}
+                  </IonText>
+                  <img src={redDotWhite} alt="To" style={{ width: '16px', height: '16px' }} />
+                </div>
+              </div>
+            </IonCol>
+          </IonRow>
+
+          {/* Vehicle and Weight Info */}
+          <IonRow className="ion-no-padding">
+            <IonCol size="12" className="ion-no-padding">
+              <div style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                padding: '12px 16px'
+              }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                  <img src={miniPickup} alt="Vehicle" style={{ width: '24px', height: '24px' }} />
+                  <div>
+                    <IonText style={{ fontSize: '12px', color: '#666' }}>Vehicle Type</IonText>
+                    <div style={{ fontSize: '14px', fontWeight: '500' }}>{data?.VehicleType}</div>
+                  </div>
+                </div>
+
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <img src={weighIcon} alt="Weight" style={{ width: '20px', height: '20px' }} />
+                  <IonText style={{ fontSize: '14px', fontWeight: '500' }}>
+                    {data?.ProductWeight} TON
+                  </IonText>
+                </div>
+              </div>
+            </IonCol>
+          </IonRow>
+
+          {/* Product and Payment Info */}
+          <IonRow className="ion-no-padding">
+            <IonCol size="12" className="ion-no-padding">
+              <div style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                padding: '0 16px 12px 16px'
+              }}>
+                <div style={{ flex: 1 }}>
+                  <IonText style={{ fontSize: '12px', color: '#666' }}>Product</IonText>
+                  <div style={{ fontSize: '14px', fontWeight: '500', marginTop: '4px' }}>
+                    {data?.ProductType}
+                  </div>
+                </div>
+
+                <div style={{ flex: 1, textAlign: 'right' }}>
+                  <IonText style={{ fontSize: '12px', color: '#666' }}>Payment Terms</IonText>
+                  <div style={{ fontSize: '14px', fontWeight: '500', marginTop: '4px' }}>
+                    {data?.PaymentTerms}
                   </div>
                 </div>
               </div>
             </IonCol>
           </IonRow>
-          <IonRow className="ion-justify-content-between ion-padding-top">
-            <IonCol size="12">
-              <div className="route-info">
-                <div className="route-point">
-                  <img
-                    src={greenDotWhite}
-                    alt="phone"
-                    style={{ width: 18, height: 18, borderRadius: 50 }}
-                  />
-                  <div className="location-text">{data?.LoadFrom}</div>
-                </div>
-                <div className="vertical-dots">
-                  <IonIcon
-                    src={vertical}
-                    style={{ width: "20px", fontSize: "20px" }}
-                  />
-                </div>
-                <div className="route-point">
-                  <img
-                    src={redDotWhite}
-                    alt="phone"
-                    style={{ width: 18, height: 18, borderRadius: 50 }}
-                  />
-                  <div className="location-text">{data?.LoadTo}</div>
-                </div>
-              </div>
-            </IonCol>
-          </IonRow>
-          <IonRow className="ion-justify-content-between ion-padding-top">
-            <IonCol size="12">
-              <div className="truck-info">
-                <div className="info-label">Truck Types</div>
-                <div className="truck-container">
-                  <img
-                    src={miniPickup}
-                    alt="phone"
-                    style={{ width: 31, height: 31 }}
-                  />
-                  <div className="carrier-name" style={{ fontSize: 12 }}>Open Half/Full Body</div>
-                  <div className="weighIcon">
-                    <img
-                      src={weighIcon}
-                      alt="phone"
-                      style={{ width: 20, height: 20 }}
-                    />
-                    <div className="carrier-name" style={{ fontSize: 12 }}>{data?.ProductWeight}</div>
+
+          {/* Rate and Bid Button */}
+          <IonRow className="ion-no-padding">
+            <IonCol size="12" className="ion-no-padding">
+              <div style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                padding: '12px 16px',
+                borderTop: '1px solid #f0f0f0'
+              }}>
+                <div>
+                  <IonText style={{ fontSize: '12px', color: '#666' }}>Rate</IonText>
+                  <div style={{ fontSize: '16px', fontWeight: '600', color: '#000' }}>
+                    ₹{data?.RatePerTon}
+                    <span style={{ fontSize: '12px', fontWeight: '400', color: '#666' }}> per ton</span>
                   </div>
                 </div>
-              </div>
-            </IonCol>
-          </IonRow>
-          <IonRow className="ion-justify-content-between ion-padding-top">
-            <IonCol size="12">
-              <div className="material-info">
-                <div className="info-container">
-                  <div className="info-label-section">Product</div>
-                  <div className="info-label-section">Payment Terms</div>
-                </div>
-                <div className="product-container-load">
-                  <div className="material-type">Advance</div>
-                  <div className="material-type">Asbestos sheet</div>
-                </div>
-              </div>
-            </IonCol>
-          </IonRow>
-          <IonRow className="ion-justify-content-between ion-padding-top">
-            {/* <IonCol size="12">
-              <div className="rate-info" style={{gap:'0vw'}}>
-                <div className="rate-label">Rate</div>
-                <div className="product-container-load" style={{alignItems:'unset'}}>
-                  <div className="rate-value">
-                    ₹2,000{" "}
-                    <span style={{ fontSize: "16px", fontWeight: 400,color:'#000000' }}>
-                      per ton{" "}
-                    </span>
-                  </div>
-                  <div className="display-col">
-                    <IonButton
-                      expand="block"
-                      className="call-button"
-                      style={{
-                        width: "80px",
-                        height: "30px",
-                        "--background": "#FFD901",
-                        color: "#000000",
-                      }}
+
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  {showLabel && (
+                    <IonChip
+                      color="danger"
+                      style={{ margin: '0', height: '24px', fontSize: '12px' }}
                     >
-                      Bid
-                    </IonButton>
-                    {showLabel && <div className="label-l1">L1</div>}
-                  </div>
-                </div>
-              </div>
-            </IonCol> */}
-            <IonCol size="12">
-              <div className="rate-info">
-                <div className="display-col">
-                  <div className="rate-label">Rate</div>
-                  <div className="product-container-load" style={{ alignItems: 'unset' }}>
-                    <div className="rate-value">
-                      ₹2,000{" "}
-                      <span style={{ fontSize: "16px", fontWeight: 400, color: '#000000' }}>
-                        per ton{" "}
-                      </span>
-                    </div>
-                  </div>
-                </div>
-                <div className="display-col" style={{ alignItems: 'center' }}>
+                      L1
+                    </IonChip>
+                  )}
+
                   <IonButton
-                    expand="block"
-                    className="call-button"
+                    size="default"
                     onClick={() => router.push(`/app/place-bid/${data?.LoadsID}`)}
                     style={{
-                      width: "80px",
-                      height: "30px",
-                      "--background": "#FFD901",
-                      color: "#000000",
+                      '--background': '#FFD901',
+                      '--color': '#000000',
+                      '--border-radius': '20px',
+                      height: '36px',
+                      fontSize: '14px',
+                      fontWeight: '600',
+                      minWidth: '80px'
                     }}
                   >
                     Bid
                   </IonButton>
-                  {showLabel && <div className="label-l1">L1</div>}
                 </div>
               </div>
             </IonCol>

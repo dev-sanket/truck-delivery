@@ -43,15 +43,24 @@ export const CreateLoadFormValidation = () => {
   return validationSchema;
 };
 
-export const PlaceBidFormValidation = () => {
+export const PlaceBidFormValidation = (ratePerTon?: number) => {
   const validationSchema = Yup.object({
-    BidAmount: Yup.number().min(1, "Bid Amount is required"),
-    BidQuantity: Yup.number().required("Bid Quantity is required"),
-    DriverName: Yup.string().required("Driver Name is required"),
-    DriverContactNumber: Yup.string().required(
-      "Driver Contact Number is required"
-    ),
-    VehicleNumber: Yup.string().required("Vehicle Number is required"),
+    BidAmount: Yup.number()
+      .min(1, "Bid Amount is required")
+      .test(
+        "less-than-rate",
+        "Bid amount must be less than the per ton rate",
+        function (value) {
+          if (!ratePerTon || !value) return true;
+          return value < ratePerTon;
+        }
+      ),
+    // BidQuantity: Yup.number().required("Bid Quantity is required"),
+    DriverName: Yup.string(),
+    DriverContactNumber: Yup.string()
+      .required("Driver Contact Number is required")
+      .matches(/^[6-9]\d{9}$/, "Invalid mobile number"),
+    VehicleNumber: Yup.string(),
   });
   return validationSchema;
 };

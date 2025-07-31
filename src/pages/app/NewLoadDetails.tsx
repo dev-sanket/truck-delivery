@@ -10,16 +10,15 @@ import {
   IonRefresherContent,
   RefresherEventDetail,
   IonModal,
-  IonList,
-  IonItem,
-  IonAvatar,
-  IonImg,
-  IonFooter,
   IonButtons,
   IonTitle,
+  IonSpinner,
 } from "@ionic/react";
 import {
+  busOutline,
   chevronBack,
+  documentLockOutline,
+  documentOutline,
   filter
 } from "ionicons/icons";
 
@@ -41,18 +40,9 @@ import lcvTruck from "../../assets/images/LcvTruck.png";
 import openTruck from "../../assets/images/openTruck.png";
 import Trailer from "../../assets/images/Trailer.png";
 import miniPickup from "../../assets/images/miniPickUpTruck.png";
+import { LoadData, LoadStatus } from "../../utils/app.types";
 
-export interface LoadData {
-  LoadsID: string;
-  UsersID: string;
-  FullName: string;
-  ProductType: string;
-  ProductWeight: string;
-  LoadFrom: string;
-  LoadTo: string;
-  Status: string;
-  LoadCreated: string;
-}
+
 const NewLoadDetails: React.FC = () => {
   const filtersModal = useRef<HTMLIonModalElement>(null);
   const { user } = useAuth();
@@ -61,6 +51,7 @@ const NewLoadDetails: React.FC = () => {
   const { fromLocation, toLocation } = location.state || { fromLocation: "", toLocation: "" };
   const [loadData, setLoadData] = useState<LoadData[]>([]);
   const [truckType, setTruckType] = useState<string>("open");
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   if (!user) {
     history.push("/auth");
@@ -77,42 +68,42 @@ const NewLoadDetails: React.FC = () => {
   };
   const [selectedSegment, setSelectedSegment] = useState("open");
   const handleSegmentChange = (e: CustomEvent) => {
-    console.log(e);
-    if (e.detail.value == "open" || e.detail.value == "confirmed") {
-      setSelectedSegment(e.detail.value);
-    } else {
-      presentToast("middle", "Something went wrong", 'danger');
-    }
+    setSelectedSegment(e.detail.value);
+    getLoadDetails(e.detail.value as LoadStatus);
   };
 
   useEffect(() => {
-    getLoadDetails();
+    getLoadDetails(LoadStatus.OPEN);
   }, []);
 
-  const getLoadDetails = async () => {
+  const getLoadDetails = async (status: LoadStatus) => {
     try {
+      setIsLoading(true);
       const response = await postApiCall({
         "UsersID": user?.UsersID,
         "LoadFrom": fromLocation,
-        "LoadTo": toLocation
+        "LoadTo": toLocation,
+        "LoadStatus": status || LoadStatus.OPEN
       }, "SearchLoad");
       console.log("Response", response);
       if (response?.status) {
         setLoadData(response.data);
       } else {
         console.log("Response111", response);
-        const message = response?.errors?.errorMessage || response?.message || "Something went wrong";
-        presentToast('top', message, 'danger');
+        if (response?.errors?.errorMessage === "No result found.") {
+          setLoadData([]);
+        }
       }
-
     } catch (error) {
       presentToast('top', "Something went wrong", 'danger');
       console.error(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
   const handleRefresh = async (event: CustomEvent<RefresherEventDetail>) => {
-    await getLoadDetails();
+    await getLoadDetails(selectedSegment as LoadStatus);
     event.detail.complete();
   }
 
@@ -122,7 +113,7 @@ const NewLoadDetails: React.FC = () => {
       <IonHeader>
         <IonToolbar>
           <IonSegment value={selectedSegment} onIonChange={handleSegmentChange}>
-            {["open", "pending", "confirmed", "history"].map((segment) => (
+            {[LoadStatus.OPEN, LoadStatus.PENDING, LoadStatus.CONFIRMED, LoadStatus.HISTORY].map((segment) => (
               <IonSegmentButton
                 key={segment}
                 value={segment}
@@ -141,10 +132,10 @@ const NewLoadDetails: React.FC = () => {
                 }
               >
                 <div className="segment-label">
-                  {segment === "open" && "Open(15)"}
-                  {segment === "pending" && "Pending(0)"}
-                  {segment === "confirmed" && "Confirmed(13)"}
-                  {segment === "history" && "History(4)"}
+                  {segment === LoadStatus.OPEN && `Open(${loadData.filter((item: LoadData) => item.LoadStatus === LoadStatus.OPEN).length})`}
+                  {segment === LoadStatus.PENDING && `Pending(${loadData.filter((item: LoadData) => item.LoadStatus === LoadStatus.PENDING).length})`}
+                  {segment === LoadStatus.CONFIRMED && `Confirmed(${loadData.filter((item: LoadData) => item.LoadStatus === LoadStatus.CONFIRMED).length})`}
+                  {segment === LoadStatus.HISTORY && `History(${loadData.filter((item: LoadData) => item.LoadStatus === LoadStatus.HISTORY).length})`}
                 </div>
               </IonSegmentButton>
             ))}
@@ -152,78 +143,132 @@ const NewLoadDetails: React.FC = () => {
         </IonToolbar>
       </IonHeader>
 
-      {selectedSegment === "open" && (
-        <IonContent
-          className="ion-padding"
-          style={
-            {
-              "--padding-start": "0px",
-              "--padding-end": "0px",
-            } as React.CSSProperties
-          }
-        >
-          <IonRefresher slot="fixed" pullFactor={0.5} pullMin={100} pullMax={200} onIonRefresh={handleRefresh}>
-            <IonRefresherContent></IonRefresherContent>
-          </IonRefresher>
-          <div className="load-details-container">
-            <div className="button-container">
-              <IonButton size="small" fill="outline" onClick={() => history.goBack()} className="header-back-button">
-                <IonIcon slot="icon-only" ios={chevronBack} md={chevronBack} size="large"></IonIcon>
-              </IonButton>
-              <IonButton className="btn1">All Loads</IonButton>
-              <IonButton className="btn2">My Bids</IonButton>
-              <IonButton className="btn2">No Bids</IonButton>
-              <IonButton size="small" fill="outline" id="filters-modal" className="header-back-button">
-                <IonIcon slot="icon-only" ios={filter} md={filter} size="large"></IonIcon>
+      <IonContent
+        className="ion-padding"
+        style={
+          {
+            "--padding-start": "0px",
+            "--padding-end": "0px",
+          } as React.CSSProperties
+        }
+      >
+        <IonRefresher slot="fixed" pullFactor={0.5} pullMin={100} pullMax={200} onIonRefresh={handleRefresh}>
+          <IonRefresherContent></IonRefresherContent>
+        </IonRefresher>
+        <div className="load-details-container">
+          <div className="button-container">
+            <IonButton size="small" fill="outline" onClick={() => history.goBack()} className="header-back-button">
+              <IonIcon slot="icon-only" ios={chevronBack} md={chevronBack} size="large"></IonIcon>
+            </IonButton>
+            <IonButton className="btn1">All Loads</IonButton>
+            <IonButton className="btn2">My Bids</IonButton>
+            <IonButton className="btn2">No Bids</IonButton>
+            <IonButton size="small" fill="outline" id="filters-modal" className="header-back-button">
+              <IonIcon slot="icon-only" ios={filter} md={filter} size="large"></IonIcon>
+            </IonButton>
+          </div>
+          {isLoading ? (
+            <div style={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              height: '50vh',
+              width: '100%'
+            }}>
+              <IonSpinner />
+            </div>
+          ) : loadData.length > 0 ? (
+            loadData.map((item: LoadData) => (
+              <LoadCarrierDetails showLabel={true} data={item} key={item.LoadsID} />
+            ))
+          ) : (
+            <div style={{
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'center',
+              alignItems: 'center',
+              padding: '60px 20px',
+              textAlign: 'center'
+            }}>
+              <div style={{
+                width: '80px',
+                height: '80px',
+                borderRadius: '50%',
+                backgroundColor: '#f0f0f0',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                marginBottom: '20px'
+              }}>
+                <IonIcon icon={busOutline} style={{ fontSize: '32px', color: '#666' }} />
+              </div>
+              <div style={{ fontSize: '20px', fontWeight: '600', marginBottom: '8px', color: '#333' }}>
+                No Loads Found
+              </div>
+              <div style={{ fontSize: '14px', color: '#666', marginBottom: '24px', lineHeight: '1.4' }}>
+                {selectedSegment === LoadStatus.OPEN && "No open loads available for your search criteria."}
+                {selectedSegment === LoadStatus.PENDING && "No pending loads found."}
+                {selectedSegment === LoadStatus.CONFIRMED && "No confirmed loads available."}
+                {selectedSegment === LoadStatus.HISTORY && "No load history found."}
+              </div>
+              <IonButton
+                color="primary"
+                shape="round"
+                onClick={() => history.goBack()}
+                style={{
+                  '--background': '#007bff',
+                  '--color': '#ffffff',
+                  fontSize: '14px',
+                  fontWeight: '500'
+                }}
+              >
+                Try Different Search
               </IonButton>
             </div>
-            {
-              loadData.map((item: LoadData) => (
-                <LoadCarrierDetails showLabel={true} data={item} key={item.LoadsID} />
-              ))
-            }
-            <IonModal ref={filtersModal} mode="ios" trigger="filters-modal" initialBreakpoint={0.25} breakpoints={[0, 0.25, 0.5, 0.75]}>
-              <IonHeader>
-                <IonToolbar>
-                  <IonTitle>Modal</IonTitle>
-                  <IonButtons slot="end">
-                    <IonButton onClick={() => filtersModal.current?.dismiss()}>Close</IonButton>
-                  </IonButtons>
-                </IonToolbar>
-              </IonHeader>
-              <IonContent className="ion-padding">
-                <IonLabel>Truck Type</IonLabel>
-                <div className="vehicle-chip-container">
+          )}
+          <IonModal ref={filtersModal} mode="ios" trigger="filters-modal" initialBreakpoint={0.25} breakpoints={[0, 0.25, 0.5, 0.75]}>
+            <IonHeader>
+              <IonToolbar>
+                <IonTitle>Modal</IonTitle>
+                <IonButtons slot="end">
+                  <IonButton onClick={() => filtersModal.current?.dismiss()}>Close</IonButton>
+                </IonButtons>
+              </IonToolbar>
+            </IonHeader>
+            <IonContent className="ion-padding">
+              <IonLabel>Truck Type</IonLabel>
+              <div className="vehicle-chip-container">
 
-                  <div className={`vehicle-chip ${truckType === "open" ? "active" : ""}`} onClick={() => setTruckType("open")}>
-                    <img src={openTruck} alt="phone" style={{ width: 30, height: 30 }} />
-                    <div className="vehicle-chip-header">Open</div>
-                  </div>
-                  <div className={`vehicle-chip ${truckType === "dc" ? "active" : ""}`} onClick={() => setTruckType("dc")}>
-                    <img src={lcvTruck} alt="phone" style={{ width: 30, height: 30 }} />
-                    <div className="vehicle-chip-header">DCM</div>
-                    <div className="description">7.5 to 46 Ton</div>
-                  </div>
-                  <div className={`vehicle-chip ${truckType === "mini" ? "active" : ""}`} onClick={() => setTruckType("mini")}>
-                    <img src={Trailer} alt="phone" style={{ width: 30, height: 30 }} />
-                    <div className="vehicle-chip-header">Mini/Pickup</div>
-                    <div className="description">2.5 to 7 Ton</div>
-                  </div>
-                  <div className={`vehicle-chip ${truckType === "trailer" ? "active" : ""}`} onClick={() => setTruckType("trailer")}>
-                    <img src={miniPickup} alt="phone" style={{ width: 30, height: 30 }} />
-                    <div className="vehicle-chip-header">Trailer</div>
-                    <div className="description">7.5 to 46 Ton</div>
-                  </div>
-
+                <div className={`vehicle-chip ${truckType === "open" ? "active" : ""}`} onClick={() => setTruckType("open")}>
+                  <img src={openTruck} alt="phone" style={{ width: 30, height: 30 }} />
+                  <div className="vehicle-chip-header">Open</div>
+                </div>
+                <div className={`vehicle-chip ${truckType === "dc" ? "active" : ""}`} onClick={() => setTruckType("dc")}>
+                  <img src={lcvTruck} alt="phone" style={{ width: 30, height: 30 }} />
+                  <div className="vehicle-chip-header">DCM</div>
+                  <div className="description">7.5 to 46 Ton</div>
+                </div>
+                <div className={`vehicle-chip ${truckType === "mini" ? "active" : ""}`} onClick={() => setTruckType("mini")}>
+                  <img src={Trailer} alt="phone" style={{ width: 30, height: 30 }} />
+                  <div className="vehicle-chip-header">Mini/Pickup</div>
+                  <div className="description">2.5 to 7 Ton</div>
+                </div>
+                <div className={`vehicle-chip ${truckType === "trailer" ? "active" : ""}`} onClick={() => setTruckType("trailer")}>
+                  <img src={miniPickup} alt="phone" style={{ width: 30, height: 30 }} />
+                  <div className="vehicle-chip-header">Trailer</div>
+                  <div className="description">7.5 to 46 Ton</div>
                 </div>
 
-                <IonButton expand="block" color="primary" className="mt-2.5x" onClick={() => filtersModal.current?.dismiss()}>Apply</IonButton>
+              </div>
 
-              </IonContent>
+              <IonButton expand="block" color="primary" className="mt-2.5x" onClick={() => filtersModal.current?.dismiss()}>Apply</IonButton>
 
-            </IonModal>
-          </div>
-        </IonContent>
+            </IonContent>
+
+          </IonModal>
+        </div>
+      </IonContent>
+      {/* {selectedSegment === "open" && (
       )}
 
       {selectedSegment === "confirmed" && (
@@ -253,7 +298,7 @@ const NewLoadDetails: React.FC = () => {
 
           </div>
         </IonContent>
-      )}
+      )} */}
     </IonPage>
   );
 };

@@ -10,7 +10,6 @@ import {
   IonCardContent,
   IonInput,
   IonGrid,
-  IonFooter,
   IonRefresher,
   IonRefresherContent,
   RefresherEventDetail,
@@ -26,24 +25,25 @@ import Header from "../../components/Header";
 import rupeeIcon from "../../assets/images/icons/indian-rupee.svg";
 import { useEffect, useState } from "react";
 import { postApiCall } from "../../utils/api/api";
-import { LoadData } from "./NewLoadDetails";
-import { useParams } from "react-router-dom";
+import { LoadData } from "../../utils/app.types";
+import { useHistory, useParams } from "react-router-dom";
 import { Formik } from "formik";
 import { PlaceBidFormValidation } from "../../utils/validator";
+import { useAuth } from "../../store/AuthContext";
+import { format } from "date-fns";
 
 const initialValues = {
   BidAmount: "",
-  BidQuantity: "",
   DriverName: "",
   DriverContactNumber: "",
   VehicleNumber: ""
 }
 const PlaceBid: React.FC = () => {
   const { loadId } = useParams<{ loadId: string }>();
-
+  const router = useHistory();
   const [bidData, setBidData] = useState<LoadData | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-
+  const { user } = useAuth();
   const [present] = useIonToast();
 
   const presentToast = (position: "top" | "middle" | "bottom", message: string, color: 'success' | 'danger' | 'warning' = "success") => {
@@ -80,13 +80,25 @@ const PlaceBid: React.FC = () => {
     event.detail.complete();
   }
 
-  const handlePlaceBid = async (values: any) => {
+  const handlePlaceBid = async (values: typeof initialValues) => {
     console.log("handlePlaceBid", values);
     try {
       setIsLoading(true);
-      const response = await postApiCall(values, "addBid ");
+      const payload = {
+        "LoadsID": loadId,
+        "UsersID": user?.UsersID,
+        "BidAmount": values.BidAmount,
+        "BidQuantity": bidData?.ProductWeight,
+        "DriverName": values.DriverName,
+        "DriverContactNumber": values.DriverContactNumber,
+        "VehicleNumber": values.VehicleNumber
+      }
+      const response = await postApiCall(payload, "addBid ");
       if (response?.status) {
         presentToast("top", "Bid placed successfully!", "success");
+        router.push("/app/dashboard");
+      } else {
+        presentToast("top", response?.message || "Something went wrong! Please try again.", "warning");
       }
     } catch (error) {
       presentToast("top", "Error placing bid!", "danger");
@@ -201,8 +213,8 @@ const PlaceBid: React.FC = () => {
                             <div className="info-label">Rate</div>
                           </div>
                           <div className="product-container-load">
-                            <div className="material-type-bid">April 22 10:30PM</div>
-                            <div className="material-type-bid">₹5,000</div>
+                            <div className="material-type-bid">{format(new Date(bidData?.LoadCreated || ""), "dd MMM yyyy HH:mm")}</div>
+                            <div className="material-type-bid">₹{bidData?.RatePerTon ? parseFloat(bidData.RatePerTon) : 0}</div>
                           </div>
                         </div>
                       </IonCol>
@@ -218,10 +230,10 @@ const PlaceBid: React.FC = () => {
                 <IonCardContent>
                   <Formik
                     initialValues={initialValues}
-                    validationSchema={PlaceBidFormValidation}
+                    validationSchema={PlaceBidFormValidation(bidData?.RatePerTon ? parseFloat(bidData.RatePerTon) : undefined)}
                     onSubmit={handlePlaceBid}
                   >
-                    {({ values, handleChange, handleSubmit, isValid, setFieldValue, errors }) => (
+                    {({ values, handleSubmit, isValid, setFieldValue, errors }) => (
                       <form onSubmit={handleSubmit}>
                         <IonRow>
                           <IonCol size="12">
@@ -229,7 +241,7 @@ const PlaceBid: React.FC = () => {
                               className={`custom-input ${isValid && 'ion-valid'} ${isValid === false && 'ion-invalid'}`}
                               type="number"
                               fill="outline"
-                              label="Bid Amount"
+                              label="Bid Amount(*)"
                               labelPlacement="floating"
                               errorText={errors.BidAmount}
                               name="BidAmount"
@@ -245,30 +257,11 @@ const PlaceBid: React.FC = () => {
                               <IonIcon slot="start" icon={rupeeIcon} size="small" aria-hidden="true"></IonIcon>
                             </IonInput>
                           </IonCol>
-                          <IonCol size="12">
-                            <IonInput
-                              className={`custom-input ${isValid && 'ion-valid'} ${isValid === false && 'ion-invalid'}`}
-                              type="number"
-                              fill="outline"
-                              label="Bid Quantity (Ton)"
-                              labelPlacement="floating"
-                              errorText={errors.BidQuantity}
-                              name="BidQuantity"
-                              onIonInput={(e) => {
-                                setFieldValue("BidQuantity", e.detail.value);
-                              }}
-                              value={values.BidQuantity}
-                              placeholder="Enter a valid bid quantity"
-                              helperText=""
-                              mode="md"
-                              inputmode="numeric"
-                            />
 
-                          </IonCol>
                           <IonCol size="12">
                             <IonInput
                               className={`custom-input ${isValid && 'ion-valid'} ${isValid === false && 'ion-invalid'}`}
-                              type="number"
+                              type="text"
                               fill="outline"
                               label="Driver Name"
                               labelPlacement="floating"
@@ -281,7 +274,6 @@ const PlaceBid: React.FC = () => {
                               placeholder="Enter a valid driver name"
                               helperText=""
                               mode="md"
-                              inputmode="numeric"
                             />
 
                           </IonCol>
@@ -290,13 +282,14 @@ const PlaceBid: React.FC = () => {
                               className={`custom-input ${isValid && 'ion-valid'} ${isValid === false && 'ion-invalid'}`}
                               type="number"
                               fill="outline"
-                              label="Driver Contact Number"
+                              label="Driver Contact Number(*)"
                               labelPlacement="floating"
                               errorText={errors.DriverContactNumber}
                               name="DriverContactNumber"
                               onIonInput={(e) => {
                                 setFieldValue("DriverContactNumber", e.detail.value);
                               }}
+                              maxlength={10}
                               value={values.DriverContactNumber}
                               placeholder="Enter a valid driver contact number"
                               helperText=""
@@ -308,7 +301,7 @@ const PlaceBid: React.FC = () => {
                           <IonCol size="12">
                             <IonInput
                               className={`custom-input ${isValid && 'ion-valid'} ${isValid === false && 'ion-invalid'}`}
-                              type="number"
+                              type="text"
                               fill="outline"
                               label="Vehicle Number"
                               labelPlacement="floating"
@@ -321,17 +314,15 @@ const PlaceBid: React.FC = () => {
                               placeholder="Enter a valid driver contact number"
                               helperText=""
                               mode="md"
-                              inputmode="numeric"
                             />
 
                           </IonCol>
                           <IonCol size="12">
                             <IonButton
                               expand="block"
-                              disabled={isLoading}
+                              disabled={isLoading || !isValid}
                               onClick={() => handleSubmit()}
                               className="confirm-button"
-                              routerLink="/app/dashboard"
                             >
                               {isLoading && <IonSpinner name="crescent" color="light" />}
                               {isLoading ? "Placing Bid..." : "Quote PMT"}
