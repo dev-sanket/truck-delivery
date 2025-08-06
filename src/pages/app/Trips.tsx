@@ -24,6 +24,9 @@ import {
   IonButtons,
   IonIcon,
   IonCard,
+  RefresherEventDetail,
+  IonRefresher,
+  IonRefresherContent,
 } from "@ionic/react";
 import "../../assets/styles/main.css";
 import Header from "../../components/Header";
@@ -42,12 +45,18 @@ import {
 import { DateRange } from "react-date-range";
 import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
-import { format } from "date-fns";
+import { format, subMonths } from "date-fns";
+
+interface TripStatus {
+  label: string;
+  count: number;
+}
+
 const Trips: React.FC = () => {
   const [showModal, setShowModal] = useState(false);
-  const [tripsList, setTripsList] = useState([]);
+
   const [selectionRange, setSelectionRange] = useState({
-    startDate: new Date(),
+    startDate: subMonths(new Date(), 1),
     endDate: new Date(),
     key: "selection",
   });
@@ -55,6 +64,7 @@ const Trips: React.FC = () => {
   const [present] = useIonToast();
   const { user } = useAuth();
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [tripsList, setTripsList] = useState<TripStatus[]>([]);
 
   const presentToast = (
     message: string,
@@ -68,62 +78,99 @@ const Trips: React.FC = () => {
       color: color,
     });
   };
-  const onModalClose = () => {};
-const handleTrips = () => {
-  console.log("handle trips")
-  history.push("/app/tripDetails")
-};
-  useEffect(()=>{
-    let tripsList :any= [
-      {label:"Indent",count:13},
-      {label:"Loading",count:0},
-      {label:"In transit",count:10},
-      {label:"Unloading",count:10},
-      {label:"POD-Pending",count:12},
-      {label:"Closed",count:12},
-      {label:"Cancelled",count:10},
-    ]
-    setTripsList(tripsList)
-  },[])
+  useEffect(() => {
+    getTrips();
+  }, [selectionRange.startDate, selectionRange.endDate])
+
+
+  const getTrips = async () => {
+    try {
+      const response = await postApiCall({
+        "UsersID": user?.UsersID,
+        "FromDate": format(selectionRange.startDate, "yyyy-MM-dd"),
+        "ToDate": format(selectionRange.endDate, "yyyy-MM-dd")
+      }, "getMyTripsList");
+      console.log(response);
+      if (response?.status) {
+        const tripsList: TripStatus[] = [];
+        Object.keys(response.data).forEach((key: string) => {
+          tripsList.push({ label: key, count: response.data[key] });
+        });
+        setTripsList(tripsList);
+      }
+    } catch (error) {
+      presentToast("Something went wrong", "top", "danger");
+      console.error(error);
+    }
+
+  }
+  const onModalClose = () => { };
+
+  const handleTrips = (tripId: string) => {
+    console.log("handle trips")
+    history.push(`/app/tripDetails/${tripId}`)
+  };
+  // useEffect(() => {
+  //   let tripsList: any = [
+  //     { label: "Indent", count: 0 },
+  //     { label: "Loading", count: 0 },
+  //     { label: "In transit", count: 0 },
+  //     { label: "Unloading", count: 0 },
+  //     { label: "POD-Pending", count: 0 },
+  //     { label: "Closed", count: 0 },
+  //     { label: "Cancelled", count: 0 },
+  //   ]
+  //   setTripsList(tripsList)
+  // }, [])
+
+
+  const handleRefresh = async (event: CustomEvent<RefresherEventDetail>) => {
+    await getTrips();
+    event.detail.complete();
+  }
+
   return (
     <IonPage>
       <Header showBackButton={true} showIcon={false} />
       <IonContent className="ion-padding">
+        <IonRefresher slot="fixed" pullFactor={0.5} pullMin={100} pullMax={200} onIonRefresh={handleRefresh}>
+          <IonRefresherContent></IonRefresherContent>
+        </IonRefresher>
         <IonGrid className="ion-no-padding">
           <IonRow>
             <IonCol size="12">
               <div className="trips-container">
                 <div className="title">Trips</div>
                 <div className="trip-icon-box">
-                <IonIcon
-                  slot="icon-only"
-                  icon={calendarOutline}
-                  size="large"
-                  onClick={() => {
-                    console.log("clicked modal");
-                    setShowModal(true);
-                  }}
-                ></IonIcon>
+                  <IonIcon
+                    slot="icon-only"
+                    icon={calendarOutline}
+                    size="large"
+                    onClick={() => {
+                      console.log("clicked modal");
+                      setShowModal(true);
+                    }}
+                  ></IonIcon>
                 </div>
               </div>
             </IonCol>
-              <IonCol size="12"  style={{ display: "flex", flexDirection: "column", gap: "16px",marginTop:"30px" }}>
-                {
-                  tripsList.map((el:any,index:any)=>
-                  <IonCard className="trip-card" key={index} onClick={handleTrips}>
-                  <div className="trip-card-container">
-                    <div className="trip-card-label">{el.label}&nbsp;&nbsp;({el.count})</div>
-                    <IonIcon
-                      slot="icon-only"
-                      icon={chevronForwardOutline}
-                      size="large"
-                    ></IonIcon>
-                  </div>
-                </IonCard>
-                  )
-                }
+            <IonCol size="12" style={{ display: "flex", flexDirection: "column", gap: "16px", marginTop: "30px" }}>
+              {
+                tripsList.map((el: any, index: any) =>
+                  <IonCard className="trip-card ion-no-margin mb-1.5x" key={index} onClick={() => handleTrips(el.label)}>
+                    <div className="trip-card-container">
+                      <div className="trip-card-label">{el.label}&nbsp;&nbsp;({el.count})</div>
+                      <IonIcon
+                        slot="icon-only"
+                        icon={chevronForwardOutline}
+                        size="large"
+                      ></IonIcon>
+                    </div>
+                  </IonCard>
+                )
+              }
 
-              </IonCol>
+            </IonCol>
             <IonModal
               isOpen={showModal}
               className="small-modal"

@@ -10,23 +10,19 @@ import {
 } from "@ionic/react";
 
 import "../../src/assets/styles/main.css";
-import { Link, useHistory } from "react-router-dom";
-import userIcon from "../assets/images/user.png";
 import greenDotWhite from "../../src/assets/images/greenDotWhite.png";
 import redDotWhite from "../../src/assets/images/redDotWhite.png";
-import miniPickup from "../assets/images/miniTruckBlack.png";
-import weighIcon from "../assets/images/weighIcon.png";
 import vertical from "../assets/images/icons/vertical.svg";
-import { LoadData } from "../pages/app/NewLoadDetails";
+import { IndentData } from "../utils/app.types";
+import { format } from "date-fns";
+
 type LoadCarrierDetailsProps = {
-  showLabel?: boolean;
-  data?: LoadData;
+  showLabel?: boolean
+  data?: IndentData;
 };
 const TripCardDetails: React.FC<LoadCarrierDetailsProps> = ({
-  showLabel = false,
   data,
 }) => {
-  const router = useHistory();
   return (
     <IonCard className="carrier-card">
       <IonCardContent className="ion-no-padding">
@@ -41,7 +37,7 @@ const TripCardDetails: React.FC<LoadCarrierDetailsProps> = ({
                 </div>
                 <div className="carrier-details">
                   <div className="carrier-container">
-                    <div className="carrier-name">Apr 25</div>
+                    <div className="carrier-name">{format(new Date(data?.LoadCreated || ""), "dd MMM")}</div>
                   </div>
                 </div>
               </div>
@@ -56,7 +52,7 @@ const TripCardDetails: React.FC<LoadCarrierDetailsProps> = ({
                     alt="phone"
                     style={{ width: 18, height: 18, borderRadius: 50 }}
                   />
-                  <div className="location-text">Kharagpur,West Bengal</div>
+                  <div className="location-text">{data?.LoadFrom}</div>
                 </div>
                 <div className="vertical-dots">
                   <IonIcon
@@ -70,18 +66,114 @@ const TripCardDetails: React.FC<LoadCarrierDetailsProps> = ({
                     alt="phone"
                     style={{ width: 18, height: 18, borderRadius: 50 }}
                   />
-                  <div className="location-text">Jalpaiguri,West Bengal</div>
+                  <div className="location-text">{data?.LoadTo}</div>
                 </div>
               </div>
             </IonCol>
           </IonRow>
           <IonRow className="ion-justify-content-between ion-padding-top">
             <IonCol size="12">
-              <div className="truck-info">
-                <div className="wt-info-label">29.0MT</div>
-                <div className="trip-container">
-                  <div className="wt-info-label" style={{ fontSize: 14 }}>UAL Industries (UAL BENGAL)</div>
-                  <div className="wt-info-label" style={{ fontSize: 14 }}>AC Sheet</div>
+              <div style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                padding: '12px 0',
+                borderTop: '1px solid #f0f0f0',
+                borderBottom: '1px solid #f0f0f0'
+              }}>
+                {/* Product Weight Section */}
+                <div style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  flex: 1,
+                  padding: '8px',
+                  borderRight: '1px solid #f0f0f0'
+                }}>
+                  <div style={{
+                    fontSize: '10px',
+                    color: '#8e8e93',
+                    fontWeight: '500',
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.5px',
+                    marginBottom: '4px'
+                  }}>
+                    Weight
+                  </div>
+                  <div style={{
+                    fontSize: '16px',
+                    fontWeight: 'bold',
+                    color: '#1c1c1e',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '4px'
+                  }}>
+                    <span style={{ fontSize: '12px' }}>⚖️</span>
+                    {data?.ProductWeight || 'N/A'}
+                  </div>
+                </div>
+
+                {/* Rate Per Ton Section */}
+                <div style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  flex: 1,
+                  padding: '8px',
+                  borderRight: '1px solid #f0f0f0'
+                }}>
+                  <div style={{
+                    fontSize: '10px',
+                    color: '#8e8e93',
+                    fontWeight: '500',
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.5px',
+                    marginBottom: '4px'
+                  }}>
+                    Rate/Ton
+                  </div>
+                  <div style={{
+                    fontSize: '16px',
+                    fontWeight: 'bold',
+                    color: '#1c1c1e',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '4px'
+                  }}>
+                    <span style={{ fontSize: '12px' }}>💰</span>
+                    ₹{data?.RatePerTon || 'N/A'}
+                  </div>
+                </div>
+
+                {/* Product Type Section */}
+                <div style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  flex: 1,
+                  padding: '8px'
+                }}>
+                  <div style={{
+                    fontSize: '10px',
+                    color: '#8e8e93',
+                    fontWeight: '500',
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.5px',
+                    marginBottom: '4px'
+                  }}>
+                    Product
+                  </div>
+                  <div style={{
+                    fontSize: '16px',
+                    fontWeight: 'bold',
+                    color: '#1c1c1e',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '4px'
+                  }}>
+                    <span style={{ fontSize: '12px' }}>📦</span>
+                    AC Sheet
+                  </div>
                 </div>
               </div>
             </IonCol>
@@ -90,36 +182,36 @@ const TripCardDetails: React.FC<LoadCarrierDetailsProps> = ({
             <IonCol size="12">
               <div className="material-info">
                 <div className="info-container">
-                <div className="display-col" style={{ alignItems: 'center' }}>
-                  <IonButton
-                    expand="block"
-                    className="call-button"
-                    style={{
-                      width: "80px",
-                      height: "30px",
-                      "--background": "#FFD901",
-                      color: "#000000",
-                      fontSize:"12px"
-                    }}
-                  >
-                    In-Transit
-                  </IonButton>
-                </div>
-                <div className="display-col" style={{ alignItems: 'center' }}>
-                  <IonButton
-                    expand="block"
-                    className="call-button"
-                    style={{
-                      width: "80px",
-                      height: "30px",
-                      "--background": "#008000",
-                      color: "#FFFFFF",
-                      fontSize:"12px"
-                    }}
-                  >
-                    Actions
-                  </IonButton>
-                </div>
+                  <div className="display-col" style={{ alignItems: 'center' }}>
+                    <IonButton
+                      expand="block"
+                      className="call-button"
+                      style={{
+                        width: "80px",
+                        height: "30px",
+                        "--background": "#FFD901",
+                        color: "#000000",
+                        fontSize: "12px"
+                      }}
+                    >
+                      {data?.IntentStatus}
+                    </IonButton>
+                  </div>
+                  <div className="display-col" style={{ alignItems: 'center' }}>
+                    <IonButton
+                      expand="block"
+                      className="call-button"
+                      style={{
+                        width: "80px",
+                        height: "30px",
+                        "--background": "#008000",
+                        color: "#FFFFFF",
+                        fontSize: "12px"
+                      }}
+                    >
+                      Actions
+                    </IonButton>
+                  </div>
                 </div>
               </div>
             </IonCol>
@@ -131,7 +223,7 @@ const TripCardDetails: React.FC<LoadCarrierDetailsProps> = ({
                   Read Notes
                 </div>
                 <div className="wt-info-label">
-                  Reporting time:25 Apr,2:30PM
+                  Reporting time:{format(new Date(data?.LoadCreated || ""), "dd MMM,hh:mm a")}
                 </div>
               </div>
             </IonCol>

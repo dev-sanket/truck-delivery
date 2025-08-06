@@ -34,3 +34,22 @@ export interface LoadData {
   Status: "Y" | "N";
   LoadCreated: string;
 }
+
+export interface IndentData {
+  LoadsID: string;
+  UsersID: string;
+  FullName: string;
+  LoadFrom: string;
+  LoadTo: string;
+  VehicleType: string;
+  ProductWeight: string;
+  TotalDistance: string;
+  RatePerTon: string;
+  ProductType: string;
+  PaymentTerms: string;
+  MobileNumber: string;
+  LoadStatus: LoadStatus;
+  IntentStatus: LoadIndentStatus;
+  Status: "Y" | "N";
+  LoadCreated: string;
+}

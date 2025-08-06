@@ -68,7 +68,7 @@ const Tabs: React.FC = () => {
                 <Route path="/app/kyc-verification" component={KycVerification} />
                 <Route path="/app/load-create" component={CreateNewLoad} />
                 <Route path="/app/trips" component={Trips} />
-                <Route path="/app/tripDetails" component={TripDetails} />
+                <Route path="/app/tripDetails/:tripId" component={TripDetails} />
                 <Route path="/app/place-bid/:loadId" component={PlaceBid} />
                 <Route path="/app/profile" component={Profile} />
                 <Route path="/app/notification" component={Notification} />
