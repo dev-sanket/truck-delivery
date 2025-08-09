@@ -213,7 +213,12 @@ const PlaceBid: React.FC = () => {
                             <div className="info-label">Rate</div>
                           </div>
                           <div className="product-container-load">
-                            <div className="material-type-bid">{format(new Date(bidData?.LoadCreated || ""), "dd MMM yyyy HH:mm")}</div>
+                            <div className="material-type-bid">
+                              {bidData?.LoadCreated ? (() => {
+                                const date = new Date(bidData.LoadCreated);
+                                return isNaN(date.getTime()) ? 'Invalid Date' : format(date, "dd MMM yyyy HH:mm a");
+                              })() : 'N/A'}
+                            </div>
                             <div className="material-type-bid">₹{bidData?.RatePerTon ? parseFloat(bidData.RatePerTon) : 0}</div>
                           </div>
                         </div>

@@ -46,7 +46,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     const login = async (userData: User) => {
         setUser(userData);
         setIsAuthenticated(true);
-        // localStorage.setItem('user', JSON.stringify(userData));
+        localStorage.setItem('user', JSON.stringify(userData));
         await Preferences.set({
             key: 'user',
             value: JSON.stringify(userData)
@@ -56,7 +56,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     const logout = async () => {
         setUser(null);
         setIsAuthenticated(false);
-        // localStorage.removeItem('user');
+        localStorage.removeItem('user');
         await Preferences.remove({ key: 'user' });
     };
 
