@@ -39,6 +39,9 @@ export const CreateLoadFormValidation = () => {
     TotalDistance: Yup.number().required("Total Distance is required"),
     RatePerTon: Yup.number().required("Rate Per Ton is required"),
     PaymentTerms: Yup.string().required("Payment Terms is required"),
+    MobileNumber: Yup.string()
+      .required("Mobile Number is required")
+      .matches(/^[6-9]\d{9}$/, "Invalid mobile number"),
   });
   return validationSchema;
 };

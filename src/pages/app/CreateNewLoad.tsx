@@ -62,6 +62,7 @@ const CreateNewLoad: React.FC = () => {
     RatePerTon: null,
     ProductWeight: null,
     PaymentTerms: null,
+    MobileNumber: ""
   };
   const router = useIonRouter();
   const handleSubmit = async (values: any) => {
@@ -74,6 +75,7 @@ const CreateNewLoad: React.FC = () => {
       LoadFrom: values?.LoadFrom.join(","),
       LoadTo: values?.LoadTo.join(","),
       VehicleType: values?.VehicleType,
+      MobileNumber: user?.MobileNumber,
       TotalDistance: values?.TotalDistance,
       RatePerTon: values?.RatePerTon,
       PaymentTerms: values?.PaymentTerms,
@@ -369,6 +371,22 @@ const CreateNewLoad: React.FC = () => {
                             value={values.ProductWeight}
                             onIonInput={(e) =>
                               setFieldValue("ProductWeight", e.detail.value)
+                            }
+                          />
+                          <IonInput
+                            className={`custom-input ${errors.MobileNumber && "ion-invalid"
+                              } ${touched.MobileNumber && "ion-touched"
+                              } mb-1.5x`}
+                            type="text"
+                            fill="outline"
+                            label="Mobile Number"
+                            labelPlacement="floating"
+                            placeholder="Enter a mobile number"
+                            mode="md"
+                            errorText={errors.MobileNumber}
+                            value={values.MobileNumber}
+                            onIonInput={(e) =>
+                              setFieldValue("MobileNumber", e.detail.value)
                             }
                           />
                           <IonInput
