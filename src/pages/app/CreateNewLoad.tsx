@@ -377,7 +377,7 @@ const CreateNewLoad: React.FC = () => {
                             className={`custom-input ${errors.MobileNumber && "ion-invalid"
                               } ${touched.MobileNumber && "ion-touched"
                               } mb-1.5x`}
-                            type="text"
+                            type="number"
                             fill="outline"
                             label="Mobile Number"
                             labelPlacement="floating"
