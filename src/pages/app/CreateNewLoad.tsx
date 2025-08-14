@@ -30,7 +30,7 @@ import { FieldArray, Formik } from "formik";
 import { postApiCall } from "../../utils/api/api";
 import { addOutline, removeOutline } from "ionicons/icons";
 import { IonIcon } from "@ionic/react";
-import greenDot from "../../assets/images/greenDot.png";
+import greenDot from "../../assets/images/greendot.png";
 import redDot from "../../assets/images/redDot.png";
 
 const CreateNewLoad: React.FC = () => {

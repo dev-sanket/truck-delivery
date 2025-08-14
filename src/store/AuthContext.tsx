@@ -4,6 +4,7 @@ interface User {
     FullName: string;
     MobileNumber: string;
     UsersID: string;
+    ProfileLink:string;
     // Add other user properties as needed
 }
 
@@ -45,6 +46,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
     const login = async (userData: User) => {
         setUser(userData);
+        console.log(userData);
         setIsAuthenticated(true);
         localStorage.setItem('user', JSON.stringify(userData));
         await Preferences.set({

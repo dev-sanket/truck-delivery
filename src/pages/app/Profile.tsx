@@ -31,12 +31,14 @@ const Profile: React.FC = () => {
   const [itemList, setItemList] = useState([]);
   const history = useHistory();
    const { logout } = useAuth();
+     const { user } = useAuth();
+     console.log("USER",user)
   useEffect(() => {
     let itemLists: any = [
       {
         icon: accessibilityOutline,
-        label: "Masters",
-        subLabel: "Verify vehicle masters , driver master",
+        label: "Verification",
+        subLabel: "Verify KYC i.e Aadhar Details,PanCard Details and RCDocument",
       },
       {
         icon: documentTextOutline,
@@ -75,8 +77,9 @@ const Profile: React.FC = () => {
                 }}
               >
                 <img
-                  src={profile}
+                  src={user?.ProfileLink && user?.ProfileLink.trim() !== "" ? user?.ProfileLink : profile}
                   alt="phone"
+                  onError={(e) => { e.currentTarget.src = profile }}
                   style={{
                     height: "auto",
                     objectFit: "cover",
@@ -90,8 +93,8 @@ const Profile: React.FC = () => {
                     gap: "10px",
                   }}
                 >
-                  <div className="profile-name-label">Rajkamal</div>
-                  <div className="phone-name-label">8527426846</div>
+                  <div className="profile-name-label">{user?.FullName}</div>
+                  <div className="phone-name-label">{user?.MobileNumber}</div>
                 </div>
               </div>
             </IonCol>
@@ -113,12 +116,15 @@ const Profile: React.FC = () => {
                   marginBottom: "16px", // some spacing between cards
                 }}
                 onClick={() => {
-      if (el.label === "Log Out") {
+                if (el.label === "Log Out") {
         console.log("HERE",el)
         logout();                
         history.push("/auth/login"); 
-      }
-    }}
+                }
+                if (el.label === "Verification") {
+                  history.push("/app/kyc-verification"); 
+                }
+                }}
               >
                 <div
                   style={{

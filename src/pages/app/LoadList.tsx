@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { IonPage, IonContent, IonGrid, IonRow, IonCol, IonCard, IonCardContent, IonButton, IonText, IonLabel, IonSpinner, IonRefresher, IonRefresherContent, RefresherEventDetail } from "@ionic/react";
 import Header from "../../components/Header";
 import "../../assets/styles/main.css";
-import greenDot from "../../assets/images/greenDot.png";
+import greenDot from "../../assets/images/greendot.png";
 import redDot from "../../assets/images/redDot.png";
 import { useHistory } from "react-router-dom";
 import { postApiCall } from "../../utils/api/api";
