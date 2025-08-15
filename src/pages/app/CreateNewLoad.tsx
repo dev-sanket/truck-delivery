@@ -34,6 +34,7 @@ import greenDot from "../../assets/images/greendot.png";
 import redDot from "../../assets/images/redDot.png";
 import { registerKeyboardEvents, removeKeyboardEvents } from "../../utils/keyboard";
 import { Device } from '@capacitor/device';
+import { getApiCall } from "../../utils/api/api";
 const CreateNewLoad: React.FC = () => {
   const [present] = useIonToast();
   const { user } = useAuth();
@@ -42,6 +43,8 @@ const CreateNewLoad: React.FC = () => {
   const [selection, SetSelection] = useState<string>("Single");
   const [resetFormTrigger, setResetFormTrigger] = useState(false);
 const [device, setDevice] = useState<string>("");
+  const [vehicleList,setVehicleList]=useState<any>([])
+  
   const presentToast = (
     message: string,
     position: "top" | "middle" | "bottom",
@@ -76,7 +79,7 @@ const [device, setDevice] = useState<string>("");
       ProductWeight: values?.ProductWeight,
       LoadFrom: values?.LoadFrom.join(","),
       LoadTo: values?.LoadTo.join(","),
-      VehicleType: values?.VehicleType,
+      VehicleTypeID: values?.VehicleType,
       MobileNumber: user?.MobileNumber,
       TotalDistance: values?.TotalDistance,
       RatePerTon: values?.RatePerTon,
@@ -100,10 +103,7 @@ const [device, setDevice] = useState<string>("");
       setIsLoading(false);
     }
   };
-
-  useEffect(() => {
-
-    async function getPlatform() {
+  async function getPlatform() {
       const info = await Device.getInfo();
       console.log("Platform:", info.platform);
 
@@ -111,10 +111,21 @@ const [device, setDevice] = useState<string>("");
         setDevice(info.platform)
       } else {
       }
+  }
+  const vehicleTypeData = async()=>{
+    try {
+      const vehicleTypes = await getApiCall('','getVehicleType');
+      console.log(vehicleTypes,"vehicleTypes")
+      if(vehicleTypes?.status)
+      setVehicleList(vehicleTypes?.data);
+    } catch (error) {
+      
     }
-
+  }
+  useEffect(() => {
 
     getPlatform();
+    vehicleTypeData();
     registerKeyboardEvents(
       () => {
         setIsKeyBoardOpen(true);
@@ -346,7 +357,7 @@ const [device, setDevice] = useState<string>("");
                             )}
                           </FieldArray>
                           </div>
-                          <IonInput id="firstEl"
+                          {/* <IonInput id="firstEl"
                             className={`custom-input ${errors.VehicleType && "ion-invalid"
                               } ${touched.VehicleType && "ion-touched"} mb-1.5x`}
                             type="text"
@@ -360,7 +371,32 @@ const [device, setDevice] = useState<string>("");
                             onIonInput={(e) =>
                               setFieldValue("VehicleType", e.detail.value)
                             }
-                          />
+                          /> */}
+
+                          <IonSelect
+                            id="firstEl"
+                            interface="popover" 
+                            className={`custom-input ${errors.VehicleType && "ion-invalid"} ${touched.VehicleType && "ion-touched"} mb-1.5x`}
+                            label="Vehicle Type"
+                            labelPlacement="floating"
+                            fill="outline"
+                            placeholder="Select a vehicle type"
+                            errorText={errors.VehicleType}
+                            value={values.VehicleType}
+                            onIonChange={(e) =>{
+                              console.log( e.detail.value," e.detail.value")
+                              setFieldValue("VehicleType", e.detail.value)}}
+                            >
+                            {vehicleList.map((vehicle:any) => (
+                              <IonSelectOption
+                                key={vehicle.VehicleTypeID}
+                                value={vehicle.VehicleTypeID}
+                              >
+                                {vehicle.VehicleType}
+                              </IonSelectOption>
+                            ))}
+                          </IonSelect>
+
                           <IonInput id="secondEl"
                             className={`custom-input ${errors.ProductWeight && "ion-invalid"
                               } ${touched.ProductWeight && "ion-touched"

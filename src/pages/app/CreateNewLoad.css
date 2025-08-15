@@ -64,3 +64,14 @@
   justify-content: start;
   gap: 30px;
 }
+
+
+.popover-content {
+  width: 90vw !important;  /* make popover wider */
+  max-width: 600px !important; /* cap maximum size */
+  height: auto !important; /* adjust height as needed */
+}
+
+ion-select::part(icon) {
+  display: none; /* optional: hide default arrow if you want */
+}

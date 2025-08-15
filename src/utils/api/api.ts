@@ -1,8 +1,13 @@
 import api from "./api-instance";
 
 export const getApiCall = async (id: string, url: string) => {
-  const response = await api.get(`/${url}/${id}`);
-  return response.data;
+  if(id.length){
+    const response = await api.get(`/${url}/${id}`);
+    return response.data;
+  }else{
+    const response = await api.get(`/${url}`);
+    return response.data;
+  }
 };
 
 export const postApiCall = async (payload: any, url: string) => {
