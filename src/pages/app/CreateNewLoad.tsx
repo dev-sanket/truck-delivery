@@ -1,7 +1,7 @@
 "use client";
 
 import type React from "react";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import {
   IonContent,
   IonPage,
@@ -32,14 +32,16 @@ import { addOutline, removeOutline } from "ionicons/icons";
 import { IonIcon } from "@ionic/react";
 import greenDot from "../../assets/images/greendot.png";
 import redDot from "../../assets/images/redDot.png";
-
+import { registerKeyboardEvents, removeKeyboardEvents } from "../../utils/keyboard";
+import { Device } from '@capacitor/device';
 const CreateNewLoad: React.FC = () => {
   const [present] = useIonToast();
   const { user } = useAuth();
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isKeyBoardOpen, setIsKeyBoardOpen] = useState<boolean>(false);
   const [selection, SetSelection] = useState<string>("Single");
   const [resetFormTrigger, setResetFormTrigger] = useState(false);
-
+const [device, setDevice] = useState<string>("");
   const presentToast = (
     message: string,
     position: "top" | "middle" | "bottom",
@@ -98,12 +100,48 @@ const CreateNewLoad: React.FC = () => {
       setIsLoading(false);
     }
   };
+
+  useEffect(() => {
+
+    async function getPlatform() {
+      const info = await Device.getInfo();
+      console.log("Platform:", info.platform);
+
+      if (info.platform) {
+        setDevice(info.platform)
+      } else {
+      }
+    }
+
+
+    getPlatform();
+    registerKeyboardEvents(
+      () => {
+        setIsKeyBoardOpen(true);
+      },
+      () => {
+        console.log("KEYBOARD CLOSES")
+        setIsKeyBoardOpen(false);
+        document.getElementById("firstEl")!.style.display = "";
+        document.getElementById("secondEl")!.style.display = "";
+        document.getElementById("thirdEl")!.style.display = "";
+        document.getElementById("firstRow")!.style.display = "";
+        document.getElementById("Headline")!.style.display = "";
+        document.getElementById("fieldArrays")!.style.display = "";
+      }
+    );
+
+    return () => {
+      removeKeyboardEvents(); // Cleanup
+    };
+
+  }, []);
   return (
     <IonPage>
       <Header showBackButton={true} />
       <IonContent className="ion-padding">
         <IonGrid className="ion-no-padding">
-          <IonRow>
+          <IonRow id="Headline">
             <IonCol size="12">
               <div className="product-container">
                 <div className="title">Create New Load</div>
@@ -111,7 +149,7 @@ const CreateNewLoad: React.FC = () => {
               </div>
             </IonCol>
           </IonRow>
-          <IonRow className="mb-1.5x mt-2.5x">
+          <IonRow className="mb-1.5x mt-2.5x" id="firstRow">
             <IonCol size="12">
               <IonRadioGroup
 
@@ -170,43 +208,9 @@ const CreateNewLoad: React.FC = () => {
                   <form onSubmit={handleSubmit}>
                     <IonGrid className="ion-no-margin ion-no-padding">
                       <IonRow>
-                        {/* <IonCol size="12">
-                    <div className="title">KYC Verification</div>
-                    <div className="subtitle">Upload your documents to verify your account</div>
-                  </IonCol> */}
                         <IonCol size="12">
-                          {/* <IonInput
-                            className={`custom-input ${errors.LoadFrom && "ion-invalid"
-                              } ${touched.LoadFrom && "ion-touched"} mb-1.5x`}
-                            type="text"
-                            fill="outline"
-                            label="Loading Point"
-                            labelPlacement="floating"
-                            placeholder="Enter a loading point"
-                            mode="md"
-                            errorText={errors.LoadFrom}
-                            value={values.LoadFrom}
-                            onIonInput={(e) =>
-                              setFieldValue("LoadFrom", e.detail.value)
-                            }
-                          />
-                          <IonInput
-                            className={`custom-input ${errors.LoadTo && "ion-invalid"
-                              } ${touched.LoadTo && "ion-touched"} mb-1.5x`}
-                            type="text"
-                            fill="outline"
-                            label="Unloading Point"
-                            labelPlacement="floating"
-                            placeholder="Enter a Unloading point"
-                            mode="md"
-                            errorText={errors.LoadTo}
-                            value={values.LoadTo}
-                            onIonInput={(e) =>
-                              setFieldValue("LoadTo", e.detail.value)
-                            }
-                          /> */}
-
-                          <FieldArray name="LoadFrom">
+                          <div id="fieldArrays">
+                          <FieldArray name="LoadFrom" >
                             {({ push, remove }) => (
                               <>
                                 {values.LoadFrom.map((loadFromVal, index) => (
@@ -273,7 +277,7 @@ const CreateNewLoad: React.FC = () => {
                               </>
                             )}
                           </FieldArray>
-                          <FieldArray name="LoadTo">
+                          <FieldArray name="LoadTo" >
                             {({ push, remove }) => (
                               <>
                                 {values.LoadTo.map((loadToVal, index) => (
@@ -341,8 +345,8 @@ const CreateNewLoad: React.FC = () => {
                               </>
                             )}
                           </FieldArray>
-
-                          <IonInput
+                          </div>
+                          <IonInput id="firstEl"
                             className={`custom-input ${errors.VehicleType && "ion-invalid"
                               } ${touched.VehicleType && "ion-touched"} mb-1.5x`}
                             type="text"
@@ -357,7 +361,7 @@ const CreateNewLoad: React.FC = () => {
                               setFieldValue("VehicleType", e.detail.value)
                             }
                           />
-                          <IonInput
+                          <IonInput id="secondEl"
                             className={`custom-input ${errors.ProductWeight && "ion-invalid"
                               } ${touched.ProductWeight && "ion-touched"
                               } mb-1.5x`}
@@ -373,7 +377,7 @@ const CreateNewLoad: React.FC = () => {
                               setFieldValue("ProductWeight", e.detail.value)
                             }
                           />
-                          <IonInput
+                          <IonInput id="thirdEl"
                             className={`custom-input ${errors.MobileNumber && "ion-invalid"
                               } ${touched.MobileNumber && "ion-touched"
                               } mb-1.5x`}
@@ -405,6 +409,7 @@ const CreateNewLoad: React.FC = () => {
                               setFieldValue("TotalDistance", e.detail.value)
                             }
                           />
+
                           <IonInput
                             className={`custom-input ${errors.RatePerTon && "ion-invalid"
                               } ${touched.RatePerTon && "ion-touched"} mb-1.5x`}
@@ -416,10 +421,24 @@ const CreateNewLoad: React.FC = () => {
                             mode="md"
                             errorText={errors.RatePerTon}
                             value={values.RatePerTon}
+                            onFocus={()=>{
+                              console.log("ON FOCUS RT TYPES")
+                                if(device =="android"){
+                                document.getElementById("firstEl")!.style.display = "none";
+                                document.getElementById("secondEl")!.style.display = "none";
+                                document.getElementById("thirdEl")!.style.display = "none";
+                                document.getElementById("firstRow")!.style.display = "none";
+                                document.getElementById("Headline")!.style.display = "none";
+                                document.getElementById("fieldArrays")!.style.display = "none";
+                                }
+                            }}
                             onIonInput={(e) =>
-                              setFieldValue("RatePerTon", e.detail.value)
+                             {
+                               setFieldValue("RatePerTon", e.detail.value)
+                             }
                             }
                           />
+
                           <IonInput
                             className={`custom-input ${errors.ProductType && "ion-invalid"
                               } ${touched.ProductType && "ion-touched"} mb-1.5x`}
@@ -431,10 +450,27 @@ const CreateNewLoad: React.FC = () => {
                             mode="md"
                             errorText={errors.ProductType}
                             value={values.ProductType}
+                            onFocus={()=>{
+                              console.log("ON FOCUS PRT TYPES",device)
+                                if(device=="android"){
+                                console.log("INSIDE FOCUS PRT TYPES",device)
+                                document.getElementById("firstEl")!.style.display = "none";
+                                document.getElementById("secondEl")!.style.display = "none";
+                                document.getElementById("thirdEl")!.style.display = "none";
+                                document.getElementById("firstRow")!.style.display = "none";
+                                document.getElementById("Headline")!.style.display = "none";
+                                document.getElementById("fieldArrays")!.style.display = "none";
+                                }
+                            }}
                             onIonInput={(e) =>
+                             {
                               setFieldValue("ProductType", e.detail.value)
+
+                             }
                             }
                           />
+
+
                           <IonSelect
                             className={`custom-input ${errors.PaymentTerms && "ion-invalid"
                               } ${touched.PaymentTerms && "ion-touched"} mb-1.5x`}
