@@ -33,7 +33,7 @@ import {
 } from "@ionic/react";
 import { useEffect, useRef, useState } from "react";
 import { useHistory, useLocation } from "react-router";
-import { postApiCall } from "../../utils/api/api";
+import { getApiCall, postApiCall } from "../../utils/api/api";
 import { useAuth } from "../../store/AuthContext";
 
 import lcvTruck from "../../assets/images/LcvTruck.png";
@@ -50,9 +50,10 @@ const NewLoadDetails: React.FC = () => {
   const location = useLocation<{ fromLocation: string, toLocation: string }>();
   const { fromLocation, toLocation } = location.state || { fromLocation: "", toLocation: "" };
   const [loadData, setLoadData] = useState<LoadData[]>([]);
+  const [newLoadData, setNewLoadData] = useState<LoadData[]>([]);
   const [truckType, setTruckType] = useState<string>("open");
   const [isLoading, setIsLoading] = useState<boolean>(false);
-
+  const [vehicleTypeList,setVehicleTypeList]=useState<any>([])
   if (!user) {
     history.push("/auth");
   }
@@ -71,10 +72,42 @@ const NewLoadDetails: React.FC = () => {
     setSelectedSegment(e.detail.value);
     getLoadDetails(e.detail.value as LoadStatus);
   };
-
+  const vehicleTypeData = async()=>{
+      try {
+        const vehicleTypes = await getApiCall('','getVehicleType');
+        console.log(vehicleTypes,"vehicleTypes")
+        if(vehicleTypes?.status)
+        setVehicleTypeList(vehicleTypes?.data);
+      } catch (error) {
+        
+      }
+  }
+  
   useEffect(() => {
+    vehicleTypeData();
     getLoadDetails(LoadStatus.OPEN);
   }, []);
+
+  useEffect(() => {
+  if (vehicleTypeList.length > 0 && loadData.length > 0) {
+    let newLoadData :any= loadData;
+    newLoadData = newLoadData.map((el:any)=>{
+        let vehicleData = vehicleTypeList.find((elem:any)=>{
+          return elem.VehicleTypeID == el.VehicleTypeID
+        })
+        return el ={...el,
+          VehicleType:vehicleData?.VehicleType , 
+          VehicleTypeImageURL:vehicleData?.VehicleTypeImageURL
+    }
+    })
+
+        // Only update if changed
+    if (JSON.stringify(newLoadData) !== JSON.stringify(loadData)) {
+      setNewLoadData(newLoadData);
+    }
+    console.log(newLoadData,"newLoadData")
+  }
+  }, [vehicleTypeList,loadData]);
 
   const getLoadDetails = async (status: LoadStatus) => {
     try {
@@ -85,11 +118,9 @@ const NewLoadDetails: React.FC = () => {
         "LoadTo": toLocation,
         "LoadStatus": status || LoadStatus.OPEN
       }, "SearchLoad");
-      console.log("Response", response);
       if (response?.status) {
         setLoadData(response.data);
       } else {
-        console.log("Response111", response);
         if (response?.errors?.errorMessage === "No result found.") {
           setLoadData([]);
         }
@@ -177,8 +208,8 @@ const NewLoadDetails: React.FC = () => {
             }}>
               <IonSpinner />
             </div>
-          ) : loadData.length > 0 ? (
-            loadData.map((item: LoadData) => (
+          ) : newLoadData.length > 0 ? (
+            newLoadData.map((item: LoadData) => (
               <LoadCarrierDetails showLabel={true} data={item} key={item.LoadsID} />
             ))
           ) : (
@@ -235,7 +266,8 @@ const NewLoadDetails: React.FC = () => {
                 </IonButtons>
               </IonToolbar>
             </IonHeader>
-            <IonContent className="ion-padding">
+
+            {/* <IonContent className="ion-padding">
               <IonLabel>Truck Type</IonLabel>
               <div className="vehicle-chip-container">
 
@@ -263,7 +295,46 @@ const NewLoadDetails: React.FC = () => {
 
               <IonButton expand="block" color="primary" className="mt-2.5x" onClick={() => filtersModal.current?.dismiss()}>Apply</IonButton>
 
+            </IonContent> */}
+
+            <IonContent className="ion-padding">
+              <IonLabel>Truck Type</IonLabel>
+              <div className="vehicle-chip-container">
+                {vehicleTypeList.map((vehicle: any) => (
+                <div
+                key={vehicle.VehicleTypeID}
+                className={`vehicle-chip ${
+                  truckType === vehicle.VehicleTypeID ? "active" : ""
+                }`}
+                onClick={() => setTruckType(vehicle.VehicleTypeID)}
+                >
+                  <img
+                    src={vehicle.VehicleTypeImageURL}
+                    alt={vehicle.VehicleType}
+                    style={{ width: 30, height: 30 }}
+                  />
+                  <div className="vehicle-chip-header">
+                    {vehicle.VehicleType.split(":")[0]}
+                  </div>
+                  {vehicle.VehicleType.includes(":") && (
+                    <div className="description">
+                      {vehicle.VehicleType.split(":")[1]}
+                    </div>
+                  )}
+                </div>
+                ))}
+                </div>
+
+              <IonButton
+                  expand="block"
+                  color="primary"
+                  className="mt-2.5x"
+                  onClick={() => filtersModal.current?.dismiss()}
+                >
+                  Apply
+              </IonButton>
             </IonContent>
+
 
           </IonModal>
         </div>

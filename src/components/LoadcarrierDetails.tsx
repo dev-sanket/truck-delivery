@@ -20,6 +20,7 @@ import weighIcon from "../assets/images/weighIcon.png";
 import vertical from "../assets/images/icons/vertical.svg";
 import { LoadData } from "../utils/app.types";
 import { person } from "ionicons/icons";
+import { useEffect } from "react";
 
 type LoadCarrierDetailsProps = {
   showLabel?: boolean;
@@ -30,8 +31,10 @@ const LoadCarrierDetails: React.FC<LoadCarrierDetailsProps> = ({
   showLabel = false,
   data,
 }) => {
+  useEffect(()=>{
+    console.log("LoadCarrierDetailsProps",data)
+  },[])
   const router = useHistory();
-
   return (
     <IonCard className="ion-no-padding" style={{ margin: '8px 0' }}>
       <IonCardContent className="ion-no-padding">
@@ -110,7 +113,8 @@ const LoadCarrierDetails: React.FC<LoadCarrierDetailsProps> = ({
                 padding: '12px 16px'
               }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                  <img src={miniPickup} alt="Vehicle" style={{ width: '24px', height: '24px' }} />
+                  {/* <img src={miniPickup} alt="Vehicle" style={{ width: '24px', height: '24px' }} /> */}
+                  <img src={data?.VehicleTypeImageURL} alt="Vehicle" style={{ width: '24px', height: '24px' }} />
                   <div>
                     <IonText style={{ fontSize: '12px', color: '#666' }}>Vehicle Type</IonText>
                     <div style={{ fontSize: '14px', fontWeight: '500' }}>{data?.VehicleType}</div>

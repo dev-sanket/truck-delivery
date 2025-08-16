@@ -23,6 +23,7 @@ export interface LoadData {
   LoadFrom: string;
   LoadTo: string;
   VehicleType: string;
+  VehicleTypeImageURL: string;
   ProductWeight: string;
   TotalDistance: string;
   RatePerTon: string;
@@ -33,6 +34,7 @@ export interface LoadData {
   IntentStatus: LoadIndentStatus;
   Status: "Y" | "N";
   LoadCreated: string;
+  VehicleTypeID?:string;
 }
 
 export interface IndentData {

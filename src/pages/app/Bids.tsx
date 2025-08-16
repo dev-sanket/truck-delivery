@@ -31,7 +31,9 @@ import { Formik } from "formik";
 import { PlaceBidFormValidation } from "../../utils/validator";
 import { useAuth } from "../../store/AuthContext";
 import { format } from "date-fns";
-
+import { registerKeyboardEvents, removeKeyboardEvents } from "../../utils/keyboard";
+import { Device } from '@capacitor/device';
+import { getApiCall } from "../../utils/api/api";
 const initialValues = {
   BidAmount: "",
   DriverName: "",
@@ -45,7 +47,10 @@ const PlaceBid: React.FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const { user } = useAuth();
   const [present] = useIonToast();
-
+  const [isKeyBoardOpen, setIsKeyBoardOpen] = useState<boolean>(false);
+  const [device, setDevice] = useState<string>("");
+  const [vehicleList,setVehicleList]=useState<any>([])
+  const [image,setImage] = useState<string>("")
   const presentToast = (position: "top" | "middle" | "bottom", message: string, color: 'success' | 'danger' | 'warning' = "success") => {
     present({
       message: message,
@@ -56,8 +61,54 @@ const PlaceBid: React.FC = () => {
   };
   useEffect(() => {
     getLoadDetails();
+    vehicleTypeData();
   }, []);
+  useEffect(() => {
+      getPlatform();
+      registerKeyboardEvents(
+        () => {
+          setIsKeyBoardOpen(true);
+        },
+        () => {
+          console.log("KEYBOARD CLOSES")
+          setIsKeyBoardOpen(false);
+          document.getElementById("firstEl")!.style.display = "";
+        }
+      );
+  
+      return () => {
+        removeKeyboardEvents(); // Cleanup
+      };
+  
+  }, []);
+  useEffect(() => {
+    if(bidData?.VehicleTypeID){
+      let newLoadData :any= vehicleList.find((el:any)=>{
+        return el?.VehicleTypeID == bidData?.VehicleTypeID
+      })
+      console.log(newLoadData,"=--newLoadData--=")
+      setImage(newLoadData?.VehicleTypeImageURL)
+    }
+  }, [vehicleList,bidData]);
+  async function getPlatform() {
+      const info = await Device.getInfo();
+      console.log("Platform:", info.platform);
 
+      if (info.platform) {
+        setDevice(info.platform)
+      } else {
+      }
+  }
+  const vehicleTypeData = async()=>{
+      try {
+        const vehicleTypes = await getApiCall('','getVehicleType');
+        console.log(vehicleTypes,"vehicleTypes")
+        if(vehicleTypes?.status)
+        setVehicleList(vehicleTypes?.data);
+      } catch (error) {
+        
+      }
+  }
   const getLoadDetails = async () => {
     try {
       setIsLoading(true);
@@ -118,8 +169,8 @@ const PlaceBid: React.FC = () => {
         <IonGrid className="ion-no-margin">
           <IonRow className="ion-no-margin">
             <IonCol size="12">
-              <IonCard className="carrier-card ion-no-margin">
-                <IonCardContent className="ion-no-padding">
+              <IonCard className="carrier-card ion-no-margin" id="firstEl">
+                <IonCardContent className="ion-no-padding" >
                   <IonGrid className="ion-no-padding">
                     <IonRow>
                       <IonCol size="12">
@@ -168,7 +219,8 @@ const PlaceBid: React.FC = () => {
                               style={{ justifyContent: "unset" }}
                             >
                               <img
-                                src={miniPickup}
+                                // src={miniPickup}
+                                src={image && image.length > 0 ? image:  miniPickup }
                                 alt="phone"
                                 style={{ width: 31, height: 31 }}
                               />
@@ -258,6 +310,13 @@ const PlaceBid: React.FC = () => {
                               helperText=""
                               mode="md"
                               inputmode="numeric"
+                              onFocus={()=>{
+                              console.log("ON FOCUS PRT TYPES",device)
+                                if(device=="android"){
+                                console.log("INSIDE FOCUS PRT TYPES",device)
+                                document.getElementById("firstEl")!.style.display = "none";
+                                }
+                              }}   
                             >
                               <IonIcon slot="start" icon={rupeeIcon} size="small" aria-hidden="true"></IonIcon>
                             </IonInput>
@@ -275,6 +334,13 @@ const PlaceBid: React.FC = () => {
                               onIonInput={(e) => {
                                 setFieldValue("DriverName", e.detail.value);
                               }}
+                            onFocus={()=>{
+                              console.log("ON FOCUS PRT TYPES",device)
+                                if(device=="android"){
+                                console.log("INSIDE FOCUS PRT TYPES",device)
+                                document.getElementById("firstEl")!.style.display = "none";
+                                }
+                              }}                              
                               value={values.DriverName}
                               placeholder="Enter a valid driver name"
                               helperText=""
@@ -294,6 +360,13 @@ const PlaceBid: React.FC = () => {
                               onIonInput={(e) => {
                                 setFieldValue("DriverContactNumber", e.detail.value);
                               }}
+                            onFocus={()=>{
+                              console.log("ON FOCUS PRT TYPES",device)
+                                if(device=="android"){
+                                console.log("INSIDE FOCUS PRT TYPES",device)
+                                document.getElementById("firstEl")!.style.display = "none";
+                                }
+                              }}                              
                               maxlength={10}
                               value={values.DriverContactNumber}
                               placeholder="Enter a valid driver contact number"
@@ -315,6 +388,13 @@ const PlaceBid: React.FC = () => {
                               onIonInput={(e) => {
                                 setFieldValue("VehicleNumber", e.detail.value);
                               }}
+                            onFocus={()=>{
+                              console.log("ON FOCUS PRT TYPES",device)
+                                if(device=="android"){
+                                console.log("INSIDE FOCUS PRT TYPES",device)
+                                document.getElementById("firstEl")!.style.display = "none";
+                                }
+                              }}                              
                               value={values.VehicleNumber}
                               placeholder="Enter a valid driver contact number"
                               helperText=""
