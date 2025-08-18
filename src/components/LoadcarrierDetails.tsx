@@ -31,9 +31,9 @@ const LoadCarrierDetails: React.FC<LoadCarrierDetailsProps> = ({
   showLabel = false,
   data,
 }) => {
-  useEffect(()=>{
-    console.log("LoadCarrierDetailsProps",data)
-  },[])
+  useEffect(() => {
+    console.log("LoadCarrierDetailsProps", data)
+  }, [])
   const router = useHistory();
   return (
     <IonCard className="ion-no-padding" style={{ margin: '8px 0' }}>
@@ -64,7 +64,9 @@ const LoadCarrierDetails: React.FC<LoadCarrierDetailsProps> = ({
                   <div style={{ fontSize: '16px', fontWeight: '600', margin: '0 0 4px 0' }}>
                     {data?.FullName}
                   </div>
-
+                  <div style={{ fontSize: '12px', color: '#666' }}>
+                    {data?.MobileNumber}
+                  </div>
                 </div>
               </div>
             </IonCol>

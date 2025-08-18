@@ -1,7 +1,7 @@
 "use client";
 
 import type React from "react";
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 import {
   IonContent,
   IonPage,
@@ -30,7 +30,7 @@ import { FieldArray, Formik } from "formik";
 import { postApiCall } from "../../utils/api/api";
 import { addOutline, removeOutline } from "ionicons/icons";
 import { IonIcon } from "@ionic/react";
-import greenDot from "../../assets/images/greendot.png";
+import greenDot from "../../assets/images/greenDot.png";
 import redDot from "../../assets/images/redDot.png";
 import { registerKeyboardEvents, removeKeyboardEvents } from "../../utils/keyboard";
 import { Device } from '@capacitor/device';
@@ -42,9 +42,9 @@ const CreateNewLoad: React.FC = () => {
   const [isKeyBoardOpen, setIsKeyBoardOpen] = useState<boolean>(false);
   const [selection, SetSelection] = useState<string>("Single");
   const [resetFormTrigger, setResetFormTrigger] = useState(false);
-const [device, setDevice] = useState<string>("");
-  const [vehicleList,setVehicleList]=useState<any>([])
-  
+  const [device, setDevice] = useState<string>("");
+  const [vehicleList, setVehicleList] = useState<any>([])
+
   const presentToast = (
     message: string,
     position: "top" | "middle" | "bottom",
@@ -104,22 +104,22 @@ const [device, setDevice] = useState<string>("");
     }
   };
   async function getPlatform() {
-      const info = await Device.getInfo();
-      console.log("Platform:", info.platform);
+    const info = await Device.getInfo();
+    console.log("Platform:", info.platform);
 
-      if (info.platform) {
-        setDevice(info.platform)
-      } else {
-      }
+    if (info.platform) {
+      setDevice(info.platform)
+    } else {
+    }
   }
-  const vehicleTypeData = async()=>{
+  const vehicleTypeData = async () => {
     try {
-      const vehicleTypes = await getApiCall('','getVehicleType');
-      console.log(vehicleTypes,"vehicleTypes")
-      if(vehicleTypes?.status)
-      setVehicleList(vehicleTypes?.data);
+      const vehicleTypes = await getApiCall('', 'getVehicleType');
+      console.log(vehicleTypes, "vehicleTypes")
+      if (vehicleTypes?.status)
+        setVehicleList(vehicleTypes?.data);
     } catch (error) {
-      
+
     }
   }
   useEffect(() => {
@@ -221,141 +221,141 @@ const [device, setDevice] = useState<string>("");
                       <IonRow>
                         <IonCol size="12">
                           <div id="fieldArrays">
-                          <FieldArray name="LoadFrom" >
-                            {({ push, remove }) => (
-                              <>
-                                {values.LoadFrom.map((loadFromVal, index) => (
-                                  <div key={index}>
-                                    <IonInput
-                                      className={`custom-input ${errors.LoadFrom && touched.LoadFrom
-                                        ? "ion-invalid"
-                                        : ""
-                                        } mb-1.5x`}
-                                      type="text"
-                                      fill="outline"
-                                      label={`Loading Point ${index + 1}`}
-                                      labelPlacement="floating"
-                                      placeholder="Enter a loading point"
-                                      mode="md"
-                                      value={loadFromVal}
-                                      onIonInput={(e) =>
-                                        setFieldValue(
-                                          `LoadFrom[${index}]`,
-                                          e.detail.value
-                                        )
-                                      }
-                                    >
-                                      <img
-                                        slot="start"
-                                        src={greenDot}
-                                        aria-hidden="true"
-                                        style={{
-                                          width: 20,
-                                          height: 20,
-                                          marginRight: 16,
-                                        }}
-                                      />
-                                    </IonInput>
+                            <FieldArray name="LoadFrom" >
+                              {({ push, remove }) => (
+                                <>
+                                  {values.LoadFrom.map((loadFromVal, index) => (
+                                    <div key={index}>
+                                      <IonInput
+                                        className={`custom-input ${errors.LoadFrom && touched.LoadFrom
+                                          ? "ion-invalid"
+                                          : ""
+                                          } mb-1.5x`}
+                                        type="text"
+                                        fill="outline"
+                                        label={`Loading Point ${index + 1}`}
+                                        labelPlacement="floating"
+                                        placeholder="Enter a loading point"
+                                        mode="md"
+                                        value={loadFromVal}
+                                        onIonInput={(e) =>
+                                          setFieldValue(
+                                            `LoadFrom[${index}]`,
+                                            e.detail.value
+                                          )
+                                        }
+                                      >
+                                        <img
+                                          slot="start"
+                                          src={greenDot}
+                                          aria-hidden="true"
+                                          style={{
+                                            width: 20,
+                                            height: 20,
+                                            marginRight: 16,
+                                          }}
+                                        />
+                                      </IonInput>
 
-                                    {selection === "Multiple" &&
-                                      index === values.LoadFrom.length - 1 && (
-                                        <div style={{ display: "flex", flexDirection: "row", gap: 10, justifyContent: "flex-end", padding: 0 }}>
+                                      {selection === "Multiple" &&
+                                        index === values.LoadFrom.length - 1 && (
+                                          <div style={{ display: "flex", flexDirection: "row", gap: 10, justifyContent: "flex-end", padding: 0 }}>
 
-                                          <div
-                                            className="add-icon-wrapper"
-                                            onClick={() => push("")}
-                                            style={{ cursor: "pointer" }}
-                                          >
-                                            <IonIcon
-                                              icon={addOutline}
-                                              size="small"
-                                            />
+                                            <div
+                                              className="add-icon-wrapper"
+                                              onClick={() => push("")}
+                                              style={{ cursor: "pointer" }}
+                                            >
+                                              <IonIcon
+                                                icon={addOutline}
+                                                size="small"
+                                              />
+                                            </div>
+                                            <div
+                                              className="add-icon-wrapper"
+                                              onClick={() => remove(index)}
+                                              style={{ cursor: "pointer" }}
+                                            >
+                                              <IonIcon
+                                                icon={removeOutline}
+                                                size="small"
+                                              />
+                                            </div>
                                           </div>
-                                          <div
-                                            className="add-icon-wrapper"
-                                            onClick={() => remove(index)}
-                                            style={{ cursor: "pointer" }}
-                                          >
-                                            <IonIcon
-                                              icon={removeOutline}
-                                              size="small"
-                                            />
-                                          </div>
-                                        </div>
-                                      )}
-                                  </div>
-                                ))}
-                              </>
-                            )}
-                          </FieldArray>
-                          <FieldArray name="LoadTo" >
-                            {({ push, remove }) => (
-                              <>
-                                {values.LoadTo.map((loadToVal, index) => (
-                                  <div key={index}>
-                                    <IonInput
-                                      className={`custom-input ${errors.LoadTo && touched.LoadTo
-                                        ? "ion-invalid"
-                                        : ""
-                                        } mb-1.5x`}
-                                      type="text"
-                                      fill="outline"
-                                      label={`Unloading Point ${index + 1}`}
-                                      labelPlacement="floating"
-                                      placeholder="Enter a unloading point"
-                                      mode="md"
-                                      value={loadToVal}
-                                      onIonInput={(e) =>
-                                        setFieldValue(
-                                          `LoadTo[${index}]`,
-                                          e.detail.value
-                                        )
-                                      }
-                                    >
-                                      <img
-                                        slot="start"
-                                        src={redDot}
-                                        aria-hidden="true"
-                                        style={{
-                                          width: 20,
-                                          height: 20,
-                                          marginRight: 16,
-                                        }}
-                                      />
-                                    </IonInput>
+                                        )}
+                                    </div>
+                                  ))}
+                                </>
+                              )}
+                            </FieldArray>
+                            <FieldArray name="LoadTo" >
+                              {({ push, remove }) => (
+                                <>
+                                  {values.LoadTo.map((loadToVal, index) => (
+                                    <div key={index}>
+                                      <IonInput
+                                        className={`custom-input ${errors.LoadTo && touched.LoadTo
+                                          ? "ion-invalid"
+                                          : ""
+                                          } mb-1.5x`}
+                                        type="text"
+                                        fill="outline"
+                                        label={`Unloading Point ${index + 1}`}
+                                        labelPlacement="floating"
+                                        placeholder="Enter a unloading point"
+                                        mode="md"
+                                        value={loadToVal}
+                                        onIonInput={(e) =>
+                                          setFieldValue(
+                                            `LoadTo[${index}]`,
+                                            e.detail.value
+                                          )
+                                        }
+                                      >
+                                        <img
+                                          slot="start"
+                                          src={redDot}
+                                          aria-hidden="true"
+                                          style={{
+                                            width: 20,
+                                            height: 20,
+                                            marginRight: 16,
+                                          }}
+                                        />
+                                      </IonInput>
 
-                                    {selection === "Multiple" &&
-                                      index === values.LoadTo.length - 1 && (
-                                        <div style={{ display: "flex", flexDirection: "row", gap: 10, justifyContent: "flex-end", padding: 0 }}>
+                                      {selection === "Multiple" &&
+                                        index === values.LoadTo.length - 1 && (
+                                          <div style={{ display: "flex", flexDirection: "row", gap: 10, justifyContent: "flex-end", padding: 0 }}>
 
 
-                                          <div
-                                            className="add-icon-wrapper"
-                                            onClick={() => push("")}
-                                            style={{ cursor: "pointer" }}
-                                          >
-                                            <IonIcon
-                                              icon={addOutline}
-                                              size="small"
-                                            />
+                                            <div
+                                              className="add-icon-wrapper"
+                                              onClick={() => push("")}
+                                              style={{ cursor: "pointer" }}
+                                            >
+                                              <IonIcon
+                                                icon={addOutline}
+                                                size="small"
+                                              />
+                                            </div>
+                                            <div
+                                              className="add-icon-wrapper"
+                                              onClick={() => remove(index)}
+                                              style={{ cursor: "pointer" }}
+                                            >
+                                              <IonIcon
+                                                icon={removeOutline}
+                                                size="small"
+                                              />
+                                            </div>
                                           </div>
-                                          <div
-                                            className="add-icon-wrapper"
-                                            onClick={() => remove(index)}
-                                            style={{ cursor: "pointer" }}
-                                          >
-                                            <IonIcon
-                                              icon={removeOutline}
-                                              size="small"
-                                            />
-                                          </div>
-                                        </div>
-                                      )}
-                                  </div>
-                                ))}
-                              </>
-                            )}
-                          </FieldArray>
+                                        )}
+                                    </div>
+                                  ))}
+                                </>
+                              )}
+                            </FieldArray>
                           </div>
                           {/* <IonInput id="firstEl"
                             className={`custom-input ${errors.VehicleType && "ion-invalid"
@@ -375,7 +375,7 @@ const [device, setDevice] = useState<string>("");
 
                           <IonSelect
                             id="firstEl"
-                            interface="popover" 
+                            interface="popover"
                             className={`custom-input ${errors.VehicleType && "ion-invalid"} ${touched.VehicleType && "ion-touched"} mb-1.5x`}
                             label="Vehicle Type"
                             labelPlacement="floating"
@@ -383,11 +383,12 @@ const [device, setDevice] = useState<string>("");
                             placeholder="Select a vehicle type"
                             errorText={errors.VehicleType}
                             value={values.VehicleType}
-                            onIonChange={(e) =>{
-                              console.log( e.detail.value," e.detail.value")
-                              setFieldValue("VehicleType", e.detail.value)}}
-                            >
-                            {vehicleList.map((vehicle:any) => (
+                            onIonChange={(e) => {
+                              console.log(e.detail.value, " e.detail.value")
+                              setFieldValue("VehicleType", e.detail.value)
+                            }}
+                          >
+                            {vehicleList.map((vehicle: any) => (
                               <IonSelectOption
                                 key={vehicle.VehicleTypeID}
                                 value={vehicle.VehicleTypeID}
@@ -457,21 +458,20 @@ const [device, setDevice] = useState<string>("");
                             mode="md"
                             errorText={errors.RatePerTon}
                             value={values.RatePerTon}
-                            onFocus={()=>{
+                            onFocus={() => {
                               console.log("ON FOCUS RT TYPES")
-                                if(device =="android"){
+                              if (device == "android") {
                                 document.getElementById("firstEl")!.style.display = "none";
                                 document.getElementById("secondEl")!.style.display = "none";
                                 document.getElementById("thirdEl")!.style.display = "none";
                                 document.getElementById("firstRow")!.style.display = "none";
                                 document.getElementById("Headline")!.style.display = "none";
                                 document.getElementById("fieldArrays")!.style.display = "none";
-                                }
+                              }
                             }}
-                            onIonInput={(e) =>
-                             {
-                               setFieldValue("RatePerTon", e.detail.value)
-                             }
+                            onIonInput={(e) => {
+                              setFieldValue("RatePerTon", e.detail.value)
+                            }
                             }
                           />
 
@@ -486,23 +486,22 @@ const [device, setDevice] = useState<string>("");
                             mode="md"
                             errorText={errors.ProductType}
                             value={values.ProductType}
-                            onFocus={()=>{
-                              console.log("ON FOCUS PRT TYPES",device)
-                                if(device=="android"){
-                                console.log("INSIDE FOCUS PRT TYPES",device)
+                            onFocus={() => {
+                              console.log("ON FOCUS PRT TYPES", device)
+                              if (device == "android") {
+                                console.log("INSIDE FOCUS PRT TYPES", device)
                                 document.getElementById("firstEl")!.style.display = "none";
                                 document.getElementById("secondEl")!.style.display = "none";
                                 document.getElementById("thirdEl")!.style.display = "none";
                                 document.getElementById("firstRow")!.style.display = "none";
                                 document.getElementById("Headline")!.style.display = "none";
                                 document.getElementById("fieldArrays")!.style.display = "none";
-                                }
+                              }
                             }}
-                            onIonInput={(e) =>
-                             {
+                            onIonInput={(e) => {
                               setFieldValue("ProductType", e.detail.value)
 
-                             }
+                            }
                             }
                           />
 

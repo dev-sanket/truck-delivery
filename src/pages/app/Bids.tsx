@@ -49,8 +49,8 @@ const PlaceBid: React.FC = () => {
   const [present] = useIonToast();
   const [isKeyBoardOpen, setIsKeyBoardOpen] = useState<boolean>(false);
   const [device, setDevice] = useState<string>("");
-  const [vehicleList,setVehicleList]=useState<any>([])
-  const [image,setImage] = useState<string>("")
+  const [vehicleList, setVehicleList] = useState<any>([])
+  const [image, setImage] = useState<string>("")
   const presentToast = (position: "top" | "middle" | "bottom", message: string, color: 'success' | 'danger' | 'warning' = "success") => {
     present({
       message: message,
@@ -64,50 +64,50 @@ const PlaceBid: React.FC = () => {
     vehicleTypeData();
   }, []);
   useEffect(() => {
-      getPlatform();
-      registerKeyboardEvents(
-        () => {
-          setIsKeyBoardOpen(true);
-        },
-        () => {
-          console.log("KEYBOARD CLOSES")
-          setIsKeyBoardOpen(false);
-          document.getElementById("firstEl")!.style.display = "";
-        }
-      );
-  
-      return () => {
-        removeKeyboardEvents(); // Cleanup
-      };
-  
+    getPlatform();
+    registerKeyboardEvents(
+      () => {
+        setIsKeyBoardOpen(true);
+      },
+      () => {
+        console.log("KEYBOARD CLOSES")
+        setIsKeyBoardOpen(false);
+        document.getElementById("firstEl")!.style.display = "";
+      }
+    );
+
+    return () => {
+      removeKeyboardEvents(); // Cleanup
+    };
+
   }, []);
   useEffect(() => {
-    if(bidData?.VehicleTypeID){
-      let newLoadData :any= vehicleList.find((el:any)=>{
+    if (bidData?.VehicleTypeID) {
+      let newLoadData: any = vehicleList.find((el: any) => {
         return el?.VehicleTypeID == bidData?.VehicleTypeID
       })
-      console.log(newLoadData,"=--newLoadData--=")
+      console.log(newLoadData, "=--newLoadData--=")
       setImage(newLoadData?.VehicleTypeImageURL)
     }
-  }, [vehicleList,bidData]);
+  }, [vehicleList, bidData]);
   async function getPlatform() {
-      const info = await Device.getInfo();
-      console.log("Platform:", info.platform);
+    const info = await Device.getInfo();
+    console.log("Platform:", info.platform);
 
-      if (info.platform) {
-        setDevice(info.platform)
-      } else {
-      }
+    if (info.platform) {
+      setDevice(info.platform)
+    } else {
+    }
   }
-  const vehicleTypeData = async()=>{
-      try {
-        const vehicleTypes = await getApiCall('','getVehicleType');
-        console.log(vehicleTypes,"vehicleTypes")
-        if(vehicleTypes?.status)
+  const vehicleTypeData = async () => {
+    try {
+      const vehicleTypes = await getApiCall('', 'getVehicleType');
+      console.log(vehicleTypes, "vehicleTypes")
+      if (vehicleTypes?.status)
         setVehicleList(vehicleTypes?.data);
-      } catch (error) {
-        
-      }
+    } catch (error) {
+
+    }
   }
   const getLoadDetails = async () => {
     try {
@@ -220,12 +220,12 @@ const PlaceBid: React.FC = () => {
                             >
                               <img
                                 // src={miniPickup}
-                                src={image && image.length > 0 ? image:  miniPickup }
+                                src={image && image.length > 0 ? image : miniPickup}
                                 alt="phone"
                                 style={{ width: 31, height: 31 }}
                               />
 
-                              <div className="carrier-name">Open Half/Full Body</div>
+                              <div className="carrier-name">{bidData?.VehicleType}</div>
                             </div>
                           </div>
                         </div>
@@ -251,8 +251,20 @@ const PlaceBid: React.FC = () => {
                             <div className="info-label">Total Ton</div>
                           </div>
                           <div className="product-container-load">
-                            <div className="material-type-bid">Advance</div>
+                            <div className="material-type-bid">{bidData?.PaymentTerms}</div>
                             <div className="material-type-bid">{bidData?.ProductWeight} TON</div>
+                          </div>
+                        </div>
+                      </IonCol>
+                      <IonCol size="12" className="ion-padding-top">
+                        <div className="material-info">
+                          <div className="info-container">
+                            <div className="info-label">Product Type</div>
+                            <div className="info-label">Rate Per Ton</div>
+                          </div>
+                          <div className="product-container-load">
+                            <div className="material-type-bid">{bidData?.ProductType}</div>
+                            <div className="material-type-bid">₹{bidData?.RatePerTon}</div>
                           </div>
                         </div>
                       </IonCol>
@@ -310,13 +322,13 @@ const PlaceBid: React.FC = () => {
                               helperText=""
                               mode="md"
                               inputmode="numeric"
-                              onFocus={()=>{
-                              console.log("ON FOCUS PRT TYPES",device)
-                                if(device=="android"){
-                                console.log("INSIDE FOCUS PRT TYPES",device)
-                                document.getElementById("firstEl")!.style.display = "none";
+                              onFocus={() => {
+                                console.log("ON FOCUS PRT TYPES", device)
+                                if (device == "android") {
+                                  console.log("INSIDE FOCUS PRT TYPES", device)
+                                  document.getElementById("firstEl")!.style.display = "none";
                                 }
-                              }}   
+                              }}
                             >
                               <IonIcon slot="start" icon={rupeeIcon} size="small" aria-hidden="true"></IonIcon>
                             </IonInput>
@@ -334,13 +346,13 @@ const PlaceBid: React.FC = () => {
                               onIonInput={(e) => {
                                 setFieldValue("DriverName", e.detail.value);
                               }}
-                            onFocus={()=>{
-                              console.log("ON FOCUS PRT TYPES",device)
-                                if(device=="android"){
-                                console.log("INSIDE FOCUS PRT TYPES",device)
-                                document.getElementById("firstEl")!.style.display = "none";
+                              onFocus={() => {
+                                console.log("ON FOCUS PRT TYPES", device)
+                                if (device == "android") {
+                                  console.log("INSIDE FOCUS PRT TYPES", device)
+                                  document.getElementById("firstEl")!.style.display = "none";
                                 }
-                              }}                              
+                              }}
                               value={values.DriverName}
                               placeholder="Enter a valid driver name"
                               helperText=""
@@ -360,13 +372,13 @@ const PlaceBid: React.FC = () => {
                               onIonInput={(e) => {
                                 setFieldValue("DriverContactNumber", e.detail.value);
                               }}
-                            onFocus={()=>{
-                              console.log("ON FOCUS PRT TYPES",device)
-                                if(device=="android"){
-                                console.log("INSIDE FOCUS PRT TYPES",device)
-                                document.getElementById("firstEl")!.style.display = "none";
+                              onFocus={() => {
+                                console.log("ON FOCUS PRT TYPES", device)
+                                if (device == "android") {
+                                  console.log("INSIDE FOCUS PRT TYPES", device)
+                                  document.getElementById("firstEl")!.style.display = "none";
                                 }
-                              }}                              
+                              }}
                               maxlength={10}
                               value={values.DriverContactNumber}
                               placeholder="Enter a valid driver contact number"
@@ -388,15 +400,15 @@ const PlaceBid: React.FC = () => {
                               onIonInput={(e) => {
                                 setFieldValue("VehicleNumber", e.detail.value);
                               }}
-                            onFocus={()=>{
-                              console.log("ON FOCUS PRT TYPES",device)
-                                if(device=="android"){
-                                console.log("INSIDE FOCUS PRT TYPES",device)
-                                document.getElementById("firstEl")!.style.display = "none";
+                              onFocus={() => {
+                                console.log("ON FOCUS PRT TYPES", device)
+                                if (device == "android") {
+                                  console.log("INSIDE FOCUS PRT TYPES", device)
+                                  document.getElementById("firstEl")!.style.display = "none";
                                 }
-                              }}                              
+                              }}
                               value={values.VehicleNumber}
-                              placeholder="Enter a valid driver contact number"
+                              placeholder="Enter Vehicle Number"
                               helperText=""
                               mode="md"
                             />
